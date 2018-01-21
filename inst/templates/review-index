@@ -1,0 +1,260 @@
+---
+output:
+    html_notebook:
+        toc: true
+        toc_float: true
+editor_options:
+  chunk_output_type: inline
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+
+library(magrittr)
+```
+
+# `{{{ Package }}}` - package review
+
+## **Reviewer:** [\@{{{whoami}}}]({{{whoami_url}}})
+
+***
+
+<br>
+
+This report contains documents the review of **rOpenSci** submitted package:
+
+### **`{{{ Package }}}`: ropensci/onboarding**  issue [\#{{{ number }}}]({{{issue_url}}})).
+
+<br>
+
+## Package info
+
+**Description:**
+
+{{{Description}}}
+
+**Author:** `r {{{Authors@R}}}`
+
+**repo url:** <{{{URL}}}>
+
+**website url:** <{{{site}}}>
+
+## Review info
+
+
+#### See [reviewer guidelines](https://github.com/ropensci/onboarding/blob/master/reviewing_guide.md) for further information on the rOpenSci review process.
+
+**key review checks:**
+
+- Does the code comply with **general principles in the [Mozilla reviewing guide](https://mozillascience.github.io/codeReview/review.html)**?
+- Does the package **comply with the [ROpenSci packaging guide](https://github.com/ropensci/onboarding/blob/master/packaging_guide.md)**?
+- Are there **improvements** that could be made to the **code style?**
+- Is there **code duplication** in the package that should be reduced?
+- Are there **user interface improvements** that could be made?
+- Are there **performance improvements** that could be made?
+- Is the **documentation** (installation instructions/vignettes/examples/demos) **clear and sufficient**?
+
+Please be respectful and kind to the authors in your reviews. The rOpenSci [code of conduct](policies.md#code-of-conduct) is mandatory for everyone involved in our review process.
+
+***
+
+### session info
+
+
+```{r sessionInfo}
+sessionInfo()
+```
+
+
+```{r pkg_dir, echo = F}
+pkg_dir <- "{{{pkg_dir}}}"
+```
+
+## Test installation
+
+### test install of `{{{ Package }}}` from GitHub with:
+
+```{r test-github}
+devtools::install_github("{{{username}}}/{{{repo}}}")
+```
+```{r github-rm}
+remove.packages("{{{repo}}}")
+```
+
+#### **comments:**
+
+<!-- record comments on github install here -->
+
+***
+
+### test local `{{{ Package }}}` install:
+
+```{r test-local}
+install.packages(pkg_dir)
+```
+#### **comments:**
+
+<!-- record comments on local install here -->
+
+***
+
+## Check package integrity
+
+### run checks on `{{{ Package }}}` source:
+
+```{r check-checks}
+devtools::check(pkg_dir)
+```
+#### **comments:**
+
+<!-- record comments on goodpractice here -->
+
+***
+
+### run tests on `{{{ Package }}}` source:
+
+```{r check-tests}
+devtools::test(pkg_dir)
+```
+#### **comments:**
+
+<!-- record comments on goodpractice here -->
+
+***
+
+
+### check `{{{ Package }}}` for goodpractice:
+
+```{r test-goodpractice}
+goodpractice::gp(pkg_dir)
+```
+#### **comments:**
+
+<!-- record comments on goodpractice here -->
+
+***
+
+## Check package metadata files
+
+### inspect
+
+- #### [README]({{{URL}}})
+- #### [DESCRIPTION]({{{URL}}}/blob/master/DESCRIPTION)
+- #### [NAMESPACE]({{{URL}}}/blob/master/NAMESPACE)
+
+### spell check
+
+```{r spell-check}
+devtools::spell_check(pkg_dir)
+```
+
+#### **comments:**
+
+<!-- record comments on metadata files here -->
+
+***
+
+## Check documentation
+
+online documentation: **<{{{site}}}>**
+
+* Is the documentation (installation instructions/vignettes/examples/demos) clear and sufficient?
+
+### test `{{{ Package }}}` function help files:
+
+```{r test-help}
+help(package = "{{{ Package }}}")
+```
+
+#### **comments:**
+
+<!-- record comments on help files here -->
+
+***
+
+### test `{{{ Package }}}` vignettes:
+
+```{r test-vignettes}
+vignette(package = "{{{ Package }}}")
+```
+
+#### **comments:**
+
+<!-- record comments on vignettes here -->
+
+***
+
+## Test functionality:
+
+- Are there **user interface improvements** that could be made?
+- Are there **performance improvements** that could be made?
+
+```{r free-style}
+library("{{{ Package }}}")
+```
+
+```{r parse-functions}
+exports <-ls("package:{{{ Package }}}")
+exports
+```
+
+<!-- experiment with package functions -->
+
+```{r exp-chunk}
+
+
+```
+
+#### **comments:**
+
+<!-- record comments on rdflib experimentation here -->
+
+***
+
+## Inspect code:
+
+- Does the package **comply with the [ROpenSci packaging guide](https://github.com/ropensci/onboarding/blob/master/packaging_guide.md)**?
+    * good [function & variable naming?](https://github.com/ropensci/onboarding/blob/master/packaging_guide.md#funvar)
+    * good [dependency management](https://github.com/ropensci/onboarding/blob/master/packaging_guide.md#deps)?
+- Are there **improvements** that could be made to the **code style?**
+- Is there **code duplication** in the package that should be reduced?
+
+```{r inspect-code}
+pkgreviewr::pkgreview_print_source("{{{ Package }}}")
+```
+
+
+
+<br>
+<br>
+
+#### **comments:**
+
+<!-- record comments on rdflib source code here -->
+
+
+## Review test suite:
+
+### test coverage
+
+```{r pkg_coverage}
+covr::package_coverage(pkg_dir)
+
+```
+
+### inspect [tests]({{{URL}}}/blob/master/tests/testthat)
+
+
+#### **comments:**
+
+<!-- record comments on testing suite here -->
+
+
+***
