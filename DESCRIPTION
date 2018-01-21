@@ -6,6 +6,18 @@ Author: Who wrote it
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports:
+    git2r,
+    devtools,
+    usethis,
+    here,
+    goodpractice,
+    reprex,
+    github,
+    RCurl
+Suggests: testthat
+RoxygenNote: 6.0.1
+Remotes: r-lib/usethis

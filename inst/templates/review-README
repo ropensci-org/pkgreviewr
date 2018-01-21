@@ -1,0 +1,129 @@
+---
+output:
+    html_notebook:
+        toc: true
+        toc_float: true
+editor_options:
+  chunk_output_type: inline
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+
+# `{{{ Package }}}` - package review
+
+
+#### This repo contains files associated with the **rOpenSci** review of **`{{{ Package }}}`** (issue [\#{{{ number }}}]({{{issue_url}}})).
+
+<br>
+
+## package info
+
+**Description:**
+
+{{{Description}}}
+
+**Author:** `r {{{Authors@R}}}`
+
+**repo url:** <{{{URL}}}>
+
+**website url:** <{{{site}}}>
+
+### Session info
+
+
+```{r sessionInfo}
+sessionInfo()
+```
+
+## Test installation
+
+### test install of `{{{ Package }}}` from GitHub with:
+
+```{r test-github}
+devtools::install_github("{{{username}}}/{{{repo}}}")
+```
+```{r github-rm}
+remove.packages("{{{repo}}}")
+```
+
+#### **comments:**
+
+<!-- record comments on github install here -->
+
+***
+
+### test local `{{{ Package }}}` install:
+
+```{r test-local}
+install.packages("{{{pkg_dir}}}")
+```
+#### **comments:**
+
+<!-- record comments on local install here -->
+
+***
+
+### test `{{{ Package }}}` for goodpractice:
+
+```{r test-goodpractice}
+goodpractice::goodpractice("{{{ Package }}}")
+```
+#### **comments:**
+
+<!-- record comments on goodpractice here -->
+
+***
+
+## check documentation
+
+### test `{{{ Package }}}` function help files:
+
+```{r test-help}
+help(package = "{{{ Package }}}")
+```
+
+#### **comments:**
+
+<!-- record comments on help files here -->
+
+***
+
+### test `{{{ Package }}}` vignettes:
+
+```{r test-vignettes}
+vignette(package = "{{{ Package }}}")
+```
+
+#### **comments:**
+
+<!-- record comments on vignettes here -->
+
+***
+
+## `{{{ Package }}}` play time!:
+
+```{r free-style}
+library("{{{ Package }}}")
+```
+<!-- experiment with package function -->
+
+
+<br>
+<br>
+
+#### **comments:**
+
+<!-- record comments on {{{ Package }}} experimentation here -->
+
+***
+
