@@ -1,32 +1,31 @@
 ---
-output:
-    html_notebook:
-        toc: true
-        toc_float: true
-editor_options:
-  chunk_output_type: inline
+output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
+# `{{{ Package }}}` - package review repository
 
-# `{{{ Package }}}` - package review
+##
 
+This repo contains files associated with the **rOpenSci** review of
 
-#### This repo contains files associated with the **rOpenSci** review of
 ### **`{{{ Package }}}`: ropensci/onboarding**  issue [\#{{{ number }}}]({{{issue_url}}})).
 
 <br>
 
-## package info
+
+***
+
+## **Reviewer:** [\@{{{whoami}}}]({{{whoami_url}}})
+
+### see the review report [here:]({{{index_url}}})
+
+or view the submiited review to rOpenSci [here:]({{{pkgreview_url}}})
+
+<br>
+
+
+## Package info
 
 **Description:**
 
@@ -37,127 +36,4 @@ knitr::opts_chunk$set(
 **repo url:** <{{{URL}}}>
 
 **website url:** <{{{site}}}>
-
-## review info
-
-
-
-### Session info
-
-
-```{r sessionInfo}
-sessionInfo()
-```
-
-
-```{r pkg_dir, echo = F}
-pkg_dir <- "{{{pkg_dir}}}"
-```
-
-## Test installation
-
-### test install of `{{{ Package }}}` from GitHub with:
-
-```{r test-github}
-devtools::install_github("{{{username}}}/{{{repo}}}")
-```
-```{r github-rm}
-remove.packages("{{{repo}}}")
-```
-
-#### **comments:**
-
-<!-- record comments on github install here -->
-
-***
-
-### test local `{{{ Package }}}` install:
-
-```{r test-local}
-install.packages(pkg_dir)
-```
-#### **comments:**
-
-<!-- record comments on local install here -->
-
-***
-
-## Check package integrity
-
-### run checks on `{{{ Package }}}` source:
-
-```{r check-checks}
-devtools::check()
-```
-#### **comments:**
-
-<!-- record comments on goodpractice here -->
-
-***
-
-### run tests on `{{{ Package }}}` source:
-
-```{r check-tests}
-devtools::test()
-```
-#### **comments:**
-
-<!-- record comments on goodpractice here -->
-
-***
-
-
-### check `{{{ Package }}}` for goodpractice:
-
-```{r test-goodpractice}
-goodpractice::goodpractice(pkg_dir)
-```
-#### **comments:**
-
-<!-- record comments on goodpractice here -->
-
-***
-
-## check documentation
-
-### test `{{{ Package }}}` function help files:
-
-```{r test-help}
-help(package = "{{{ Package }}}")
-```
-
-#### **comments:**
-
-<!-- record comments on help files here -->
-
-***
-
-### test `{{{ Package }}}` vignettes:
-
-```{r test-vignettes}
-vignette(package = "{{{ Package }}}")
-```
-
-#### **comments:**
-
-<!-- record comments on vignettes here -->
-
-***
-
-## `{{{ Package }}}` test functionality:
-
-```{r free-style}
-library("{{{ Package }}}")
-```
-<!-- experiment with package functions -->
-
-
-<br>
-<br>
-
-#### **comments:**
-
-<!-- record comments on {{{ Package }}} experimentation here -->
-
-***
 
