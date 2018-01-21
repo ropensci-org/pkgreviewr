@@ -17,6 +17,10 @@ This repo contains files associated with the **rOpenSci** review of
 ***
 
 ## **Reviewer:** [\@{{{whoami}}}]({{{whoami_url}}})
+### Review Submitted:
+**`r cat(sprintf("**Last updated:** %s", Sys.Date()))`**
+
+<br>
 
 ### see the review report [here:]({{{index_url}}})
 
