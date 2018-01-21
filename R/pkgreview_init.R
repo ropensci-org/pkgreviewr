@@ -109,19 +109,25 @@ pkgreview_readme_md <- function(pkg_dir, issue_url, open = interactive()) {
 #' pkgreview_getdata("../rdflib")
 #' }
 pkgreview_getdata <- function(pkg_dir) {
-    pkg_repo <- paste0(pkgdata$github$username, "/",
-                       pkgdata$github$repo)
+
     pkgdata <- usethis:::project_data(pkg_dir)
     pkgdata$Rmd <- TRUE
     pkgdata$pkg_dir <- pkg_dir
     pkgdata$Rmd <- FALSE
+    pkgdata$pkg_repo <- paste0(pkgdata$github$username, "/",
+                       pkgdata$github$repo)
+    pkgdata$username <- pkgdata$github$username
+    pkgdata$repo <- pkgdata$github$repo
 
-    issue <- search.issues(paste0("ropensci ",pkg_repo))
+    issue <- search.issues(paste("ropensci onboarding",pkgdata$repo))
+
     pkgdata$issue_url <- issue$content$items[[1]]$html_url
     pkgdata$number <- issue$content$items[[1]]$number
 
     site <- paste0("https://", pkgdata$github$username, ".github.io/",
            pkgdata$github$repo,"/")
+
+
     ifelse(RCurl::url.exists(site),
            {pkgdata$site <- site},
            {pkgdata$site <- NULL})
