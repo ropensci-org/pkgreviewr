@@ -24,6 +24,9 @@ library(magrittr)
 
 ## **Reviewer:** [\@{{{whoami}}}]({{{whoami_url}}})
 
+### Review Submitted:
+### `r cat(sprintf("**Last updated:** %s", Sys.Date()))`
+
 ***
 
 <br>
