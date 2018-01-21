@@ -21,7 +21,8 @@ knitr::opts_chunk$set(
 # `{{{ Package }}}` - package review
 
 
-#### This repo contains files associated with the **rOpenSci** review of **`{{{ Package }}}`** (issue [\#{{{ number }}}]({{{issue_url}}})).
+#### This repo contains files associated with the **rOpenSci** review of
+### **`{{{ Package }}}`: ropensci/onboarding**  issue [\#{{{ number }}}]({{{issue_url}}})).
 
 <br>
 
@@ -36,6 +37,10 @@ knitr::opts_chunk$set(
 **repo url:** <{{{URL}}}>
 
 **website url:** <{{{site}}}>
+
+## review info
+
+
 
 ### Session info
 
@@ -92,7 +97,7 @@ devtools::check()
 
 ### run tests on `{{{ Package }}}` source:
 
-```{r check-checks}
+```{r check-tests}
 devtools::test()
 ```
 #### **comments:**
