@@ -16,11 +16,6 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
-
-```{r pkg_dir}
-pkg_dir <- {{{pkg_dir}}}
-```
-
 ```
 
 # `{{{ Package }}}` - package review
@@ -49,6 +44,11 @@ pkg_dir <- {{{pkg_dir}}}
 sessionInfo()
 ```
 
+
+```{r pkg_dir, echo = F}
+pkg_dir <- "{{{pkg_dir}}}"
+```
+
 ## Test installation
 
 ### test install of `{{{ Package }}}` from GitHub with:
@@ -69,7 +69,7 @@ remove.packages("{{{repo}}}")
 ### test local `{{{ Package }}}` install:
 
 ```{r test-local}
-install.packages("{{{pkg_dir}}}")
+install.packages(pkg_dir)
 ```
 #### **comments:**
 
@@ -77,10 +77,35 @@ install.packages("{{{pkg_dir}}}")
 
 ***
 
-### test `{{{ Package }}}` for goodpractice:
+## Check package integrity
+
+### run checks on `{{{ Package }}}` source:
+
+```{r check-checks}
+devtools::check()
+```
+#### **comments:**
+
+<!-- record comments on goodpractice here -->
+
+***
+
+### run tests on `{{{ Package }}}` source:
+
+```{r check-checks}
+devtools::test()
+```
+#### **comments:**
+
+<!-- record comments on goodpractice here -->
+
+***
+
+
+### check `{{{ Package }}}` for goodpractice:
 
 ```{r test-goodpractice}
-goodpractice::goodpractice("{{{ Package }}}")
+goodpractice::goodpractice(pkg_dir)
 ```
 #### **comments:**
 
@@ -114,12 +139,12 @@ vignette(package = "{{{ Package }}}")
 
 ***
 
-## `{{{ Package }}}` play time!:
+## `{{{ Package }}}` test functionality:
 
 ```{r free-style}
 library("{{{ Package }}}")
 ```
-<!-- experiment with package function -->
+<!-- experiment with package functions -->
 
 
 <br>
