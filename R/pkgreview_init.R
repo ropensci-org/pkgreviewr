@@ -1,11 +1,12 @@
-#' Initialise package review
+#' Create and initialise package review
 #'
+#' Create a review project using `pkgreview_create`. Wait till your workspace has
+#' been switched to pkg review project dircetory and initialise review using
+#' `pkgreview_init`
 #' @param pkg_repo character string of the repo owner and name in the form of
 #'  `"owner/repo"`.
 #' @param review_dir directory in which to setup review project and source package
 #'  source code.
-#' @param issue_url url of issue # in the rOpenSci onboarding
-#'  <https://github.com/ropensci/onboarding/issues>
 #'
 #' @return setup review project with templates
 #' @export
@@ -14,23 +15,41 @@
 #' \dontrun{
 #' pkgreview_init(pkg_repo = "cboettig/rdflib")
 #' }
-pkgreview_init <- function(pkg_repo = "cboettig/rdflib", review_dir = ".",
-                           issue_url = "https://github.com/ropensci/onboarding/issues/169") {
+pkgreview_create <- function(pkg_repo, review_dir = ".") {
 
     # create project
     meta <- devtools:::github_remote(pkg_repo)
-    usethis::create_project(file.path(paste0(review_dir,"/", meta$repo, "-review")))
+    review_path <- file.path(paste0(review_dir,"/",
+                                    meta$repo, "-review"))
+    ifelse(!usethis:::can_overwrite(review_path),
+           {message(paste0(review_path,
+                           "review project already exists. Opening project"))
+               usethis::proj_set(review_path)},
+           usethis::create_project(review_path))
+}
 
+#' @export
+#' @rdname pkgreview_create
+pkgreview_init <- function(pkg_repo, review_dir = ".") {
     # create package source code directory
+    meta <- devtools:::github_remote(pkg_repo)
     pkg_dir <- file.path(paste0(here::here(),"/../", meta$repo))
-    if (!dir.exists(pkg_dir)) {
+    if (!usethis:::can_overwrite(pkg_dir))
+        message(paste0("../", meta$repo,
+                ": directory already exists. repo clone skipped"))
+    if (dir.exists(pkg_dir)) {
+        unlink(pkg_dir, recursive=TRUE)
+    } else{
         dir.create(pkg_dir, recursive=TRUE)
     }
     repo <- git2r::clone(paste0("https://github.com/", pkg_repo), pkg_dir)
 
     # create templates
     usethis::use_template("pkgreview.md", package = "pkgreviewr")
-    pkgreviewr::pkgreview_readme_rmd(pkg_dir, issue_url)
+    pkgreviewr::pkgreview_index_rmd(pkg_dir)
+    pkgreviewr::pkgreview_readme_md(pkg_dir)
+
+
 }
 
 #usethis:::package_data("")
@@ -49,8 +68,7 @@ pkgreview_init <- function(pkg_repo = "cboettig/rdflib", review_dir = ".",
 #' YAML frontmatter and R fenced code blocks (`md`) or chunks (`Rmd`).
 #'
 #' @param pkg_dir package directory
-#' @param open open on
-#' @param issue_url
+#' @param open allow interaction
 #'
 #' @export
 #' @examples
@@ -58,13 +76,13 @@ pkgreview_init <- function(pkg_repo = "cboettig/rdflib", review_dir = ".",
 #' use_readme_rmd()
 #' use_readme_md()
 #' }
-pkgreview_readme_rmd <- function(pkg_dir, issue_url, open = interactive()) {
+pkgreview_index_rmd <- function(pkg_dir, open = interactive()) {
     usethis:::check_installed("rmarkdown")
 
     pkgdata <- pkgreview_getdata(pkg_dir)
     usethis::use_template(
-        "review-README",
-        "README.Rmd",
+        "review-index",
+        "index.Rmd",
         data = pkgdata,
         ignore = TRUE,
         open = open,
@@ -74,7 +92,8 @@ pkgreview_readme_rmd <- function(pkg_dir, issue_url, open = interactive()) {
     if (usethis:::uses_git()) {
         usethis::use_git_hook(
             "pre-commit",
-            usethis:::render_template("readme-rmd-pre-commit.sh")
+            usethis:::render_template("readme-rmd-pre-commit.sh",
+                                      package = "pkgreviewr")
         )
     }
 
@@ -82,13 +101,13 @@ pkgreview_readme_rmd <- function(pkg_dir, issue_url, open = interactive()) {
 }
 
 #' @export
-#' @rdname pkgreview_readme_rmd
-pkgreview_readme_md <- function(pkg_dir, issue_url, open = interactive()) {
+#' @rdname pkgreview_index_rmd
+pkgreview_readme_md <- function(pkg_dir, open = interactive()) {
     pkgdata <- pkgreview_getdata(pkg_dir)
 
     usethis::use_template(
         "review-README",
-        "README.md",
+        "pkgreview.md",
         data = pkgdata,
         ignore = TRUE,
         open = open,
@@ -118,15 +137,22 @@ pkgreview_getdata <- function(pkg_dir) {
                        pkgdata$github$repo)
     pkgdata$username <- pkgdata$github$username
     pkgdata$repo <- pkgdata$github$repo
+    pkgdata$whoami <- whoami::whoami()["gh_username"]
+    pkgdata$whoami_url <- paste0("https://github.com/", pkgdata$whoami)
+    pkgdata$review_repo <- paste0(pkgdata$whoami, "/",
+                                  pkgdata$repo, "-review")
+    pkgdata$index_url <- paste0("https://", pkgdata$whoami, ".github.io/",
+                                pkgdata$pkg_repo, "/index.nb.html")
+    pkgdata$pkgreview_url <- paste0("https://github.com/", pkgdata$review_repo,
+                                    "/blob/master/pkgreview.md")
 
-    issue <- search.issues(paste("ropensci onboarding",pkgdata$repo))
+    issue <- github::search.issues(paste("ropensci onboarding",pkgdata$repo))
 
     pkgdata$issue_url <- issue$content$items[[1]]$html_url
     pkgdata$number <- issue$content$items[[1]]$number
 
     site <- paste0("https://", pkgdata$github$username, ".github.io/",
            pkgdata$github$repo,"/")
-
 
     ifelse(RCurl::url.exists(site),
            {pkgdata$site <- site},
