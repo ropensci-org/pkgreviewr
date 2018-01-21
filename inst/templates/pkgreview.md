@@ -39,9 +39,8 @@ The package includes all the following forms of documentation:
 
 - [ ] **The author has responded to my review and made changes to my satisfaction. I recommend approving this package.**
 
-Estimated hours spent reviewing:
+Estimated hours spent reviewing: 
 
 ---
 
 ### Review Comments
-
