@@ -52,8 +52,6 @@ pkgreview_init <- function(pkg_repo, review_dir = ".") {
 
 }
 
-#usethis:::package_data("")
-
 #' Create README files.
 #'
 #' Creates skeleton README files with sections for
