@@ -106,7 +106,7 @@ pkgreview_readme_md <- function(pkg_dir, open = interactive()) {
 
     usethis::use_template(
         "review-README",
-        "pkgreview.md",
+        "README.md",
         data = pkgdata,
         ignore = TRUE,
         open = open,
