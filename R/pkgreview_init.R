@@ -21,11 +21,12 @@ pkgreview_create <- function(pkg_repo, review_dir = ".") {
     meta <- devtools:::github_remote(pkg_repo)
     review_path <- file.path(paste0(review_dir,"/",
                                     meta$repo, "-review"))
-    ifelse(!usethis:::can_overwrite(review_path),
+    ifelse(usethis:::can_overwrite(review_path),
+           {unlink(review_path, recursive=TRUE)
+               usethis::create_project(review_path)},
            {message(paste0(review_path,
                            "review project already exists. Opening project"))
-               usethis::proj_set(review_path)},
-           usethis::create_project(review_path))
+               usethis::proj_set(review_path)})
 }
 
 #' @export
