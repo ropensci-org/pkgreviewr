@@ -45,7 +45,7 @@ pkgreview_init("cboettig/rdflib")
 
 ### `index.Rmd` 
 
-The most important file it creates `index.Rmd html_notebook` file. This workbook is prepopulated with all the major steps required to complete the review in an interactive document to perform and record it in. It also extracts useful links, information and parameter values. See example [here](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-review-index.Rmd)
+The most important file it creates `index.Rmd html_notebook` file. This workbook is prepopulated with all the major steps required to complete the review in an interactive document to perform and record it in. It also extracts useful links, information and parameter values. See **example [here](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-review-index.Rmd).**
 
 Once rendered to `index.nb.html`, this report can be pushed to github for publication which needs to be pushed to github for the report
 
@@ -56,11 +56,11 @@ Initialisation also clones package source code from github to a second new direc
 
 ### `pkgreview.md` 
 
-Template response form to submit to the package rOpenSci onboarding review issue. See template [here](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-review-index.Rmd) 
+Template response form to submit to the package rOpenSci onboarding review issue. See template [here](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-pkgreview.md) 
 
 ### `README.md` 
 
-Prepopulated README for the review repo. See example [here:](https://github.com/annakrystalli/rdflib-review/blob/master/README.md)
+Prepopulated README for the review repo. See example [here:](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-README.md)
 
 ***
 
