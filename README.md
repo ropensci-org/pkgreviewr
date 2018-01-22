@@ -34,13 +34,18 @@ pkgreview_create(pkg_repo = "cboettig/rdflib",
 
 Next, initialise the review project with the materials you'll need.
 
-The file creates another folder at the same depth as the review project containing the package source code by cloning it from github.
-
-It also creates a .`html_notebook` .rmd file, prepopulated with all the major steps required to complete the review.
-
 ``` r
+library(pkgreviewr)
 pkgreview_init("cboettig/rdflib")
 
 ```
+![](inst/assets/proj_structure.png)
 
+<br>
+
+The most important file it creates `index.Rmd html_notebook` file. This workbook is prepopulated with all the major steps required to complete the review in an interactive document to perform and record it in. It also extracts useful links, information and parameter values. See example [here](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-review-index.Rmd)
+
+Once rendered to `index.nb.html`, this report can be pushed to github for publication which needs to be pushed to github for the report
+
+Initialisation also clones package source code from github to a second new directory, in the same directory and depth as the review project.
 
