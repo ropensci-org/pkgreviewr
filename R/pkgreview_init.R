@@ -46,6 +46,7 @@ pkgreview_init <- function(pkg_repo, review_dir = ".") {
     repo <- git2r::clone(paste0("https://github.com/", pkg_repo), pkg_dir)
 
     # create templates
+    usethis::use_git()
     usethis::use_template("pkgreview.md", package = "pkgreviewr")
     pkgreviewr::pkgreview_index_rmd(pkg_dir)
     pkgreviewr::pkgreview_readme_md(pkg_dir)
