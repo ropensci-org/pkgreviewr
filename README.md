@@ -60,9 +60,37 @@ Template response form to submit to the package rOpenSci onboarding review issue
 
 ### `README.md` 
 
-Prepopulated README for the review repo.
+Prepopulated README for the review repo. See example [here:](https://github.com/annakrystalli/rdflib-review/blob/master/README.md)
 
 ***
 
 # Review workflow
 
+1. Create review project 
+1. Initialise project
+1. Create blank (don't autimatically create any files on GitHub) review repository on `github` and link. 
+    - Follow naming convention `"{pkgname}-review"`.
+    - Link local review project to the repository through the terminal, eg
+    ```
+    git remote add origin https://github.com/annakrystalli/rdflib-review.git
+    git push -u origin master
+    ```
+1. Open `index.Rmd` and work through the review in the notebook. You can make notes either in `index.Rmd` or directly in the `pkgreview.md` response file.
+1. Submit your review in the package `ropensci/onboarding` issue by copying and pasting the completed template.
+1. Publish your report by pushing to github.
+
+
+### n.b.
+
+For package to function correctly, the user will need to have their github account confirmed on the machine they are using.
+
+To configure your git user settings, run the following command in the terminal, substituting with your github credentials.
+```
+git config --global user.name 'Anna Krystalli'
+git config --global user.email 'annakrystalli@googlemail.com'
+```
+
+To check you current git configuration, run:
+```
+git config --global --list
+```

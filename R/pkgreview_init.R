@@ -53,18 +53,16 @@ pkgreview_init <- function(pkg_repo, review_dir = ".") {
 
 }
 
-#' Create README files.
+#' Create review templates.
 #'
-#' Creates skeleton README files with sections for
+#' Creates skeleton review files:
 #' \itemize{
-#' \item a high-level description of the package and its goals
-#' \item R code to install from GitHub, if GitHub usage detected
-#' \item a basic example
+#' \item `index.Rmd`: `html_notebook` to perform and record review in
+#' \item `pkgreview.md`: review response submission template.
+#' \item `README.md`: prepopulated README for review repo.
 #' }
-#' Use `Rmd` if you want a rich intermingling of code and data. Use
-#' `md` for a basic README. `README.Rmd` will be automatically
-#' added to `.Rbuildignore`. The resulting README is populated with default
-#' YAML frontmatter and R fenced code blocks (`md`) or chunks (`Rmd`).
+#' `index.Rmd` will be automatically added to `.Rbuildignore`. The resulting templates are populated with default
+#' YAML frontmatter and R fenced code chunks (`Rmd`).
 #'
 #' @param pkg_dir package directory
 #' @param open allow interaction
@@ -72,8 +70,9 @@ pkgreview_init <- function(pkg_repo, review_dir = ".") {
 #' @export
 #' @examples
 #' \dontrun{
-#' use_readme_rmd()
-#' use_readme_md()
+#' pkgreview_index_rmd("../rdflib/")
+#' pkgreview_readme_md("../rdflib/")
+#' pkgreview_pkgreview_md("../rdflib/")
 #' }
 pkgreview_index_rmd <- function(pkg_dir, open = interactive()) {
     usethis:::check_installed("rmarkdown")
@@ -113,6 +112,22 @@ pkgreview_readme_md <- function(pkg_dir, open = interactive()) {
         package = "pkgreviewr"
     )
 }
+
+#' @export
+#' @rdname pkgreview_index_rmd
+pkgreview_pkgreview_md <- function(pkg_dir, open = interactive()) {
+    pkgdata <- pkgreview_getdata(pkg_dir)
+
+    usethis::use_template(
+        "pkgreview.md",
+        "pkgreview.md",
+        data = pkgdata,
+        ignore = TRUE,
+        open = open,
+        package = "pkgreviewr"
+    )
+}
+
 
 #' pkgreview_getdata
 #'
