@@ -39,7 +39,17 @@ library(pkgreviewr)
 pkgreview_init("cboettig/rdflib")
 
 ```
-![](inst/assets/proj_structure.png)
+The review project directory will contain the following files and will be initialised with git.
+
+```
+.
+├── R
+├── README.md
+├── index.Rmd
+├── pkgreview.md
+└── rdflib-review.Rproj
+```
+
 
 <br>
 
