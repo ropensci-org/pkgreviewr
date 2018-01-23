@@ -21,8 +21,8 @@ This is a basic example of settign up an rOpenSci package review project:
 
 First, create the review project, using `pkgreview_create`. The function takes arguments:
 
-* `pkg_repo`, the **GitHub repo** details of the **package under review** in the form `username/repo` 
-* `review_dir`, the local directory in which the review project will be created.
+* **`pkg_repo`:** the **GitHub repo** details of the **package under review** in the form `username/repo` 
+* **`review_dir`:**, the **local directory** in which the **review project will be created**.
 
 The function creates a new review project (or prompts for instruction if it already exists) and navigates to the review project root.
 
@@ -38,7 +38,7 @@ Next, initialise the review project with the materials you'll need.
 
 ``` r
 library(pkgreviewr)
-pkgreview_init("cboettig/rdflib")
+pkgreview_init(pkg_repo = "cboettig/rdflib")
 
 ```
 The review project directory will now contain the following files and will be initialised with git.
