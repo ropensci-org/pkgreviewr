@@ -21,10 +21,10 @@ This is a basic example of settign up an rOpenSci package review project:
 
 First, create the review project, using `pkgreview_create`. The function takes arguments:
 
-* `pkg_repo`, the GitHub repo details in the form `username/repo` 
-* `review_dir`, the directory in which the review project will be created.
+* `pkg_repo`, the **GitHub repo** details of the **package under review** in the form `username/repo` 
+* `review_dir`, the local directory in which the review project will be created.
 
-The functions creates a new review project (or prompts for instruction if it already exists) and navigates to the project root.
+The function creates a new review project (or prompts for instruction if it already exists) and navigates to the review project root.
 
 ``` r
 library(pkgreviewr)
@@ -41,7 +41,7 @@ library(pkgreviewr)
 pkgreview_init("cboettig/rdflib")
 
 ```
-The review project directory will contain the following files and will be initialised with git.
+The review project directory will now contain the following files and will be initialised with git.
 
 ```
 rdflib-review
@@ -57,11 +57,13 @@ rdflib-review
 
 ### `index.Rmd` 
 
-The most important file it creates `index.Rmd html_notebook` file. This workbook is prepopulated with all the major steps required to complete the review in an interactive document to perform and record it in. It also extracts useful links, information and parameter values. 
+The most important file it creates is the `index.Rmd html_notebook` file. This workbook is prepopulated with all the major steps required to complete the review in an interactive document to perform and record it in. It also extracts useful links, information and parameter values. 
 
 #### See **example [here](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-review-index.Rmd).**
 
 Once rendered to `index.nb.html`, this report can be pushed to github for publication which needs to be pushed to github for the report
+
+<br> 
 
 ### `clone of package source code` 
 
@@ -146,11 +148,16 @@ reviews
 
 ```
 
+<br> 
+
+
 ### `pkgreview.md` 
 
 Template response form to submit to the package rOpenSci onboarding review issue. 
 
 #### See **template [here](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-pkgreview.md)**.
+
+<br> 
 
 ### `README.md` 
 
