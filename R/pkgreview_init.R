@@ -156,7 +156,6 @@ pkgreview_pkgreview_md <- function(pkg_dir, open = interactive()) {
 pkgreview_getdata <- function(pkg_dir) {
 
     pkgdata <- usethis:::project_data(pkg_dir)
-    pkgdata$Rmd <- TRUE
     pkgdata$pkg_dir <- pkg_dir
     pkgdata$Rmd <- FALSE
     pkgdata$pkg_repo <- paste0(pkgdata$github$username, "/",
