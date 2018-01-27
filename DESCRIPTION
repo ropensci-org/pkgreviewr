@@ -21,7 +21,8 @@ Imports:
     magrittr,
     purrr,
     covr
-Suggests: testthat
+Suggests: testthat,
+    tidyverse
 RoxygenNote: 6.0.1
 Remotes: r-lib/usethis,
     cscheid/rgithub
