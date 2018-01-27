@@ -5,16 +5,21 @@
 \alias{pkgreview_init}
 \title{Create and initialise package review}
 \usage{
-pkgreview_create(pkg_repo, review_dir = ".")
+pkgreview_create(pkg_repo, review_parent = ".", open = interactive())
 
-pkgreview_init(pkg_repo, review_dir = ".")
+pkgreview_init(pkg_repo, review_dir = ".", open = interactive())
 }
 \arguments{
 \item{pkg_repo}{character string of the repo owner and name in the form of
 `"owner/repo"`.}
 
-\item{review_dir}{directory in which to setup review project and source package
+\item{review_parent}{directory in which to setup review project and source package
 source code.}
+
+\item{open}{Open the newly created project/file for editing? Happens in RStudio, if
+applicable, or via [utils::file.edit()] otherwise.}
+
+\item{review_dir}{path to review project root.}
 }
 \value{
 setup review project with templates
