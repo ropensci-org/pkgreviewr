@@ -5,25 +5,30 @@
 #' `pkgreview_init`
 #' @param pkg_repo character string of the repo owner and name in the form of
 #'  `"owner/repo"`.
-#' @param review_dir directory in which to setup review project and source package
+#' @param review_parent directory in which to setup review project and source package
 #'  source code.
+#' @param review_dir path to review project root.
+#' @param open Open the newly created project/file for editing? Happens in RStudio, if
+#'   applicable, or via [utils::file.edit()] otherwise.
 #'
 #' @return setup review project with templates
+# @importFrom devtools getFromNamespace github_remote
+# @importFrom usethis getFromNamespace can_overwrite
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' pkgreview_init(pkg_repo = "cboettig/rdflib")
 #' }
-pkgreview_create <- function(pkg_repo, review_dir = ".") {
+pkgreview_create <- function(pkg_repo, review_parent = ".", open = interactive()) {
 
     # create project
     meta <- devtools:::github_remote(pkg_repo)
-    review_path <- file.path(paste0(review_dir,"/",
+    review_path <- file.path(paste0(review_parent,"/",
                                     meta$repo, "-review"))
     ifelse(usethis:::can_overwrite(review_path),
            {unlink(review_path, recursive=TRUE)
-               usethis::create_project(review_path)},
+               usethis::create_project(review_path, open = open)},
            {message(paste0(review_path,
                            "review project already exists. Opening project"))
                usethis::proj_set(review_path)})
@@ -31,10 +36,13 @@ pkgreview_create <- function(pkg_repo, review_dir = ".") {
 
 #' @export
 #' @rdname pkgreview_create
-pkgreview_init <- function(pkg_repo, review_dir = ".") {
+pkgreview_init <- function(pkg_repo, review_dir = ".", open = interactive()) {
     # create package source code directory
     meta <- devtools:::github_remote(pkg_repo)
-    pkg_dir <- file.path(paste0(here::here(),"/../", meta$repo))
+
+
+    pkg_dir <- file.path(paste0(review_dir, "/../", meta$repo))
+
     if (!usethis:::can_overwrite(pkg_dir))
         message(paste0("../", meta$repo,
                 ": directory already exists. repo clone skipped"))
@@ -47,9 +55,9 @@ pkgreview_init <- function(pkg_repo, review_dir = ".") {
 
     # create templates
     usethis::use_git()
-    usethis::use_template("pkgreview.md", package = "pkgreviewr")
-    pkgreviewr::pkgreview_index_rmd(pkg_dir)
-    pkgreviewr::pkgreview_readme_md(pkg_dir)
+    usethis::use_template("pkgreview.md", package = "pkgreviewr", open = open)
+    pkgreviewr::pkgreview_index_rmd(pkg_dir, open = open)
+    pkgreviewr::pkgreview_readme_md(pkg_dir, open = open)
 
 
 }
@@ -69,6 +77,8 @@ pkgreview_init <- function(pkg_repo, review_dir = ".") {
 #' @param open allow interaction
 #'
 #' @export
+# @importFrom usethis getFromNamespace check_installed
+# @importFrom usethis getFromNamespace render_template
 #' @examples
 #' \dontrun{
 #' pkgreview_index_rmd("../rdflib/")
@@ -138,6 +148,7 @@ pkgreview_pkgreview_md <- function(pkg_dir, open = interactive()) {
 #'
 #' @return a list of package metadata
 #' @export
+# @importFrom usethis getFromNamespace project_data
 #' @examples
 #' \dontrun{
 #' pkgreview_getdata("../rdflib")
@@ -169,9 +180,8 @@ pkgreview_getdata <- function(pkg_dir) {
     site <- paste0("https://", pkgdata$github$username, ".github.io/",
            pkgdata$github$repo,"/")
 
-    ifelse(RCurl::url.exists(site),
-           {pkgdata$site <- site},
-           {pkgdata$site <- NULL})
+    if(RCurl::url.exists(site)){
+        pkgdata$site <- site}else{pkgdata$site <- NULL}
 
     pkgdata
 }
