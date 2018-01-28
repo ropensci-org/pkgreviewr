@@ -82,13 +82,25 @@ pkg_dir <- "{{{pkg_dir}}}"
 
 ## Test installation
 
+### test local `{{{ Package }}}` install:
+
+```{r test-local}
+install.packages(pkg_dir, repos = NULL, type = "source")
+```
+
+```{r github-rm}
+remove.packages("{{{repo}}}")
+```
+#### **comments:**
+
+<!-- record comments on local install here -->
+
+***
+
 ### test install of `{{{ Package }}}` from GitHub with:
 
 ```{r test-github}
 devtools::install_github("{{{username}}}/{{{repo}}}")
-```
-```{r github-rm}
-remove.packages("{{{repo}}}")
 ```
 
 #### **comments:**
@@ -97,16 +109,7 @@ remove.packages("{{{repo}}}")
 
 ***
 
-### test local `{{{ Package }}}` install:
 
-```{r test-local}
-install.packages(pkg_dir, repos = NULL, type = "source")
-```
-#### **comments:**
-
-<!-- record comments on local install here -->
-
-***
 
 ## Check package integrity
 
