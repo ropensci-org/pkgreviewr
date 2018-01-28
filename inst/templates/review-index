@@ -100,7 +100,7 @@ remove.packages("{{{repo}}}")
 ### test local `{{{ Package }}}` install:
 
 ```{r test-local}
-install.packages(pkg_dir)
+install.packages(pkg_dir, repos = NULL, type = "source")
 ```
 #### **comments:**
 
