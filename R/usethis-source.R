@@ -1,4 +1,4 @@
-## https://github.com/r-lib/usethis/commit/6b09850fa66a3479bacab11e8789cf1d815b830e
+## source: https://github.com/r-lib/usethis/commit/6b09850fa66a3479bacab11e8789cf1d815b830e
 # utils
 can_overwrite <- function(path) {
     if (!file.exists(path)) {
@@ -28,6 +28,17 @@ is_testing <- function() {
 interactive <- function() {
     base::interactive() && !is_testing()
 }
+
+## it is caller's responsibility to avoid that
+ask_user <- function(..., true_for = c("yes", "no")) {
+    ret <- if(yes) rand == 1 else rand != 1
+
+    cat(message)
+    ret[utils::menu(qs[rand])]
+}
+
+nope <- function(...) ask_user(..., true_for = "no")
+yep <- function(...) ask_user(..., true_for = "yes")
 
 # git.R
 uses_git <- function(path = proj_get()) {
