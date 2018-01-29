@@ -26,7 +26,7 @@ pkgreview_create <- function(pkg_repo, review_parent = ".", open = interactive()
     meta <- devtools:::github_remote(pkg_repo)
     review_path <- file.path(paste0(review_parent,"/",
                                     meta$repo, "-review"))
-    ifelse(can_overwrite(review_path),
+    ifelse(usethis:::can_overwrite(review_path),
            {unlink(review_path, recursive=TRUE)
                usethis::create_project(review_path, open = open)},
            {message(paste0(review_path,
@@ -43,7 +43,7 @@ pkgreview_init <- function(pkg_repo, review_dir = ".", open = interactive()) {
 
     pkg_dir <- file.path(paste0(review_dir, "/../", meta$repo))
 
-    if (!can_overwrite(pkg_dir))
+    if (!usethis:::can_overwrite(pkg_dir))
         message(paste0("../", meta$repo,
                 ": directory already exists. repo clone skipped"))
     if (dir.exists(pkg_dir)) {
@@ -86,7 +86,7 @@ pkgreview_init <- function(pkg_repo, review_dir = ".", open = interactive()) {
 #' pkgreview_pkgreview_md("../rdflib/")
 #' }
 pkgreview_index_rmd <- function(pkg_dir, open = interactive()) {
-    check_installed("rmarkdown")
+    usethis:::check_installed("rmarkdown")
 
     pkgdata <- pkgreview_getdata(pkg_dir)
     usethis::use_template(
@@ -101,7 +101,7 @@ pkgreview_index_rmd <- function(pkg_dir, open = interactive()) {
     if (uses_git()) {
         usethis::use_git_hook(
             "pre-commit",
-            render_template("readme-rmd-pre-commit.sh",
+            usethis:::render_template("readme-rmd-pre-commit.sh",
                                       package = "pkgreviewr")
         )
     }
@@ -155,7 +155,7 @@ pkgreview_pkgreview_md <- function(pkg_dir, open = interactive()) {
 #' }
 pkgreview_getdata <- function(pkg_dir) {
 
-    pkgdata <- project_data(pkg_dir)
+    pkgdata <- usethis:::project_data(pkg_dir)
     pkgdata$pkg_dir <- pkg_dir
     pkgdata$Rmd <- FALSE
     pkgdata$pkg_repo <- paste0(pkgdata$github$username, "/",
