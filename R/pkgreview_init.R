@@ -98,7 +98,7 @@ pkgreview_index_rmd <- function(pkg_dir, open = interactive()) {
         package = "pkgreviewr"
     )
 
-    if (uses_git()) {
+    if (usethis:::uses_git()) {
         usethis::use_git_hook(
             "pre-commit",
             usethis:::render_template("readme-rmd-pre-commit.sh",
@@ -167,7 +167,7 @@ pkgreview_getdata <- function(pkg_dir) {
     pkgdata$review_repo <- paste0(pkgdata$whoami, "/",
                                   pkgdata$repo, "-review")
     pkgdata$index_url <- paste0("https://", pkgdata$whoami, ".github.io/",
-                                pkgdata$pkg_repo, "/index.nb.html")
+                                pkgdata$review_repo, "/index.nb.html")
     pkgdata$pkgreview_url <- paste0("https://github.com/", pkgdata$review_repo,
                                     "/blob/master/pkgreview.md")
 
