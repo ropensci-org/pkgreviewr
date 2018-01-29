@@ -4,9 +4,10 @@
 \name{pkgreviewr-package}
 \alias{pkgreviewr}
 \alias{pkgreviewr-package}
-\title{pkgreviewr: What the Package Does (Title Case)}
+\title{pkgreviewr: rOpenSci package review project template}
 \description{
-More about what it does (maybe more than one line)
-Use four spaces when indenting paragraphs within the Description.
+Creates all files necessary to complete the review, prepopulated
+with review package specific metadata. Also clones the source code of the package
+under review.
 }
 \keyword{internal}

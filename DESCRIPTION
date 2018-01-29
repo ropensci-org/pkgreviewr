@@ -1,11 +1,12 @@
 Package: pkgreviewr
 Type: Package
-Title: What the Package Does (Title Case)
+Title: rOpenSci package review project template
 Version: 0.1.0
 Author: Who wrote it
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Creates all files necessary to complete the review, prepopulated 
+    with review package specific metadata. Also clones the source code of the package 
+    under review.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -24,5 +25,5 @@ Imports:
 Suggests: testthat,
     tidyverse
 RoxygenNote: 6.0.1
-Remotes: r-lib/usethis,
+Remotes: r-lib/usethis@42c19e492ea61bfe9107e674f0600819e35314b4,
     cscheid/rgithub
