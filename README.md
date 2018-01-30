@@ -1,3 +1,6 @@
+
+[![Travis build status](https://travis-ci.org/annakrystalli/pkgreviewr.svg?branch=master)](https://travis-ci.org/annakrystalli/pkgreviewr)
+
 # pkgreviewr
 
 The goal of pkgreviewr is to facilitate **rOpenSci** package reviews.

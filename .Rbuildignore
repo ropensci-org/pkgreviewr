@@ -5,3 +5,4 @@
 ^index\.Rmd$
 ^index\.md$
 ^pkgreview\.md$
+^\.travis\.yml$
