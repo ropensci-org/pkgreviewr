@@ -13,7 +13,7 @@ LazyData: true
 Imports:
     git2r,
     devtools,
-    usethis,
+    usethis (>= 1.2.0),
     here,
     goodpractice,
     reprex,
@@ -25,5 +25,4 @@ Imports:
 Suggests: testthat,
     tidyverse
 RoxygenNote: 6.0.1
-Remotes: r-lib/usethis@42c19e492ea61bfe9107e674f0600819e35314b4,
-    cscheid/rgithub
+Remotes: cscheid/rgithub
