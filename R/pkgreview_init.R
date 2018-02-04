@@ -55,7 +55,7 @@ pkgreview_init <- function(pkg_repo, review_dir = ".", open = interactive()) {
 
     # create templates
     usethis::use_git()
-    usethis::use_template("pkgreview.md", package = "pkgreviewr", open = open)
+    use_reviewtmpl(open = open)
     pkgreviewr::pkgreview_index_rmd(pkg_dir, open = open)
     pkgreviewr::pkgreview_readme_md(pkg_dir, open = open)
 
@@ -183,4 +183,17 @@ pkgreview_getdata <- function(pkg_dir) {
         pkgdata$site <- site}else{pkgdata$site <- NULL}
 
     pkgdata
+}
+
+
+# get review text from ropensci onboarding repo
+use_reviewtmpl <- function(open = FALSE){
+    review_url <- "https://raw.githubusercontent.com/ropensci/onboarding/master/reviewer_template.md"
+    review_txt <- RCurl::getURL(review_url, ssl.verifypeer = FALSE)
+
+    new <- usethis:::write_over(usethis::proj_get(), "pkgreview.md", review_txt)
+    if(open){
+        usethis:::edit_file(usethis::proj_get(), "pkgreview.md")
+    }
+    invisible(new)
 }
