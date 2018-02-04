@@ -15,7 +15,6 @@ Imports:
     devtools,
     usethis (>= 1.2.0),
     here,
-    goodpractice,
     reprex,
     RCurl,
     whoami,
@@ -25,4 +24,5 @@ Imports:
 Suggests: testthat,
     tidyverse
 RoxygenNote: 6.0.1
-Remotes: cscheid/rgithub
+Remotes: cscheid/rgithub,
+    MangoTheCat/goodpractice
