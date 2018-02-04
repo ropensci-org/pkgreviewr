@@ -10,7 +10,7 @@ Description: Creates all files necessary to complete the review, prepopulated
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports:
+Imports: 
     git2r,
     devtools,
     usethis (>= 1.2.0),
@@ -20,7 +20,9 @@ Imports:
     whoami,
     magrittr,
     purrr,
-    covr
+    covr,
+    github,
+    goodpractice
 Suggests: testthat,
     tidyverse
 RoxygenNote: 6.0.1
