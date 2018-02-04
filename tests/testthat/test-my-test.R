@@ -1,4 +1,4 @@
-context("test-my-test.R")
+context("test-setup.R")
 
 # set test parameters
 pkg_repo <- "annakrystalli/rdflib"
@@ -36,9 +36,28 @@ test_that("review-files-initialised-correctly", {
 
 meta <- devtools:::github_remote(pkg_repo)
 pkg_dir <- file.path(paste0(review_dir, "/../", meta$repo))
-pkgdata <- pkgreview_getdata(pkg_dir)
+
+
+
 
 test_that("check-pkgdata", {
+
+    tr <- try(
+        silent = TRUE,
+        gh <- httr::GET(
+            "https://api.github.com",
+            httr::add_headers("user-agent" = "https://github.com/r-lib/whoami"),
+            httr::timeout(1.0)
+        )
+    )
+
+    if (inherits(tr, "try-error") || gh$status_code != 200) {
+        skip("No internet, skipping")
+    }
+
+    mockery::stub(pkgreview_getdata, "gh_username", "annakrystalli")
+    pkgdata <- pkgreview_getdata(pkg_dir)
+
     expect_equal(pkgdata$pkg_repo, "annakrystalli/rdflib")
     expect_equal(pkgdata$index_url, "https://annakrystalli.github.io/rdflib-review/index.nb.html")
     expect_equal(pkgdata$review_repo, "annakrystalli/rdflib-review")
