@@ -162,12 +162,12 @@ pkgreview_getdata <- function(pkg_dir) {
                        pkgdata$github$repo)
     pkgdata$username <- pkgdata$github$username
     pkgdata$repo <- pkgdata$github$repo
-    pkgdata$whoami <- whoami::whoami()["gh_username"]
+    pkgdata$whoami <- whoami::gh_username()
     pkgdata$whoami_url <- paste0("https://github.com/", pkgdata$whoami)
     pkgdata$review_repo <- paste0(pkgdata$whoami, "/",
                                   pkgdata$repo, "-review")
     pkgdata$index_url <- paste0("https://", pkgdata$whoami, ".github.io/",
-                                pkgdata$review_repo, "/index.nb.html")
+                                pkgdata$repo, "-review", "/index.nb.html")
     pkgdata$pkgreview_url <- paste0("https://github.com/", pkgdata$review_repo,
                                     "/blob/master/pkgreview.md")
 
