@@ -12,7 +12,7 @@ You can install pkgreviewr from GitHub with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("annakrystalli/pkgreviewr")
+devtools::install_github("ropenscilabs/pkgreviewr")
 ```
 
 ## Example
