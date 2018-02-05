@@ -32,7 +32,7 @@ The function creates a new review project (or prompts for instruction if it alre
 ``` r
 library(pkgreviewr)
 pkgreview_create(pkg_repo = "cboettig/rdflib", 
-                 review_dir = "~/Documents/workflows/rOpenSci/reviews/")
+                 review_parent = "~/Documents/workflows/rOpenSci/reviews/")
 ```
 
 ### initialise review
