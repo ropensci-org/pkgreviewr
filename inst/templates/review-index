@@ -85,7 +85,7 @@ pkg_dir <- "{{{pkg_dir}}}"
 ### test local `{{{ Package }}}` install:
 
 ```{r test-local}
-install.packages(pkg_dir, repos = NULL, type = "source")
+install(pkg_dir, dependencies = T, build_vignettes = T)
 ```
 
 ```{r github-rm}
@@ -100,7 +100,7 @@ remove.packages("{{{repo}}}")
 ### test install of `{{{ Package }}}` from GitHub with:
 
 ```{r test-github}
-devtools::install_github("{{{username}}}/{{{repo}}}")
+devtools::install_github("{{{username}}}/{{{repo}}}", dependencies = T, build_vignettes = T)
 ```
 
 #### **comments:**
@@ -235,7 +235,7 @@ exports
 ```{r inspect-code}
 pkgreviewr::pkgreview_print_source("{{{ Package }}}")
 ```
-
+**\* might not be suitable for large packages with many exported functions**
 
 
 <br>
