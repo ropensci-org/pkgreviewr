@@ -64,7 +64,7 @@ This report contains documents the review of **rOpenSci** submitted package:
 - Are there **performance improvements** that could be made?
 - Is the **documentation** (installation instructions/vignettes/examples/demos) **clear and sufficient**?
 
-Please be respectful and kind to the authors in your reviews. The rOpenSci [code of conduct](policies.md#code-of-conduct) is mandatory for everyone involved in our review process.
+Please be respectful and kind to the authors in your reviews. The rOpenSci [code of conduct](https://github.com/ropensci/onboarding/blob/master/policies.md/#code-of-conduct) is mandatory for everyone involved in our review process.
 
 ***
 
@@ -120,7 +120,7 @@ devtools::check(pkg_dir)
 ```
 #### **comments:**
 
-<!-- record comments on goodpractice here -->
+<!-- record comments on checks here -->
 
 ***
 
@@ -131,7 +131,7 @@ devtools::test(pkg_dir)
 ```
 #### **comments:**
 
-<!-- record comments on goodpractice here -->
+<!-- record comments on tests here -->
 
 ***
 
