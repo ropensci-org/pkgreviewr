@@ -21,13 +21,20 @@ devtools::install_github("ropenscilabs/pkgreviewr")
 
 This is a basic example of settign up an rOpenSci package review project:
 
+`pkgreviewr` uses your GitHub user.name and user.email when creating new review projects. If you do not have both settings in your global configuration, you will receive an error. You can set both from within your terminal:
 
-First, create the review project, using `pkgreview_create`. The function takes arguments:
+```
+# Example GitHub global configuration
+git config --global user.name "Mona Lisa"
+git config --global user.email "email@example.com"
+```
+
+Next, create the review project, using `pkgreview_create`. The function takes arguments:
 
 * **`pkg_repo`:** the **GitHub repo** details of the **package under review** in the form `username/repo` 
 * **`review_dir`:**, the **local directory** in which the **review project will be created**.
 
-The function creates a new review project (or prompts for instruction if it already exists) and navigates to the review project root.
+The function creates a new review project (or prompts for instruction if it already exists) and navigates to the review project root. 
 
 ``` r
 library(pkgreviewr)
