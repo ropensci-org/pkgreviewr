@@ -25,8 +25,11 @@ issue_meta <- function(pkg_repo, parameter = c("number", "url"), strict = F){
             msg = "undetermined")
 
         if(valid_issue == "undetermined"){
+            warning(paste0(readme_url,
+                           "\n not a valid url to review pkg README raw contents
+ropensci onboarding issue undetermined"))
             return(valid_issue)
-            }
+        }
     }
 
     number <- gsub("([^0-9]).*$", "",
