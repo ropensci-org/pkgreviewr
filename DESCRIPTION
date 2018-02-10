@@ -21,11 +21,12 @@ Imports:
     magrittr,
     purrr,
     covr,
-    github,
-    goodpractice
+    goodpractice,
+    assertthat,
+    httr,
+    gh
 Suggests: testthat,
     tidyverse,
     mockery
 RoxygenNote: 6.0.1
-Remotes: cscheid/rgithub,
-    MangoTheCat/goodpractice
+Remotes: MangoTheCat/goodpractice

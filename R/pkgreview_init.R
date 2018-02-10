@@ -171,10 +171,9 @@ pkgreview_getdata <- function(pkg_dir) {
     pkgdata$pkgreview_url <- paste0("https://github.com/", pkgdata$review_repo,
                                     "/blob/master/pkgreview.md")
 
-    issue <- github::search.issues(paste("ropensci onboarding",pkgdata$repo))
+    pkgdata$issue_url <- issue_meta(pkgdata$pkg_repo, parameter = "url")
+    pkgdata$number <- issue_meta(pkgdata$pkg_repo)
 
-    pkgdata$issue_url <- issue$content$items[[1]]$html_url
-    pkgdata$number <- issue$content$items[[1]]$number
 
     site <- paste0("https://", pkgdata$github$username, ".github.io/",
            pkgdata$github$repo,"/")

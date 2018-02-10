@@ -38,8 +38,6 @@ meta <- devtools:::github_remote(pkg_repo)
 pkg_dir <- file.path(paste0(review_dir, "/../", meta$repo))
 
 
-
-
 test_that("check-pkgdata", {
 
     tr <- try(
@@ -55,17 +53,24 @@ test_that("check-pkgdata", {
         skip("No internet, skipping")
     }
 
-    mockery::stub(pkgreview_getdata, "gh_username", "annakrystalli")
+    mockery::stub(pkgreview_getdata, "whoami::gh_username", "dummy_username")
     pkgdata <- pkgreview_getdata(pkg_dir)
 
+    # issue_meta
+    expect_equal(issue_meta("cboettig/rdflibh"), "undetermined")
+    expect_equal(issue_meta("cboettig/rdflib"), 169)
+    expect_equal(issue_meta("cboettig/rdflib", "url"),
+                 "https://github.com/ropensci/onboarding/issues/169")
+
     expect_equal(pkgdata$pkg_repo, "annakrystalli/rdflib")
-    expect_equal(pkgdata$index_url, "https://annakrystalli.github.io/rdflib-review/index.nb.html")
-    expect_equal(pkgdata$review_repo, "annakrystalli/rdflib-review")
-    expect_equal(pkgdata$pkgreview_url, "https://github.com/annakrystalli/rdflib-review/blob/master/pkgreview.md")
+    expect_equal(pkgdata$username, "annakrystalli")
+    expect_equal(pkgdata$index_url, "https://dummy_username.github.io/rdflib-review/index.nb.html")
+    expect_equal(pkgdata$review_repo, "dummy_username/rdflib-review")
+    expect_equal(pkgdata$pkgreview_url, "https://github.com/dummy_username/rdflib-review/blob/master/pkgreview.md")
     expect_equal(pkgdata$issue_url, "https://github.com/ropensci/onboarding/issues/169")
     expect_equal(pkgdata$number, 169)
-    expect_equal(pkgdata$whoami, "annakrystalli")
-    expect_equal(pkgdata$whoami_url, "https://github.com/annakrystalli")
+    expect_equal(pkgdata$whoami, "dummy_username")
+    expect_equal(pkgdata$whoami_url, "https://github.com/dummy_username")
     expect_equal(pkgdata$pkg_dir, pkg_dir)
     expect_equal(pkgdata$Package, "rdflib")
     expect_equal(pkgdata$repo, "rdflib")
