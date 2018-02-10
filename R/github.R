@@ -29,12 +29,24 @@ issue_meta <- function(pkg_repo, parameter = c("number", "url"), strict = F){
             }
     }
 
-    number <- readme %>%
-        gsub(paste0("^.*", onboard_url), "", .) %>%
-        gsub("([^0-9]).*$", "", .)
+    number <- gsub("([^0-9]).*$", "",
+                   gsub(paste0("^.*", onboard_url), "",
+                        readme))
 
     switch(match.arg(parameter),
            "number" = as.numeric(number),
            "url" = paste0(onboard_url, number))
 }
 
+
+# check username
+check_global_git <- function(){
+    test <- try(whoami::gh_username(), silent = T)
+    if(class(test) == "try-error"){
+        stop("All rOpenSci package review is conducted through github \n
+             Prior to initialising a review, please ensure your global github credentials are correctly up. Use: \n\n
+             git config --global user.name 'your.gh.username' \n
+             git config --global user.email 'your.gh.email@example.com'\n
+             in the terminal to configure your global settings")
+    }
+}
