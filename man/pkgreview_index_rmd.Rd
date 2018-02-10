@@ -6,16 +6,16 @@
 \alias{pkgreview_pkgreview_md}
 \title{Create review templates.}
 \usage{
-pkgreview_index_rmd(pkg_dir, open = interactive())
+pkgreview_index_rmd(pkg_data, open = interactive())
 
-pkgreview_readme_md(pkg_dir, open = interactive())
+pkgreview_readme_md(pkg_data, open = interactive())
 
-pkgreview_pkgreview_md(pkg_dir, open = interactive())
+pkgreview_pkgreview_md(pkg_data, open = interactive())
 }
 \arguments{
-\item{pkg_dir}{package directory}
-
 \item{open}{allow interaction}
+
+\item{pkg_dir}{package directory}
 }
 \description{
 Creates skeleton review files:

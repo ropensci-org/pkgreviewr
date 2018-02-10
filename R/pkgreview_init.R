@@ -56,8 +56,9 @@ pkgreview_init <- function(pkg_repo, review_dir = ".", open = interactive()) {
     # create templates
     usethis::use_git()
     use_reviewtmpl(open = open)
-    pkgreviewr::pkgreview_index_rmd(pkg_dir, open = open)
-    pkgreviewr::pkgreview_readme_md(pkg_dir, open = open)
+    pkg_data <- pkgreview_getdata(pkg_dir)
+    pkgreviewr::pkgreview_index_rmd(pkg_data, open = open)
+    pkgreviewr::pkgreview_readme_md(pkg_data, open = open)
 
 
 }
@@ -85,14 +86,13 @@ pkgreview_init <- function(pkg_repo, review_dir = ".", open = interactive()) {
 #' pkgreview_readme_md("../rdflib/")
 #' pkgreview_pkgreview_md("../rdflib/")
 #' }
-pkgreview_index_rmd <- function(pkg_dir, open = interactive()) {
+pkgreview_index_rmd <- function(pkg_data, open = interactive()) {
     usethis:::check_installed("rmarkdown")
 
-    pkgdata <- pkgreview_getdata(pkg_dir)
     usethis::use_template(
         "review-index",
         "index.Rmd",
-        data = pkgdata,
+        data = pkg_data,
         ignore = TRUE,
         open = open,
         package = "pkgreviewr"
@@ -111,13 +111,12 @@ pkgreview_index_rmd <- function(pkg_dir, open = interactive()) {
 
 #' @export
 #' @rdname pkgreview_index_rmd
-pkgreview_readme_md <- function(pkg_dir, open = interactive()) {
-    pkgdata <- pkgreview_getdata(pkg_dir)
+pkgreview_readme_md <- function(pkg_data, open = interactive()) {
 
     usethis::use_template(
         "review-README",
         "README.md",
-        data = pkgdata,
+        data = pkg_data,
         ignore = TRUE,
         open = open,
         package = "pkgreviewr"
@@ -126,13 +125,12 @@ pkgreview_readme_md <- function(pkg_dir, open = interactive()) {
 
 #' @export
 #' @rdname pkgreview_index_rmd
-pkgreview_pkgreview_md <- function(pkg_dir, open = interactive()) {
-    pkgdata <- pkgreview_getdata(pkg_dir)
+pkgreview_pkgreview_md <- function(pkg_data, open = interactive()) {
 
     usethis::use_template(
         "pkgreview.md",
         "pkgreview.md",
-        data = pkgdata,
+        data = pkg_data,
         ignore = TRUE,
         open = open,
         package = "pkgreviewr"
@@ -155,33 +153,33 @@ pkgreview_pkgreview_md <- function(pkg_dir, open = interactive()) {
 #' }
 pkgreview_getdata <- function(pkg_dir) {
 
-    pkgdata <- usethis:::project_data(pkg_dir)
-    pkgdata$pkg_dir <- pkg_dir
-    pkgdata$Rmd <- FALSE
-    pkgdata$pkg_repo <- paste0(pkgdata$github$username, "/",
-                       pkgdata$github$repo)
-    pkgdata$username <- pkgdata$github$username
-    pkgdata$repo <- pkgdata$github$repo
-    pkgdata$whoami <- whoami::gh_username()
-    pkgdata$whoami_url <- paste0("https://github.com/", pkgdata$whoami)
-    pkgdata$review_repo <- paste0(pkgdata$whoami, "/",
-                                  pkgdata$repo, "-review")
-    pkgdata$index_url <- paste0("https://", pkgdata$whoami, ".github.io/",
-                                pkgdata$repo, "-review", "/index.nb.html")
-    pkgdata$pkgreview_url <- paste0("https://github.com/", pkgdata$review_repo,
+    pkg_data <- usethis:::project_data(pkg_dir)
+    pkg_data$pkg_dir <- pkg_dir
+    pkg_data$Rmd <- FALSE
+    pkg_data$pkg_repo <- paste0(pkg_data$github$username, "/",
+                       pkg_data$github$repo)
+    pkg_data$username <- pkg_data$github$username
+    pkg_data$repo <- pkg_data$github$repo
+    pkg_data$whoami <- whoami::gh_username()
+    pkg_data$whoami_url <- paste0("https://github.com/", pkg_data$whoami)
+    pkg_data$review_repo <- paste0(pkg_data$whoami, "/",
+                                  pkg_data$repo, "-review")
+    pkg_data$index_url <- paste0("https://", pkg_data$whoami, ".github.io/",
+                                pkg_data$repo, "-review", "/index.nb.html")
+    pkg_data$pkgreview_url <- paste0("https://github.com/", pkg_data$review_repo,
                                     "/blob/master/pkgreview.md")
 
-    pkgdata$issue_url <- issue_meta(pkgdata$pkg_repo, parameter = "url")
-    pkgdata$number <- issue_meta(pkgdata$pkg_repo)
+    pkg_data$issue_url <- issue_meta(pkg_data$pkg_repo, parameter = "url")
+    pkg_data$number <- issue_meta(pkg_data$pkg_repo)
 
 
-    site <- paste0("https://", pkgdata$github$username, ".github.io/",
-           pkgdata$github$repo,"/")
+    site <- paste0("https://", pkg_data$github$username, ".github.io/",
+           pkg_data$github$repo,"/")
 
     if(RCurl::url.exists(site)){
-        pkgdata$site <- site}else{pkgdata$site <- NULL}
+        pkg_data$site <- site}else{pkg_data$site <- NULL}
 
-    pkgdata
+    pkg_data
 }
 
 
