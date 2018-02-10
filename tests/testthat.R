@@ -1,5 +1,5 @@
 library(testthat)
 library(pkgreviewr)
-library(tidyverse)
+library(magrittr)
 
 test_check("pkgreviewr")
