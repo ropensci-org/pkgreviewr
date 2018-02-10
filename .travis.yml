@@ -4,9 +4,6 @@ language: R
 sudo: false
 cache: packages
 
- branches:
-   except:
-     - /-expt$/
 
 before_script:
   - git config --global user.email "annakrystalli@googlemail.com"
