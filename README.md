@@ -1,5 +1,5 @@
 
-[![Travis build status](https://travis-ci.org/annakrystalli/pkgreviewr.svg?branch=master)](https://travis-ci.org/annakrystalli/pkgreviewr)
+[![Travis build status](https://travis-ci.org/ropenscilabs/pkgreviewr.svg?branch=master)](https://travis-ci.org/ropenscilabs/pkgreviewr)
 
 # pkgreviewr
 

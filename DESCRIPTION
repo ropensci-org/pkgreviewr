@@ -26,7 +26,6 @@ Imports:
     httr,
     gh
 Suggests: testthat,
-    tidyverse,
     mockery
 RoxygenNote: 6.0.1
 Remotes: MangoTheCat/goodpractice
