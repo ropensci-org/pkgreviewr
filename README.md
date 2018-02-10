@@ -19,9 +19,9 @@ devtools::install_github("ropenscilabs/pkgreviewr")
 
 ### create review project
 
-This is a basic example of settign up an rOpenSci package review project:
+This is a basic example of **setting up an rOpenSci package review project**:
 
-`pkgreviewr` uses your GitHub user.name and user.email when creating new review projects. If you do not have both settings in your global configuration, you will receive an error. You can set both from within your terminal:
+Because rOpenSci reviews are conducted through github repository [`ropensci/onboarding`](https://github.com/ropensci/onboarding), `pkgreviewr` uses your GitHub user.name and user.email when creating new review projects. If you do not have both settings in your global configuration, you will receive an error. You can set both from within your terminal:
 
 ```
 # Example GitHub global configuration
@@ -29,10 +29,16 @@ git config --global user.name "Mona Lisa"
 git config --global user.email "email@example.com"
 ```
 
+To check you current git configuration, use:
+```
+git config --global --list
+```
+
+
 Next, create the review project, using `pkgreview_create`. The function takes arguments:
 
 * **`pkg_repo`:** the **GitHub repo** details of the **package under review** in the form `username/repo` 
-* **`review_dir`:**, the **local directory** in which the **review project will be created**.
+* **`review_parent`:**, the **local directory** in which the **review project will be created** and **package source code will be cloned into**.
 
 The function creates a new review project (or prompts for instruction if it already exists) and navigates to the review project root. 
 
@@ -193,17 +199,5 @@ Prepopulated README for the review repo.
 1. Publish your report by pushing to github.
 
 
-### n.b.
 
-For package to function correctly, the user will need to have their github account confirmed on the machine they are using.
 
-To configure your git user settings, run the following command in the terminal, substituting with your github credentials.
-```
-git config --global user.name 'Anna Krystalli'
-git config --global user.email 'annakrystalli@googlemail.com'
-```
-
-To check you current git configuration, run:
-```
-git config --global --list
-```
