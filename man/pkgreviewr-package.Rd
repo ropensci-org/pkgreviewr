@@ -6,8 +6,12 @@
 \alias{pkgreviewr-package}
 \title{pkgreviewr: rOpenSci package review project template}
 \description{
-Creates all files necessary to complete the review, prepopulated
-with review package specific metadata. Also clones the source code of the package
-under review.
+Creates files and collects materials necessary to complete an rOpenSci package review.
+Review files are prepopulated with review package specific metadata. Review package source code is
+also cloned for local testing and inspection.
+}
+\author{
+\strong{Maintainer}: Anna Krystalli \email{annakrystalli@googlemail.com}
+
 }
 \keyword{internal}

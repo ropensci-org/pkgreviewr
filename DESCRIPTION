@@ -1,12 +1,13 @@
 Package: pkgreviewr
 Type: Package
 Title: rOpenSci package review project template
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: Creates all files necessary to complete the review, prepopulated 
-    with review package specific metadata. Also clones the source code of the package 
-    under review.
+Version: 0.1.1
+Authors@R: person("Anna", "Krystalli", email = "annakrystalli@googlemail.com",
+                  role = c("aut", "cre"))
+Maintainer: Anna Krystalli <annakrystalli@googlemail.com>
+Description: Creates files and collects materials necessary to complete an rOpenSci package review. 
+    Review files are prepopulated with review package specific metadata. Review package source code is
+    also cloned for local testing and inspection.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -19,12 +20,10 @@ Imports:
     RCurl,
     whoami,
     magrittr,
-    purrr,
     covr,
     goodpractice,
     assertthat,
-    httr,
-    gh
+    httr
 Suggests: testthat,
     mockery
 RoxygenNote: 6.0.1
