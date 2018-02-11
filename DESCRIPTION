@@ -27,7 +27,6 @@ Imports:
     rstudioapi
 Suggests: 
     testthat,
-    mockery,
-    covr
+    mockery
 RoxygenNote: 6.0.1
 Remotes: MangoTheCat/goodpractice
