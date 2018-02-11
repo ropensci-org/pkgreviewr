@@ -33,7 +33,7 @@ library(magrittr)
 
 This report contains documents the review of **rOpenSci** submitted package:
 
-### **`{{{ Package }}}`: ropensci/onboarding**  issue [\#{{{ number }}}]({{{issue_url}}})).
+### **`{{{ Package }}}`: ropensci/onboarding**  issue [\#{{{ number }}}]({{{issue_url}}}).
 
 <br>
 

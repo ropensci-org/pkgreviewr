@@ -9,7 +9,7 @@ output: github_document
 
 This repo contains files associated with the **rOpenSci** review of
 
-### **`{{{ Package }}}`: ropensci/onboarding**  issue [\#{{{ number }}}]({{{issue_url}}})).
+### **`{{{ Package }}}`: ropensci/onboarding**  issue [\#{{{ number }}}]({{{issue_url}}}).
 
 <br>
 
