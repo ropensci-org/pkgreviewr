@@ -21,6 +21,8 @@
 #' pkgreview_init(pkg_repo = "cboettig/rdflib")
 #' }
 pkgreview_create <- function(pkg_repo, review_parent = ".", open = TRUE) {
+    # check_rstudio
+    check_rstudio()
 
     # create project
     meta <- devtools:::github_remote(pkg_repo)
