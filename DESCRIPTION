@@ -23,8 +23,11 @@ Imports:
     covr,
     goodpractice,
     assertthat,
-    httr
-Suggests: testthat,
-    mockery
+    httr,
+    rstudioapi
+Suggests: 
+    testthat,
+    mockery,
+    covr
 RoxygenNote: 6.0.1
 Remotes: MangoTheCat/goodpractice

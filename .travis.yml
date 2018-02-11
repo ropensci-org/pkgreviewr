@@ -8,3 +8,7 @@ cache: packages
 before_script:
   - git config --global user.email "annakrystalli@googlemail.com"
   - git config --global user.name "annakrystalli"
+
+
+after_success:
+    - Rscript -e 'covr::codecov()'
