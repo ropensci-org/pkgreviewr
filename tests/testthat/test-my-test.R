@@ -5,6 +5,10 @@ pkg_repo <- "annakrystalli/rdflib"
 review_parent <- file.path(tempdir())
 review_dir <- paste0(review_parent, "/rdflib-review")
 
+test_that("check-rstudio", {
+    expect_error(pkgreviewr:::check_rstudio())
+})
+
 #  create review project
 mockery::stub(pkgreview_create,"check_rstudio", NULL)
 pkgreview_create(pkg_repo, review_parent, open = F)
