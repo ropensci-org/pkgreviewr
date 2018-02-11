@@ -33,7 +33,7 @@ library(magrittr)
 
 This report contains documents the review of **rOpenSci** submitted package:
 
-### **`rdflib`: ropensci/onboarding**  issue [\#169](https://github.com/ropensci/onboarding/issues/169)).
+### **`rdflib`: ropensci/onboarding**  issue [\#169](https://github.com/ropensci/onboarding/issues/169).
 
 <br>
 
@@ -48,7 +48,7 @@ The Resource Description Framework, or 'RDF' is a widely used
              The 'rdflib' package provides a friendly and concise user interface
              for performing common tasks on 'RDF' data, such as reading, writing
              and converting between the various serializations of 'RDF' data,
-             including 'rdfxml', 'turtle', 'nquads', 'ntriples', 'trig', and 'json-ld';
+             including 'rdfxml', 'turtle', 'nquads', 'ntriples', and 'json-ld';
              creating new 'RDF' graphs, and performing graph queries using 'SPARQL'.
              This package wraps the low level 'redland' R package which
              provides direct bindings to the 'redland' C library.  Additionally,
@@ -80,7 +80,7 @@ The Resource Description Framework, or 'RDF' is a widely used
 - Are there **performance improvements** that could be made?
 - Is the **documentation** (installation instructions/vignettes/examples/demos) **clear and sufficient**?
 
-Please be respectful and kind to the authors in your reviews. The rOpenSci [code of conduct](policies.md#code-of-conduct) is mandatory for everyone involved in our review process.
+Please be respectful and kind to the authors in your reviews. The rOpenSci [code of conduct](https://github.com/ropensci/onboarding/blob/master/policies.md/#code-of-conduct) is mandatory for everyone involved in our review process.
 
 ***
 
@@ -93,18 +93,30 @@ sessionInfo()
 
 
 ```{r pkg_dir, echo = F}
-pkg_dir <- "/Users/Anna/Documents/workflows/rOpenSci/reviews/rdflib-review/../rdflib"
+pkg_dir <- "/private/var/folders/8p/87cqdx2s34vfvcgh04l6z72w0000gn/T/Rtmp4i9nQx/rdflib-review/../rdflib"
 ```
 
 ## Test installation
 
+### test local `rdflib` install:
+
+```{r test-local}
+install(pkg_dir, dependencies = T, build_vignettes = T)
+```
+
+```{r github-rm}
+remove.packages("rdflib")
+```
+#### **comments:**
+
+<!-- record comments on local install here -->
+
+***
+
 ### test install of `rdflib` from GitHub with:
 
 ```{r test-github}
-devtools::install_github("cboettig/rdflib")
-```
-```{r github-rm}
-remove.packages("rdflib")
+devtools::install_github("cboettig/rdflib", dependencies = T, build_vignettes = T)
 ```
 
 #### **comments:**
@@ -113,16 +125,7 @@ remove.packages("rdflib")
 
 ***
 
-### test local `rdflib` install:
 
-```{r test-local}
-install.packages(pkg_dir)
-```
-#### **comments:**
-
-<!-- record comments on local install here -->
-
-***
 
 ## Check package integrity
 
@@ -133,7 +136,7 @@ devtools::check(pkg_dir)
 ```
 #### **comments:**
 
-<!-- record comments on goodpractice here -->
+<!-- record comments on checks here -->
 
 ***
 
@@ -144,7 +147,7 @@ devtools::test(pkg_dir)
 ```
 #### **comments:**
 
-<!-- record comments on goodpractice here -->
+<!-- record comments on tests here -->
 
 ***
 
@@ -248,7 +251,7 @@ exports
 ```{r inspect-code}
 pkgreviewr::pkgreview_print_source("rdflib")
 ```
-
+**\* might not be suitable for large packages with many exported functions**
 
 
 <br>

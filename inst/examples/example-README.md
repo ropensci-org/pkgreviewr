@@ -9,7 +9,7 @@ output: github_document
 
 This repo contains files associated with the **rOpenSci** review of
 
-### **`rdflib`: ropensci/onboarding**  issue [\#169](https://github.com/ropensci/onboarding/issues/169)).
+### **`rdflib`: ropensci/onboarding**  issue [\#169](https://github.com/ropensci/onboarding/issues/169).
 
 <br>
 
@@ -22,7 +22,7 @@ This repo contains files associated with the **rOpenSci** review of
 
 <br>
 
-### see the review report [here:](https://annakrystalli.github.io/cboettig/rdflib/index.nb.html)
+### see the review report [here:](https://annakrystalli.github.io/rdflib-review/index.nb.html)
 
 or view the submiited review to rOpenSci [here:](https://github.com/annakrystalli/rdflib-review/blob/master/pkgreview.md)
 
@@ -40,7 +40,7 @@ The Resource Description Framework, or 'RDF' is a widely used
              The 'rdflib' package provides a friendly and concise user interface
              for performing common tasks on 'RDF' data, such as reading, writing
              and converting between the various serializations of 'RDF' data,
-             including 'rdfxml', 'turtle', 'nquads', 'ntriples', 'trig', and 'json-ld';
+             including 'rdfxml', 'turtle', 'nquads', 'ntriples', and 'json-ld';
              creating new 'RDF' graphs, and performing graph queries using 'SPARQL'.
              This package wraps the low level 'redland' R package which
              provides direct bindings to the 'redland' C library.  Additionally,
