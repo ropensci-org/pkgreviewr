@@ -20,12 +20,10 @@ Imports:
     RCurl,
     whoami,
     magrittr,
-    purrr,
     covr,
     goodpractice,
     assertthat,
-    httr,
-    gh
+    httr
 Suggests: testthat,
     mockery
 RoxygenNote: 6.0.1

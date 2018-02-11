@@ -1,13 +1,4 @@
 # get issue metadata
-issue_search <- function(repo){
-
- meta <-  gh::gh("/repos/:owner/:repo/issues",
-                 owner = "ropensci",
-                 repo = "onboarding",
-                 query = paste("is:issue is:open", repo, "in:title"))
-}
-
-# get issue metadata
 issue_meta <- function(pkg_repo, parameter = c("number", "url"), strict = F){
 
     onboard_url <- "https://github.com/ropensci/onboarding/issues/"
