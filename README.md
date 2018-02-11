@@ -36,6 +36,8 @@ The package also makes use of [**`R Notebooks`**](https://rmarkdown.rstudio.com/
 
 This is a basic example of **setting up an rOpenSci package review project**:
 
+<br>
+
 ### create review project
 
 Next, create the review project, using `pkgreview_create`. The function takes arguments:
@@ -50,6 +52,7 @@ library(pkgreviewr)
 pkgreview_create(pkg_repo = "cboettig/rdflib", 
                  review_parent = "~/Documents/workflows/rOpenSci/reviews/")
 ```
+<br>
 
 ### initialise review
 
@@ -60,7 +63,6 @@ library(pkgreviewr)
 pkgreview_init(pkg_repo = "cboettig/rdflib")
 
 ```
-<br>
 
 #### clone of package source code
 
@@ -145,8 +147,6 @@ reviews
 
 ```
 
-<br> 
-
 #### Create review files
 
 After initialisation, the review project directory will contain all the files you'll need to complete the review and will be initialised with git.
@@ -159,9 +159,10 @@ rdflib-review
 ├── pkgreview.md
 └── rdflib-review.Rproj
 ```
-
-
 <br>
+
+
+## Review files
 
 ### `index.Rmd` 
 
@@ -171,18 +172,11 @@ The most important file it creates is the `index.Rmd html_notebook` file. This w
 
 Once rendered to `index.nb.html`, this report can be pushed to github for publication which needs to be pushed to github for the report
 
-<br> 
-
-
-
-
 ### `pkgreview.md` 
 
 Template response form to submit to the package rOpenSci onboarding review issue. 
 
 #### See **template [here](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-pkgreview.md)**.
-
-<br> 
 
 ### `README.md` 
 
