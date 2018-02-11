@@ -5,9 +5,9 @@
 \alias{pkgreview_init}
 \title{Create and initialise package review}
 \usage{
-pkgreview_create(pkg_repo, review_parent = ".", open = interactive())
+pkgreview_create(pkg_repo, review_parent = ".", open = TRUE)
 
-pkgreview_init(pkg_repo, review_dir = ".", open = interactive())
+pkgreview_init(pkg_repo, review_dir = here::here(), open = TRUE)
 }
 \arguments{
 \item{pkg_repo}{character string of the repo owner and name in the form of
