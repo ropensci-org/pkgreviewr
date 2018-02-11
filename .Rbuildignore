@@ -6,3 +6,4 @@
 ^index\.md$
 ^pkgreview\.md$
 ^\.travis\.yml$
+^codecov\.yml$

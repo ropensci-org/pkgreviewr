@@ -6,6 +6,7 @@ review_parent <- file.path(tempdir())
 review_dir <- paste0(review_parent, "/rdflib-review")
 
 #  create review project
+mockery::stub(pkgreview_create,"check_rstudio", NULL)
 pkgreview_create(pkg_repo, review_parent, open = F)
 
 test_that("review-proj-created-correctly", {
@@ -31,8 +32,10 @@ test_that("missing-config-throws-error", {
     rm(check_global_git)
 })
 
+
 #  init review project
 pkgreview_init(pkg_repo, review_dir, open = F)
+
 test_that("initialised-correctly", {
         expect_true("index.Rmd" %in% list.files(review_dir))
         expect_true("pkgreview.md" %in% list.files(review_dir))
