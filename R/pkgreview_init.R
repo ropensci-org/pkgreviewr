@@ -20,7 +20,7 @@
 #' \dontrun{
 #' pkgreview_init(pkg_repo = "cboettig/rdflib")
 #' }
-pkgreview_create <- function(pkg_repo, review_parent = ".", open = interactive()) {
+pkgreview_create <- function(pkg_repo, review_parent = ".", open = TRUE) {
 
     # create project
     meta <- devtools:::github_remote(pkg_repo)
@@ -36,10 +36,9 @@ pkgreview_create <- function(pkg_repo, review_parent = ".", open = interactive()
 
 #' @export
 #' @rdname pkgreview_create
-pkgreview_init <- function(pkg_repo, review_dir = ".", open = interactive()) {
+pkgreview_init <- function(pkg_repo, review_dir = here::here(), open = TRUE) {
 
     check_global_git()
-    usethis::use_git()
 
     # create package source code directory
     meta <- devtools:::github_remote(pkg_repo)
@@ -60,9 +59,9 @@ pkgreview_init <- function(pkg_repo, review_dir = ".", open = interactive()) {
     # create templates
     use_reviewtmpl(open = open)
     pkg_data <- pkgreview_getdata(pkg_dir)
-    pkgreview_index_rmd(pkg_data, open = open)
     pkgreview_readme_md(pkg_data, open = open)
-
+    pkgreview_index_rmd(pkg_data, open = open)
+    usethis::use_git()
 
 }
 
@@ -90,7 +89,7 @@ pkgreview_init <- function(pkg_repo, review_dir = ".", open = interactive()) {
 #' pkgreview_readme_md(pkg_data)
 #' pkgreview_pkgreview_md(pkg_data)
 #' }
-pkgreview_index_rmd <- function(pkg_data, open = interactive()) {
+pkgreview_index_rmd <- function(pkg_data, open = F) {
     usethis:::check_installed("rmarkdown")
 
     usethis::use_template(
@@ -115,7 +114,7 @@ pkgreview_index_rmd <- function(pkg_data, open = interactive()) {
 
 #' @export
 #' @rdname pkgreview_index_rmd
-pkgreview_readme_md <- function(pkg_data, open = interactive()) {
+pkgreview_readme_md <- function(pkg_data, open = F) {
 
     usethis::use_template(
         "review-README",
@@ -129,7 +128,7 @@ pkgreview_readme_md <- function(pkg_data, open = interactive()) {
 
 #' @export
 #' @rdname pkgreview_index_rmd
-pkgreview_pkgreview_md <- function(pkg_data, open = interactive()) {
+pkgreview_pkgreview_md <- function(pkg_data, open = F) {
 
     usethis::use_template(
         "pkgreview.md",
@@ -188,7 +187,7 @@ pkgreview_getdata <- function(pkg_dir) {
 
 
 # get review text from ropensci onboarding repo
-use_reviewtmpl <- function(open = FALSE){
+use_reviewtmpl <- function(open = F){
     review_url <- "https://raw.githubusercontent.com/ropensci/onboarding/master/reviewer_template.md"
     review_txt <- RCurl::getURL(review_url, ssl.verifypeer = FALSE)
 
