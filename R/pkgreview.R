@@ -107,7 +107,7 @@ pkgreview_getdata <- function(pkg_dir) {
     site <- paste0("https://", pkg_data$github$username, ".github.io/",
            pkg_data$github$repo,"/")
 
-    if(RCurl::url.exists(site)){
+    if(!httr::http_error(site)){
         pkg_data$site <- site}else{pkg_data$site <- NULL}
 
     pkg_data

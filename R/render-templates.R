@@ -76,8 +76,13 @@ pkgreview_pkgreview_md <- function(pkg_data, open = F) {
 
 # get review text from ropensci onboarding repo
 use_reviewtmpl <- function(open = F){
-    review_url <- "https://raw.githubusercontent.com/ropensci/onboarding/master/reviewer_template.md"
-    review_txt <- RCurl::getURL(review_url, ssl.verifypeer = FALSE)
+    review_txt <- gh::gh("/repos/:owner/:repo/contents/:path", 
+                         owner = "ropensci",
+                         repo = "onboarding",
+                         path = "reviewer_template.md")
+     
+    review_txt <- review_txt$content
+    review_txt <- rawToChar(base64enc::base64decode(review_txt))
 
     new <- usethis:::write_over(usethis::proj_get(), "pkgreview.md", review_txt)
     if(open){
