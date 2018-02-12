@@ -171,7 +171,7 @@ The most important file it creates is the `index.Rmd html_notebook` file. This w
 
 #### See **example [here](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-review-index.Rmd).**
 
-Once rendered to `index.nb.html` (`.nb.html` is the notebook file format), this report can be pushed to GitHub for publication which needs to be pushed to GitHub for the report
+Once rendered to `index.nb.html` (`.nb.html` is the notebook file format), this report can be pushed to GitHub for publication.
 
 ### `pkgreview.md` 
 
