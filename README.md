@@ -171,7 +171,7 @@ The most important file it creates is the `index.Rmd html_notebook` file. This w
 
 #### See **example [here](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-review-index.Rmd).**
 
-Once rendered to `index.nb.html`, this report can be pushed to github for publication which needs to be pushed to github for the report
+Once rendered to `index.nb.html`, this report can be pushed to GitHub for publication which needs to be pushed to GitHub for the report
 
 ### `pkgreview.md` 
 
@@ -191,7 +191,7 @@ Prepopulated README for the review repo.
 
 1. Create review project 
 1. Initialise project
-1. Create blank (don't autimatically create any files on GitHub) review repository on `github` and link. 
+1. Create blank (don't autimatically create any files on GitHub) review repository on GitHub and link. 
     - Follow naming convention `"{pkgname}-review"`.
     - Link local review project to the repository through the terminal, eg
     ```
@@ -200,7 +200,7 @@ Prepopulated README for the review repo.
     ```
 1. Open `index.Rmd` and work through the review in the notebook. You can make notes either in `index.Rmd` or directly in the `pkgreview.md` response file.
 1. Submit your review in the package `ropensci/onboarding` issue by copying and pasting the completed template.
-1. Publish your report by pushing to github.
+1. Publish your report by pushing to GitHub.
 
 
 
