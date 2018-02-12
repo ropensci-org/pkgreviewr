@@ -32,6 +32,20 @@ git config --global --list
 
 The package also makes use of [**`R Notebooks`**](https://rmarkdown.rstudio.com/r_notebooks.html) (an RMarkdown format) and requires installation of **Rstudio version 1.0** or higher 
 
+## Review workflow
+
+1. Create review project 
+1. Initialise project
+1. Create blank (don't automatically create any files on GitHub) review repository on GitHub and link. 
+    - Follow naming convention `"{pkgname}-review"`.
+    - Link local review project to the repository through the terminal, eg
+    ```
+    git remote add origin https://github.com/annakrystalli/rdflib-review.git
+    git push -u origin master
+    ```
+1. Open `index.Rmd` and work through the review in the notebook. You can make notes either in `index.Rmd` or directly in the `pkgreview.md` response file.
+1. Submit your review in the package `ropensci/onboarding` issue by copying and pasting the completed template.
+1. Publish your report by pushing to GitHub.
 
 ## Example
 
@@ -187,20 +201,7 @@ Prepopulated README for the review repo that will present the repo to people nav
 
 ***
 
-# Review workflow
 
-1. Create review project 
-1. Initialise project
-1. Create blank (don't automatically create any files on GitHub) review repository on GitHub and link. 
-    - Follow naming convention `"{pkgname}-review"`.
-    - Link local review project to the repository through the terminal, eg
-    ```
-    git remote add origin https://github.com/annakrystalli/rdflib-review.git
-    git push -u origin master
-    ```
-1. Open `index.Rmd` and work through the review in the notebook. You can make notes either in `index.Rmd` or directly in the `pkgreview.md` response file.
-1. Submit your review in the package `ropensci/onboarding` issue by copying and pasting the completed template.
-1. Publish your report by pushing to GitHub.
 
 
 
