@@ -191,7 +191,7 @@ Prepopulated README for the review repo that will present the repo to people nav
 
 1. Create review project 
 1. Initialise project
-1. Create blank (don't autimatically create any files on GitHub) review repository on GitHub and link. 
+1. Create blank (don't automatically create any files on GitHub) review repository on GitHub and link. 
     - Follow naming convention `"{pkgname}-review"`.
     - Link local review project to the repository through the terminal, eg
     ```
