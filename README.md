@@ -148,7 +148,7 @@ reviews
 
 ```
 
-#### Create review files
+#### review files
 
 After initialisation, the review project directory will contain all the files you'll need to complete the review and will be initialised with git.
 
