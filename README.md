@@ -44,7 +44,7 @@ This is a basic example of **setting up an rOpenSci package review project**:
 Next, create the review project, using `pkgreview_create`. The function takes arguments:
 
 * **`pkg_repo`:** the **GitHub repo** details of the **package under review** in the form `username/repo` 
-* **`review_parent`:**, the **local directory** in which the **review project will be created** and **package source code will be cloned into**.
+* **`review_parent`:**, the **local directory** in which the **review project (and folder) will be created** and **package source code will be cloned into**.
 
 The function creates a new review project (or prompts for instruction if it already exists) and navigates to the review project root. 
 
