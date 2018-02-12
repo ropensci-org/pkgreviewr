@@ -30,8 +30,22 @@ To check you current git configuration, use:
 git config --global --list
 ```
 
-The package also makes use of [**`R Notebooks`**](https://rmarkdown.rstudio.com/r_notebooks.html) and requires installation of **Rstudio version 1.0** or higher 
+The package also makes use of [**`R Notebooks`**](https://rmarkdown.rstudio.com/r_notebooks.html) (an RMarkdown format) and requires installation of **Rstudio version 1.0** or higher 
 
+## Review workflow
+
+1. Create review project 
+1. Initialise project
+1. Create blank (don't automatically create any files on GitHub) review repository on GitHub and link. 
+    - Follow naming convention `"{pkgname}-review"`.
+    - Link local review project to the repository through the terminal, eg
+    ```
+    git remote add origin https://github.com/annakrystalli/rdflib-review.git
+    git push -u origin master
+    ```
+1. Open `index.Rmd` and work through the review in the notebook. You can make notes either in `index.Rmd` or directly in the `pkgreview.md` response file.
+1. Submit your review in the package `ropensci/onboarding` issue by copying and pasting the completed template.
+1. Publish your report by pushing to GitHub.
 
 ## Example
 
@@ -44,7 +58,7 @@ This is a basic example of **setting up an rOpenSci package review project**:
 Next, create the review project, using `pkgreview_create`. The function takes arguments:
 
 * **`pkg_repo`:** the **GitHub repo** details of the **package under review** in the form `username/repo` 
-* **`review_parent`:**, the **local directory** in which the **review project will be created** and **package source code will be cloned into**.
+* **`review_parent`:**, the **local directory** in which the **review project (and folder) will be created** and **package source code will be cloned into**.
 
 The function creates a new review project (or prompts for instruction if it already exists) and navigates to the review project root. 
 
@@ -67,7 +81,7 @@ pkgreview_init(pkg_repo = "cboettig/rdflib")
 
 #### clone of package source code
 
-To enable local testing of the package, initialisation clones package source code from github to a second, sibling directory to the review project. This also makes it available for local review and perhaps even a pull request. Correcting typos in documentation can be a great review contribution!
+To enable local testing of the package, initialisation clones package source code from github to a second, sibling directory to the review project. This also makes it available for local review and perhaps even a pull request. Correcting typos in documentation can be a great review contribution, but first ask the author if they are open to such pull requests!
 
 ```
 reviews
@@ -148,7 +162,7 @@ reviews
 
 ```
 
-#### Create review files
+#### review files
 
 After initialisation, the review project directory will contain all the files you'll need to complete the review and will be initialised with git.
 
@@ -171,7 +185,7 @@ The most important file it creates is the `index.Rmd html_notebook` file. This w
 
 #### See **example [here](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-review-index.Rmd).**
 
-Once rendered to `index.nb.html`, this report can be pushed to github for publication which needs to be pushed to github for the report
+Once rendered to `index.nb.html` (`.nb.html` is the notebook file format), this report can be pushed to GitHub for publication.
 
 ### `pkgreview.md` 
 
@@ -181,26 +195,13 @@ Template response form to submit to the package rOpenSci onboarding review issue
 
 ### `README.md` 
 
-Prepopulated README for the review repo. 
+Prepopulated README for the review repo that will present the repo to people navigating to it. 
 
 #### See **example [here:](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-README.md)**.
 
 ***
 
-# Review workflow
 
-1. Create review project 
-1. Initialise project
-1. Create blank (don't autimatically create any files on GitHub) review repository on `github` and link. 
-    - Follow naming convention `"{pkgname}-review"`.
-    - Link local review project to the repository through the terminal, eg
-    ```
-    git remote add origin https://github.com/annakrystalli/rdflib-review.git
-    git push -u origin master
-    ```
-1. Open `index.Rmd` and work through the review in the notebook. You can make notes either in `index.Rmd` or directly in the `pkgreview.md` response file.
-1. Submit your review in the package `ropensci/onboarding` issue by copying and pasting the completed template.
-1. Publish your report by pushing to github.
 
 
 
