@@ -1,7 +1,7 @@
 Package: pkgreviewr
 Type: Package
 Title: rOpenSci package review project template
-Version: 0.1.1
+Version: 0.0.0.9003
 Authors@R: person("Anna", "Krystalli", email = "annakrystalli@googlemail.com",
                   role = c("aut", "cre"))
 Maintainer: Anna Krystalli <annakrystalli@googlemail.com>
