@@ -67,7 +67,7 @@ pkgreview_init(pkg_repo = "cboettig/rdflib")
 
 #### clone of package source code
 
-To enable local testing of the package, initialisation clones package source code from github to a second, sibling directory to the review project. This also makes it available for local review and perhaps even a pull request. Correcting typos in documentation can be a great review contribution!
+To enable local testing of the package, initialisation clones package source code from github to a second, sibling directory to the review project. This also makes it available for local review and perhaps even a pull request. Correcting typos in documentation can be a great review contribution, but first ask the author if they are open to such pull requests!
 
 ```
 reviews
