@@ -82,7 +82,7 @@ use_reviewtmpl <- function(open = F){
                          path = "reviewer_template.md")
      
     review_txt <- review_txt$content
-    review_txt <- rawToChar(base64enc::base64decode(review_text))
+    review_txt <- rawToChar(base64enc::base64decode(review_txt))
 
     new <- usethis:::write_over(usethis::proj_get(), "pkgreview.md", review_txt)
     if(open){
