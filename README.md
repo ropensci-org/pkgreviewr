@@ -181,7 +181,7 @@ Template response form to submit to the package rOpenSci onboarding review issue
 
 ### `README.md` 
 
-Prepopulated README for the review repo. 
+Prepopulated README for the review repo that will present the repo to people navigating to it. 
 
 #### See **example [here:](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-README.md)**.
 
