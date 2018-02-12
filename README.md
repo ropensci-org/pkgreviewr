@@ -30,7 +30,7 @@ To check you current git configuration, use:
 git config --global --list
 ```
 
-The package also makes use of [**`R Notebooks`**](https://rmarkdown.rstudio.com/r_notebooks.html) and requires installation of **Rstudio version 1.0** or higher 
+The package also makes use of [**`R Notebooks`**](https://rmarkdown.rstudio.com/r_notebooks.html) (an RMarkdown format) and requires installation of **Rstudio version 1.0** or higher 
 
 
 ## Example
