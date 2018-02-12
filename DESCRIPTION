@@ -17,7 +17,7 @@ Imports:
     usethis (>= 1.2.0),
     here,
     reprex,
-    RCurl,
+    gh,
     whoami,
     magrittr,
     covr,
