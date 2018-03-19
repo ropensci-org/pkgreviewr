@@ -30,7 +30,8 @@ pkgreview_create <- function(pkg_repo, review_parent = ".", open = TRUE) {
                                     meta$repo, "-review"))
     ifelse(usethis:::can_overwrite(review_path),
            {unlink(review_path, recursive=TRUE)
-               usethis::create_project(review_path, open = open)},
+               usethis::create_project(review_path, open = open)
+               unlink(paste0(review_path,"/R"), recursive = TRUE)},
            {message(paste0(review_path,
                            "review project already exists. Opening project"))
                usethis::proj_set(review_path)})
@@ -48,15 +49,15 @@ pkgreview_init <- function(pkg_repo, review_dir = here::here(), open = TRUE) {
 
     pkg_dir <- file.path(paste0(review_dir, "/../", meta$repo))
 
-    if (!usethis:::can_overwrite(pkg_dir))
+    if (!usethis:::can_overwrite(pkg_dir)){
         message(paste0("../", meta$repo,
-                ": directory already exists. repo clone skipped"))
-    if (dir.exists(pkg_dir)) {
-        unlink(pkg_dir, recursive=TRUE)
-    } else{
-        dir.create(pkg_dir, recursive=TRUE)
+                       ": directory already exists. repo clone skipped"))
+    }else{
+        if (dir.exists(pkg_dir)) {
+            unlink(pkg_dir, recursive=TRUE)
+        }
+        git2r::clone(paste0("https://github.com/", pkg_repo), pkg_dir)
     }
-    repo <- git2r::clone(paste0("https://github.com/", pkg_repo), pkg_dir)
 
     # create templates
     use_reviewtmpl(open = open)
