@@ -41,20 +41,11 @@ test_that("missing-config-throws-error", {
 pkgreview_init(pkg_repo, review_dir, open = F)
 
 test_that("initialised-correctly", {
-        expect_true("index.Rmd" %in% list.files(review_dir))
-        expect_true("pkgreview.md" %in% list.files(review_dir))
-        expect_true("R" %in% list.files(review_dir))
+    expect_setequal(c("index.Rmd", "pkgreview.md", "README.md"),
+                    list.files(review_dir))
         #expect_true("rdflib-review.Rproj" %in% list.files(review_dir))
-        expect_true("README.md" %in% list.files(review_dir))
 })
 
-
-test_that("review-files-initialised-correctly", {
-    expect_equal(sort(list.files(review_dir)),
-                 sort(c("index.Rmd", "pkgreview.md", "R",
-                   #"rdflib-review.Rproj",
-                   "README.md")))
-})
 
 meta <- devtools:::github_remote(pkg_repo)
 pkg_dir <- file.path(paste0(review_dir, "/../", meta$repo))
