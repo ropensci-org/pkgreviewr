@@ -49,9 +49,9 @@ pkgreview_create <- function(pkg_repo, review_parent = ".") {
     pkg_data <- pkgreview_getdata(pkg_dir)
 
     setwd(review_path)
-    use_reviewtmpl(open = F)
-    pkgreview_readme_md(pkg_data, open = F)
-    pkgreview_index_rmd(pkg_data, open = F)
+    use_reviewtmpl()
+    pkgreview_readme_md(pkg_data)
+    pkgreview_index_rmd(pkg_data)
 
     use_git_pkgrv(path = ".")
     if (rstudioapi::isAvailable()) rstudioapi::openProject(review_path)

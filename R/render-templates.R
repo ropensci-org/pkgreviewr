@@ -22,15 +22,15 @@
 #' pkgreview_readme_md(pkg_data)
 #' pkgreview_pkgreview_md(pkg_data)
 #' }
-pkgreview_index_rmd <- function(pkg_data, open = F) {
+pkgreview_index_rmd <- function(pkg_data) {
     usethis:::check_installed("rmarkdown")
 
     usethis::use_template(
         "review-index",
         "index.Rmd",
         data = pkg_data,
-        ignore = TRUE,
-        open = open,
+        ignore = FALSE,
+        open = FALSE,
         package = "pkgreviewr"
     )
 
@@ -47,46 +47,46 @@ pkgreview_index_rmd <- function(pkg_data, open = F) {
 
 #' @export
 #' @rdname pkgreview_index_rmd
-pkgreview_readme_md <- function(pkg_data, open = F) {
+pkgreview_readme_md <- function(pkg_data) {
 
     usethis::use_template(
         "review-README",
         "README.md",
         data = pkg_data,
-        ignore = TRUE,
-        open = open,
+        ignore = FALSE,
+        open = FALSE,
         package = "pkgreviewr"
     )
 }
 
 #' @export
 #' @rdname pkgreview_index_rmd
-pkgreview_pkgreview_md <- function(pkg_data, open = F) {
+pkgreview_pkgreview_md <- function(pkg_data) {
 
     usethis::use_template(
         "pkgreview.md",
         "pkgreview.md",
         data = pkg_data,
-        ignore = TRUE,
-        open = open,
+        ignore = FALSE,
+        open = FALSE,
         package = "pkgreviewr"
     )
 }
 
 
 # get review text from ropensci onboarding repo
-use_reviewtmpl <- function(open = F){
-    review_txt <- gh::gh("/repos/:owner/:repo/contents/:path", 
+use_reviewtmpl <- function(){
+    review_txt <- gh::gh("/repos/:owner/:repo/contents/:path",
                          owner = "ropensci",
                          repo = "onboarding",
                          path = "reviewer_template.md")
-     
+
     review_txt <- review_txt$content
     review_txt <- rawToChar(base64enc::base64decode(review_txt))
 
     new <- usethis:::write_over(usethis::proj_get(), "pkgreview.md", review_txt)
-    if(open){
-        usethis:::edit_file(usethis::proj_get(), "pkgreview.md")
-    }
+    #if(open){
+    #    usethis:::edit_file(usethis::proj_get(), "pkgreview.md")
+    #}
     invisible(new)
 }
