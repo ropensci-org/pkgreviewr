@@ -1,15 +1,10 @@
-#' Create and initialise package review
+#' Create a review project.
 #'
-#' Create a review project using `pkgreview_create`. Wait till your workspace has
-#' been switched to pkg review project dircetory and initialise review using
-#' `pkgreview_init`
+#' Create and initialise an rOpenSci package review project
 #' @param pkg_repo character string of the repo owner and name in the form of
 #'  `"owner/repo"`.
 #' @param review_parent directory in which to setup review project and source package
 #'  source code.
-#' @param review_dir path to review project root.
-#' @param open Open the newly created project/file for editing? Happens in RStudio, if
-#'   applicable, or via [utils::file.edit()] otherwise.
 #'
 #' @return setup review project with templates
 # @importFrom devtools getFromNamespace github_remote
@@ -18,37 +13,28 @@
 #'
 #' @examples
 #' \dontrun{
-#' pkgreview_init(pkg_repo = "cboettig/rdflib")
+#' pkgreview_create(pkg_repo = "cboettig/rdflib")
 #' }
-pkgreview_create <- function(pkg_repo, review_parent = ".", open = TRUE) {
-    # check_rstudio
+pkgreview_create <- function(pkg_repo, review_parent = ".") {
+    # checks
     check_rstudio()
+    check_global_git()
 
     # create project
     meta <- devtools:::github_remote(pkg_repo)
-    review_path <- file.path(paste0(review_parent,"/",
-                                    meta$repo, "-review"))
+    review_path <- file.path(review_parent,
+                                    paste0(meta$repo, "-review"))
     ifelse(usethis:::can_overwrite(review_path),
            {unlink(review_path, recursive=TRUE)
-               usethis::create_project(review_path, open = open)
-               unlink(paste0(review_path,"/R"), recursive = TRUE)},
+               usethis::create_project(review_path, open = FALSE)
+               unlink(file.path(review_path,"R"), recursive = TRUE)},
            {message(paste0(review_path,
                            "review project already exists. Opening project"))
-               usethis::proj_set(review_path)})
-}
+               if (rstudioapi::isAvailable()) rstudioapi::openProject(review_path)})
 
-#' @export
-#' @rdname pkgreview_create
-pkgreview_init <- function(pkg_repo, review_dir = here::here(), open = TRUE) {
-
-    check_global_git()
-
-    # create package source code directory
+    # clone package source code directory
     meta <- devtools:::github_remote(pkg_repo)
-
-
-    pkg_dir <- file.path(paste0(review_dir, "/../", meta$repo))
-
+    pkg_dir <- normalizePath(file.path(review_path, "..", meta$repo), mustWork = F)
     if (!usethis:::can_overwrite(pkg_dir)){
         message(paste0("../", meta$repo,
                        ": directory already exists. repo clone skipped"))
@@ -60,12 +46,15 @@ pkgreview_init <- function(pkg_repo, review_dir = here::here(), open = TRUE) {
     }
 
     # create templates
-    use_reviewtmpl(open = open)
     pkg_data <- pkgreview_getdata(pkg_dir)
-    pkgreview_readme_md(pkg_data, open = open)
-    pkgreview_index_rmd(pkg_data, open = open)
-    usethis::use_git()
 
+    setwd(review_path)
+    use_reviewtmpl(open = F)
+    pkgreview_readme_md(pkg_data, open = F)
+    pkgreview_index_rmd(pkg_data, open = F)
+
+    use_git_pkgrv(path = ".")
+    if (rstudioapi::isAvailable()) rstudioapi::openProject(review_path)
 }
 
 
