@@ -3,15 +3,17 @@ context("test-setup.R")
 # set test parameters
 pkg_repo <- "annakrystalli/rdflib"
 review_parent <- file.path(tempdir())
-review_dir <- paste0(review_parent, "/rdflib-review")
+review_dir <- file.path(review_parent, "rdflib-review")
 
 test_that("check-rstudio", {
     expect_error(pkgreviewr:::check_rstudio())
 })
 
+library(rstudioapi)
 #  create review project
 mockery::stub(pkgreview_create,"check_rstudio", NULL)
-pkgreview_create(pkg_repo, review_parent, open = F)
+#mockery::stub(pkgreview_create,"openProject", NULL)
+pkgreview_create(pkg_repo, review_parent)
 
 test_that("review-proj-created-correctly", {
   expect_true("rdflib-review" %in% list.files(review_parent))
@@ -37,27 +39,17 @@ test_that("missing-config-throws-error", {
 })
 
 
-#  init review project
-pkgreview_init(pkg_repo, review_dir, open = F)
+
 
 test_that("initialised-correctly", {
-        expect_true("index.Rmd" %in% list.files(review_dir))
-        expect_true("pkgreview.md" %in% list.files(review_dir))
-        expect_true("R" %in% list.files(review_dir))
+    expect_setequal(c("index.Rmd", "pkgreview.md", "README.md"),
+                    list.files(review_dir))
         #expect_true("rdflib-review.Rproj" %in% list.files(review_dir))
-        expect_true("README.md" %in% list.files(review_dir))
 })
 
-
-test_that("review-files-initialised-correctly", {
-    expect_equal(sort(list.files(review_dir)),
-                 sort(c("index.Rmd", "pkgreview.md", "R",
-                   #"rdflib-review.Rproj",
-                   "README.md")))
-})
 
 meta <- devtools:::github_remote(pkg_repo)
-pkg_dir <- file.path(paste0(review_dir, "/../", meta$repo))
+pkg_dir <- file.path(review_dir, "..", meta$repo)
 
 
 

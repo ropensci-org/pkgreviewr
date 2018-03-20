@@ -1,18 +1,19 @@
 Package: pkgreviewr
 Type: Package
 Title: rOpenSci package review project template
-Version: 0.0.0.9003
+Version: 0.0.3
 Authors@R: person("Anna", "Krystalli", email = "annakrystalli@googlemail.com",
                   role = c("aut", "cre"))
-Maintainer: Anna Krystalli <annakrystalli@googlemail.com>
 Description: Creates files and collects materials necessary to complete an rOpenSci package review. 
     Review files are prepopulated with review package specific metadata. Review package source code is
     also cloned for local testing and inspection.
 License: MIT + file LICENSE
+URL: https://github.com/ropenscilabs/pkgreviewr
+BugReports: https://github.com/ropenscilabs/pkgreviewr/issues
 Encoding: UTF-8
 LazyData: true
 Imports:
-    git2r,
+    git2r (>= 0.21.0),
     devtools,
     usethis (>= 1.2.0),
     here,
@@ -28,6 +29,9 @@ Imports:
     rstudioapi
 Suggests: 
     testthat,
-    mockery
+    mockery,
+    knitr,
+    rmarkdown
 RoxygenNote: 6.0.1
 Remotes: MangoTheCat/goodpractice
+VignetteBuilder: knitr

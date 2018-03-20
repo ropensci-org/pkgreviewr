@@ -10,6 +10,14 @@ Creates files and collects materials necessary to complete an rOpenSci package r
 Review files are prepopulated with review package specific metadata. Review package source code is
 also cloned for local testing and inspection.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/ropenscilabs/pkgreviewr}
+  \item Report bugs at \url{https://github.com/ropenscilabs/pkgreviewr/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Anna Krystalli \email{annakrystalli@googlemail.com}
 

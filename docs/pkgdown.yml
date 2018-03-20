@@ -1,0 +1,6 @@
+pandoc: 1.19.2.1
+pkgdown: 0.1.0.9000
+pkgdown_sha: 19a3e04e5839547a49bcc0c6f5950f54056490db
+articles:
+  publish-review-on-github: publish-review-on-github.html
+

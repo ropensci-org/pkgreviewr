@@ -17,3 +17,23 @@ check_rstudio <- function() {
                            as.character(rs_version)), prefix = "\n"))
     }
 }
+
+# modified from usethis::use_git
+use_git_pkgrv <- function (path = ".", message = "Initial commit") {
+    if (uses_git_pkgrv(path)) {
+        return(invisible())
+    }
+    usethis:::done("Initialising Git repo")
+    r <- git2r::init(path)
+    usethis::use_git_ignore(c(".Rhistory", ".RData", ".Rproj.user"))
+    usethis:::done("Adding files and committing")
+    paths <- unlist(git2r::status(r))
+    git2r::add(r, paths)
+    git2r::commit(r, message)
+    invisible(TRUE)
+}
+
+# modified from usethis:::uses_git
+uses_git_pkgrv <- function (path) {
+    !is.null(git2r::discover_repository(path))
+}

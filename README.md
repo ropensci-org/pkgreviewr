@@ -32,56 +32,85 @@ git config --global --list
 
 The package also makes use of [**`R Notebooks`**](https://rmarkdown.rstudio.com/r_notebooks.html) (an RMarkdown format) and requires installation of **Rstudio version 1.0** or higher 
 
+***
+
 ## Review workflow
 
-1. Create review project 
-1. Initialise project
-1. Create blank (don't automatically create any files on GitHub) review repository on GitHub and link. 
-    - Follow naming convention `"{pkgname}-review"`.
-    - Link local review project to the repository through the terminal, eg
-    ```
-    git remote add origin https://github.com/annakrystalli/rdflib-review.git
-    git push -u origin master
-    ```
-1. Open `index.Rmd` and work through the review in the notebook. You can make notes either in `index.Rmd` or directly in the `pkgreview.md` response file.
-1. Submit your review in the package `ropensci/onboarding` issue by copying and pasting the completed template.
-1. Publish your report by pushing to GitHub.
+### Overview
 
-## Example
+1. Create and initialise review project 
 
-This is a basic example of **setting up an rOpenSci package review project**:
+1. Open `index.Rmd` and work through the review in the notebook. You can make notes either in `index.Rmd` or directly in the `pkgreview.md` response template.
+
+1. Submit your review in the package `ropensci/onboarding` issue by copying and pasting the completed `pkgreview.md` template.
+
+1. OPTIONAL: Publish your report by pushing to GitHub.
 
 <br>
 
-### create review project
+### Example
 
-Next, create the review project, using `pkgreview_create`. The function takes arguments:
+This is a basic example of **setting up an rOpenSci package review project**:
+
+
+### 1. create review project
+
+Create the review project, using `pkgreview_create`. The function takes arguments:
 
 * **`pkg_repo`:** the **GitHub repo** details of the **package under review** in the form `username/repo` 
 * **`review_parent`:**, the **local directory** in which the **review project (and folder) will be created** and **package source code will be cloned into**.
-
-The function creates a new review project (or prompts for instruction if it already exists) and navigates to the review project root. 
 
 ``` r
 library(pkgreviewr)
 pkgreview_create(pkg_repo = "cboettig/rdflib", 
                  review_parent = "~/Documents/workflows/rOpenSci/reviews/")
 ```
-<br>
 
-### initialise review
+The function creates a new review project in the `review_parent` directory following project naming convention `{pkgname}-review` and populates the review templates to create all required documents. 
 
-Next, initialise the review project.
+#### review files
 
-``` r
-library(pkgreviewr)
-pkgreview_init(pkg_repo = "cboettig/rdflib")
+The review project directory will contain all the files you'll need to complete the review and will be initialised with git.
 
 ```
+rdflib-review
+├── README.md
+├── index.Rmd
+├── pkgreview.md
+└── rdflib-review.Rproj
+```
+
+#### **`index.Rmd`**
+
+The most important file it creates is the `index.Rmd html_notebook` file. This workbook is prepopulated with all the major steps required to complete the review in an interactive document to perform and record it in. It also extracts useful links, information and parameter values. 
+
+**See example [here](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-review-index.Rmd).**
+
+Once rendered to **`index.nb.html`** (`*.nb.html` is the notebook file format), this report can be pushed to GitHub for publication.
+
+#### **`pkgreview.md`** 
+
+Template response form to submit to the package rOpenSci onboarding review issue. 
+
+**See template [here](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-pkgreview.md)**.
+
+#### **`README.md`** 
+
+Prepopulated README for the review repo that will present the repo to people navigating to it. 
+
+**See example [here:](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-README.md)**.
+
+***
+
+
+
+
 
 #### clone of package source code
 
-To enable local testing of the package, initialisation clones package source code from github to a second, sibling directory to the review project. This also makes it available for local review and perhaps even a pull request. Correcting typos in documentation can be a great review contribution, but first ask the author if they are open to such pull requests!
+To enable local testing of the package, review creation also clones the review package source code into `review_parent` from the github repository defned in `pkg_repo` . This also makes it available for local review and perhaps even a pull request. Correcting typos in documentation can be a great review contribution, but first you might want to check the contributing guidelines or ask the author if they are open to such pull requests.
+
+The resulting files from a successful review project will look like this: 
 
 ```
 reviews
@@ -155,54 +184,26 @@ reviews
 │   └── vignettes
 │       └── rdflib.Rmd
 └── rdflib-review
-    ├── R
     ├── README.md
     ├── index.Rmd
     └── rdflib-review.Rproj
 
 ```
 
-#### review files
-
-After initialisation, the review project directory will contain all the files you'll need to complete the review and will be initialised with git.
-
-```
-rdflib-review
-├── R
-├── README.md
-├── index.Rmd
-├── pkgreview.md
-└── rdflib-review.Rproj
-```
 <br>
 
+### 2. Perform your review:
 
-## Review files
+Use the index.Rmd notebook to work through the review interactively. The document is designed to guide the process in a logical fashion and bring your attention to relevant aspects and information at different stages of the review. You can make notes and record comments within index.Rmd or directly in the review submission form. 
 
-### `index.Rmd` 
+<br>
 
-The most important file it creates is the `index.Rmd html_notebook` file. This workbook is prepopulated with all the major steps required to complete the review in an interactive document to perform and record it in. It also extracts useful links, information and parameter values. 
+### 3. Submit your review:
 
-#### See **example [here](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-review-index.Rmd).**
+Currently the workflow is just set up for you to just copy your response from your completed `pkgreview.md` and paste it into the review issue but we're exploring programmatic submission also. Because the response is currently submitted as `.md`, package `reprex` might be useful for inserting reproducible demos of any issues encountered. 
 
-Once rendered to `index.nb.html` (`.nb.html` is the notebook file format), this report can be pushed to GitHub for publication.
+<br>
 
-### `pkgreview.md` 
+### 4. Publish your report by pushing to GitHub *
 
-Template response form to submit to the package rOpenSci onboarding review issue. 
-
-#### See **template [here](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-pkgreview.md)**.
-
-### `README.md` 
-
-Prepopulated README for the review repo that will present the repo to people navigating to it. 
-
-#### See **example [here:](https://github.com/annakrystalli/pkgreviewr/blob/master/inst/examples/example-README.md)**.
-
-***
-
-
-
-
-
-
+Optional. Have a look at the **Publish pkgreview on GitHub** vignette.

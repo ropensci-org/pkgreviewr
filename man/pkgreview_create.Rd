@@ -2,12 +2,9 @@
 % Please edit documentation in R/pkgreview.R
 \name{pkgreview_create}
 \alias{pkgreview_create}
-\alias{pkgreview_init}
-\title{Create and initialise package review}
+\title{Create a review project.}
 \usage{
-pkgreview_create(pkg_repo, review_parent = ".", open = TRUE)
-
-pkgreview_init(pkg_repo, review_dir = here::here(), open = TRUE)
+pkgreview_create(pkg_repo, review_parent = ".")
 }
 \arguments{
 \item{pkg_repo}{character string of the repo owner and name in the form of
@@ -15,22 +12,15 @@ pkgreview_init(pkg_repo, review_dir = here::here(), open = TRUE)
 
 \item{review_parent}{directory in which to setup review project and source package
 source code.}
-
-\item{open}{Open the newly created project/file for editing? Happens in RStudio, if
-applicable, or via [utils::file.edit()] otherwise.}
-
-\item{review_dir}{path to review project root.}
 }
 \value{
 setup review project with templates
 }
 \description{
-Create a review project using `pkgreview_create`. Wait till your workspace has
-been switched to pkg review project dircetory and initialise review using
-`pkgreview_init`
+Create and initialise an rOpenSci package review project
 }
 \examples{
 \dontrun{
-pkgreview_init(pkg_repo = "cboettig/rdflib")
+pkgreview_create(pkg_repo = "cboettig/rdflib")
 }
 }
