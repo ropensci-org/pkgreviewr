@@ -29,8 +29,7 @@ pkgreview_create <- function(pkg_repo, review_parent = ".") {
                usethis::create_project(review_path, open = FALSE)
                unlink(file.path(review_path,"R"), recursive = TRUE)},
            {message(paste0(review_path,
-                           "review project already exists. Opening project"))
-               if (rstudioapi::isAvailable()) rstudioapi::openProject(review_path)})
+                           "review project already exists."))})
 
     # clone package source code directory
     meta <- devtools:::github_remote(pkg_repo)
