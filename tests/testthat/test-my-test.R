@@ -43,7 +43,7 @@ test_that("missing-config-throws-error", {
 
 test_that("initialised-correctly", {
     expect_setequal(c("index.Rmd", "pkgreview.md", "README.md"),
-                    list.files(review_dir))
+                    list.files(review_dir, include.dirs = T))
         #expect_true("rdflib-review.Rproj" %in% list.files(review_dir))
 })
 
