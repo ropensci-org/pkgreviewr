@@ -22,8 +22,8 @@ pkgreview_create <- function(pkg_repo, review_parent = ".") {
 
     # create project
     meta <- devtools:::github_remote(pkg_repo)
-    review_path <- file.path(review_parent,
-                                    paste0(meta$repo, "-review"))
+    review_path <- normalizePath(file.path(review_parent,
+                                    paste0(meta$repo, "-review")))
     ifelse(usethis:::can_overwrite(review_path),
            {unlink(review_path, recursive=TRUE)
                usethis::create_project(review_path, open = FALSE)
