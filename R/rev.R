@@ -2,6 +2,8 @@
 
 rev_calls <- function(path = "."){
   
+  package <- devtools::as.package(path)$package
+  
   check_if_installed(package = package)
   
   call_data <- create_package_igraph()
