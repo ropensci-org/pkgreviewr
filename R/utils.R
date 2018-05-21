@@ -37,3 +37,12 @@ use_git_pkgrv <- function (path = ".", message = "Initial commit") {
 uses_git_pkgrv <- function (path) {
     !is.null(git2r::discover_repository(path))
 }
+
+# check if a package is installed
+check_if_installed <- function(package){
+  if(!requireNamespace(package, quietly = TRUE)){
+    stop(paste0(package, " is not installed"), call. = FALSE)
+  }
+} 
+
+
