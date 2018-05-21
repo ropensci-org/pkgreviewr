@@ -27,7 +27,8 @@ Imports:
     assertthat,
     httr,
     rstudioapi,
-    functionMap
+    functionMap,
+    igraph
 Suggests: 
     testthat,
     mockery,
