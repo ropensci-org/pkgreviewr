@@ -1,0 +1,213 @@
+---
+output: html_document
+pagetitle: "Onboarding Report"
+params:
+  pkgdir: /Users/noamross/dropbox/reviews/plater
+  save_obj: FALSE
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(dplyr)
+opts_chunk$set(echo = TRUE)
+library(desc)
+library(fs)
+library(cloc)
+library(spelling)
+library(goodpractice)
+library(covr)
+library(purrr)
+library(DT)
+library(formattable)
+```
+
+
+```{r env, include = FALSE}
+Sys.setlocale("LC_COLLATE", "C")
+Sys.setenv("_R_CHECK_TIMINGS_"=0, "_R_CHECK_LENGTH_1_CONDITION_" = TRUE)
+```
+
+```{r get_description, include = FALSE}
+pkgdesc <- desc(path(params$pkgdir, "DESCRIPTION"))
+pkgname <- pkgdesc$get_field("Package")
+```
+# `r paste('Onboarding Submission Report: ', pkgname)` {.tabset}
+
+## README
+
+```{r readme, echo = FALSE, comment = ""}
+if (file_exists(path(params$pkgdir, "README.md")))  {
+  #knit_print(asis_output(paste(readLines(path(params$pkgdir, "README.md")), collapse = "\n")))
+  readme_tmp <- tempfile()
+  rmarkdown::pandoc_convert(path(params$pkgdir, "README.md"), to="html",
+                               output = readme_tmp)
+  knit_print(asis_output(
+    paste(readLines(readme_tmp), collapse="\n")
+  ))
+} else if (length(dir_ls(params$pkgdir, regexp = "README", ignore.case = TRUE))) {
+  cat(readLines(dir_ls(params$pkgdir, regexp = "README", ignore.case = TRUE)[1]), sep = "\n")
+} else {
+  knit_print(asis_output('<span style="color: red;"><strong>No README found!<strong/><span/>'))
+}
+```
+
+
+## DESCRIPTION
+
+```{r description, echo = FALSE, comment=""}
+pkgdesc
+```
+
+
+## R CMD check
+
+```{r get_gp, include = FALSE}
+gp_obj <- safely(quietly(gp))(path = params$pkgdir)
+```
+
+```{r rcmdcheck, echo=FALSE, comment=""}
+if(is.null(gp_obj$error)) {
+cat(paste(
+  gp_obj$result$result$rcmdcheck$stderr,
+  "\n----------\n",
+  gp_obj$result$result$rcmdcheck$stdout))
+  gp_obj$result$result$rcmdcheck$session_info
+}
+
+```
+
+## goodpractice
+
+```{r rcmdcheck_warn, echo=FALSE, comment=""}
+if(!is.null(gp_obj$error)) {
+  stop(gp_obj$error)
+}
+if(!is.null(gp_obj$results$warnings)) {
+  warning(gp_obj$result$warnings)
+}
+```
+
+```{r gp, echo=FALSE, comment=""}
+gp_obj$result$result
+```
+
+## Spelling
+
+```{r spelling, echo = FALSE}
+spell_obj <- spell_check_package(params$pkgdir)
+spell_obj
+```
+
+## Tests
+
+***TODO: Better way to explore test results?***
+
+```{r tests, message = FALSE, warning=FALSE, echo = FALSE}
+test_obj <- quietly(devtools::test)(params$pkgdir, reporter = testthat::SummaryReporter)
+```
+
+```{r tests2, message = FALSE, warning=FALSE, echo = FALSE}
+fail_fmt <- formatter("span",
+                      style = x ~ formattable::style("display" = "block", "padding" = "0 4px", "border-radius" = "4px",  "background-color" = ifelse(x, "lightpink", "white")))
+skip_fmt <- formatter("span",
+                      style = x ~ formattable::style("display" = "block", "padding" = "0 4px", "border-radius" = "4px",  "background-color" = ifelse(x, "yellow", "white")))
+
+as.data.frame(test_obj$result) %>%
+  mutate_at(vars(failed, skipped, error, warning), as.logical) %>%
+  arrange(desc(failed), desc(error), desc(warning), desc(skipped)) %>% formattable(list(
+  error = fail_fmt,
+  skipped = skip_fmt,
+  warning = fail_fmt,
+  failed = fail_fmt
+)) %>%
+as.datatable(rownames=FALSE, autoHideNavigation = TRUE, width = "100%")
+```
+
+## Test Coverage
+
+***TODO: Cleanup the widget for this and make in a function in the package***
+
+```{r covr, echo=FALSE}
+source("/home/rstudio/coverage-report-widget.R")
+if(!is.null(gp_obj$result)) {
+covr_report <- report_widget(gp_obj$result$result$covr$coverage)
+covr_report
+}
+```
+
+## Dependencies
+
+***TODO: Show package dependency tree.  Best option is currently `r-lib/pkgdepenends`,
+but current version broken, so using old commit.***
+
+```{r pkgdepends, echo = FALSE, comment = "", error=TRUE}
+
+pkgdepends_obj <- pkgdepends::remotes$new(paste0("installed::",
+                                    system.file(package=pkgname)),
+                            lib = tempfile())
+pkgdepends_obj$solve()
+pkgdepends_obj$draw_tree()
+```
+
+## CLOC
+
+***TODO: Why are there no results when knitting here?***
+
+```{r cloc, echo = FALSE}
+cloc_obj <- cloc::cloc(params$pkgdir)
+
+cloc_obj %>%
+  mutate_at(vars(ends_with("pct")),
+            funs(as.character(formattable::percent(., digits=1)))) %>%
+  select(-source) %>% 
+  DT::datatable(rownames = FALSE, width= "100%",  autoHideNavigation=TRUE)
+```
+
+## Functions / Help Topics
+
+***TODOs***
+
+-   Table of functions with
+    -   name
+    -   signature
+    -   short help topic description
+    -   cyclomatic complexity
+    -   lines of code
+    -   some measure of network importance (how many fns depend on it, how many package fns it calls (resursively))
+-   Network of function dependencies
+    -   use `igraph.from.graphNEL(makeCallGraph(as.list(getNamespace(pkgname))))`, **networkD3**?, **visNetwork**
+    -   distinguish exported/internal functions
+-   Some way to detect/show S3, S4, R6 usage?
+-   Package PDF manual
+
+```{r fns, echo=FALSE, warning = FALSE, message = FALSE, results = 'asis'}
+if(!is.null(gp_obj$result)) {
+  kable(gp_obj$result$result$cyclocomp, row.names = FALSE)
+}
+```
+
+
+```{r, include = FALSE}
+# Plan here is to render the manual and store it as a downloadable base64 object)
+# mp <- tempdir()
+# devtools::build_manual(pkg = params$pkgdir, path = mp)
+# list.files(mp)
+```
+
+```{r, include = FALSE}
+if(params$save_obj) {
+  if(is.null(params$obj_dir)) {
+    obj_dir <- file.path(params$pkgdir, "ro-check")
+  } else {
+    obj_dir <- params$obj_dir
+  }
+  if(!dir_exists(obj_dir)) dir_create(params$obj_dir)
+  saveRDS(gp_obj, path(obj_dir, "gp_obj.rds"))
+#  saveRDS(pkgdepends_obj, path(params$obj_dir, "pkgdepends.rds"))
+  saveRDS(cloc_obj, path(obj_dir, "cloc_obj.rds"))
+  saveRDS(spell_obj, path(obj_dir, "spell_obj.rds"))
+  saveRDS(test_obj, path(obj_dir, "test_obj.rds"))
+}
+```
+
+
