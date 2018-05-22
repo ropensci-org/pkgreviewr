@@ -2,9 +2,9 @@
 #'
 #' @description
 #' `rev_recursive()` counts the number of functions that depend on each function in the package under review
+#' 
 #'
-#' @param path package path
-#' @param igraph_obj igraph object for function calls dependencies returned by `create_package_igraph()`
+#' @inheritParams  rev_fn_summary
 #'
 #' @return A two-column dataframe
 #' @export
