@@ -65,7 +65,15 @@ rev_calls <- function(path = ".", igraph_obj = NULL){
   return(degree_df)
 }
 
-
+#' Extract functions arguments of a package
+#' 
+#' Extracts function arguments of all functions in a package into a dataframe
+#' 
+#' @inheritParams rev_fn_summary
+#' 
+#' @return A dataframe of function names 
+#' 
+#' @export
 rev_signature <- function(path = "."){
   ## Get the name of the package
   package <- devtools::as.package(path)$package
