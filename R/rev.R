@@ -22,7 +22,7 @@ rev_fn_summary <- function(path = ".", igraph_obj = NULL){
   res <- merge(res, rev_signature_res, all.x = TRUE)
   res[is.na(res)] <- 0
   
-  res[,c("f_args","called-by","calls","exported","all_called_by")]
+  res[,c("f_args","called_by","calls","exported","all_called_by")]
   
 }
 
