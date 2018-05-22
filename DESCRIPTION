@@ -28,6 +28,8 @@ Imports:
     httr,
     rstudioapi,
     functionMap,
+    dplyr,
+    tidyr,
     igraph
 Suggests: 
     testthat,
