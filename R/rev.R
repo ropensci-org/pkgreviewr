@@ -15,7 +15,7 @@ rev_calls <- function(path = "."){
   check_if_installed(package = package)
   
   
-  call_data <- create_package_igraph()
+  call_data <- create_package_igraph(path = path)
   
   ## 'Called by' data
   in_degree <- as.data.frame(igraph::degree(call_data, mode = c("in")))
