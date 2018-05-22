@@ -8,7 +8,7 @@
 #' 
 rev_fn_summary <- function(path = ".", igraph_obj = NULL){
   
-  fn_igraph_obj <- create_package_igraph()
+  fn_igraph_obj <- create_package_igraph(path = path)
   ## get functions direct calls/called by count
   rev_calls_res <- rev_calls(path = path, igraph_obj = fn_igraph_obj)
   
