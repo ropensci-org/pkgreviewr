@@ -4,7 +4,7 @@
 \alias{rev_dependency_usage}
 \title{Review dependency usage: Count used functions from external packages.}
 \usage{
-rev_dependency_usage(path = ".", include_base = FALSE)
+rev_dependency_usage(path, include_base = FALSE)
 }
 \arguments{
 \item{path}{Name of a source R package tar archive file,
@@ -21,6 +21,6 @@ Review dependency usage: Count used functions from external packages.
 }
 \examples{
 \dontrun{
-rev_dependency_usage()
+rev_dependency_usage(path = ".")
 }
 }
