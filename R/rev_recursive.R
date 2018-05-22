@@ -22,5 +22,5 @@ rev_recursive <- function(igraph_obj) {
     data.frame() %>%
     stats::setNames("f_name") %>%
     dplyr::group_by(f_name) %>%
-    dplry::summarize(all_called_by = n())
+    dplyr::summarize(all_called_by = n())
 }
