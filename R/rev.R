@@ -17,12 +17,15 @@ rev_calls <- function(path = "."){
   
   call_data <- create_package_igraph()
   
-  
+  ## 'Called by' data
   in_degree <- as.data.frame(igraph::degree(call_data, mode = c("in")))
   in_degree$f_name <- rownames(in_degree)
+  
+  ## 'Calls' data
   out_degree <- as.data.frame(igraph::degree(call_data, mode = c("out")))
   out_degree$f_name <- rownames(out_degree)
   
+  ## Combine into one dataframe
   degree_df <- merge(in_degree, out_degree)
   
   colnames(degree_df) <- c("f_name","called-by", "calls")
