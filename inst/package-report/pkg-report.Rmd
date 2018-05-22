@@ -156,7 +156,7 @@ but current version broken, so using old commit.***
 
 ## Functions Calls
 
-```{r rev_calls, echo = FALSE, comment = "", message = FALSE}
+```{r functions_calls, echo = FALSE, comment = "", message = FALSE}
 res <- pkgreviewr::pkg_fn_summary(params$pkgdir)
 
 DT::datatable(res)
