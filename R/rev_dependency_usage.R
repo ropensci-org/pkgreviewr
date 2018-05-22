@@ -1,5 +1,3 @@
-# TODO: Refactor to remove dependencies.
-
 #' Review dependency usage: Count used functions from external packages.
 #' 
 #' @inheritParams functionMap::map_r_package
@@ -9,9 +7,13 @@
 #'
 #' @examples
 #' \dontrun{
-#' rev_dependency_usage(path = ".")
+#' rev_dependency_usage()
 #' }
-rev_dependency_usage <- function(path, include_base = FALSE) {
+rev_dependency_usage <- function(path = ".", include_base = FALSE) {
+  if (identical(path, ".")) {
+    path <- usethis::proj_get()
+  }
+  
   map <- functionMap::map_r_package(path, include_base)$node_df
   map %>% 
   dplyr::filter(!own) %>%
