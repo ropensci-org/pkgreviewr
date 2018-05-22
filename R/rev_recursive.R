@@ -1,9 +1,10 @@
 #' Review recursive function calls
 #'
 #' @description
-#' `rev_recursive()` counts the number of functions that depend on each function in the package under review, taking the object of class `igraph` returned by `create_package_igraph()` as input
+#' `rev_recursive()` counts the number of functions that depend on each function in the package under review
 #'
-#' @param igraph_obj object returned by `create_package_igraph()`
+#' @param path package path
+#' @param igraph_obj igraph object for function calls dependencies returned by `create_package_igraph()`
 #'
 #' @return A two-column dataframe
 #' @export
@@ -12,7 +13,11 @@
 #' \dontrun{
 #' rev_recursive(igraph_obj)
 #' }
-rev_recursive <- function(igraph_obj) {
+rev_recursive <- function(path = ".", igraph_obj = NULL) {
+  
+  if(is.null(igraph_obj))
+    igraph_obj <- create_package_igraph(path = path)
+  
   order <- length(igraph::V(igraph_obj))
   function_list <- igraph::ego(igraph_obj, order = order, mode = "out", mindist = 1)
 

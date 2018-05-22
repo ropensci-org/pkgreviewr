@@ -3,6 +3,8 @@
 #' Create a dataframe of all functions in and used by the package
 #' 
 #' @inheritParams functionMap::map_r_package 
+#' @param path package path
+#' @param igraph_obj igraph object for function calls dependencies returned by `create_package_igraph()`
 #' 
 #' @return A dataframe of functions in and used by the package and the number of times they are called and called by
 #' 
