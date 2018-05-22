@@ -4,14 +4,12 @@
 \alias{rev_recursive}
 \title{Review recursive function calls}
 \usage{
-
 rev_recursive(path = ".", igraph_obj = NULL)
 }
 \arguments{
 \item{path}{package path}
 
 \item{igraph_obj}{igraph object for function calls dependencies returned by `create_package_igraph()`}
-
 }
 \value{
 A two-column dataframe
