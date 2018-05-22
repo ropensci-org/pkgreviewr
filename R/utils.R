@@ -45,13 +45,16 @@ check_if_installed <- function(package){
   }
 } 
 
-#' Create a igraph object from functionMap output
+#' @noRd
 
 create_package_igraph <- function(path = ".", include_base = FALSE, directed = TRUE){
   
   mapped <- functionMap::map_r_package(path = path, include_base = include_base)
   
-  igraph::graph_from_data_frame(mapped$edge_df, directed = directed, vertices = mapped$node_df)
+  node_df <- mapped$node_df[mapped$node_df$own == TRUE,]
   
+  edge_df <- mapped$edge_df[mapped$edge_df$to %in% unique(node_df$ID),]
+  
+  igraph::graph_from_data_frame(edge_df, directed = directed, vertices = node_df)
   
 }
