@@ -243,8 +243,10 @@ Optional. Have a look at the **Publish pkgreview on GitHub** vignette.
 
 ## rOpenSci 2018: `pkgtests` branch
 
-Sam Albers, Leonardo Collado-Torres, Mauro Lepore, Joyce Robbins, Noam
-Ross, Omayma Said
+Sam Albers, Leonardo Collado-Torres, [Mauro
+Lepore](https://twitter.com/mauro_lepore), [Joyce
+Robbins](https://twitter.com/jtrnyc), Noam Ross, [Omayma
+Said](https://github.com/OmaymaS)
 
 ### Function calls
 

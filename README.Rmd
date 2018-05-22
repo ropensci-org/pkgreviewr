@@ -3,6 +3,10 @@ output: github_document
 params:
   pkgdir: !r system.file('viridisLite', package = 'pkgreviewr')
 ---
+```{r, echo = FALSE, eval = FALSE}
+## Do not edit the .md version of the README, edit .Rmd only!!!
+```
+
 
 [![Travis build status](https://travis-ci.org/ropenscilabs/pkgreviewr.svg?branch=master)](https://travis-ci.org/ropenscilabs/pkgreviewr)
 [![codecov](https://codecov.io/gh/ropenscilabs/pkgreviewr/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/pkgreviewr)
@@ -115,10 +119,6 @@ Prepopulated README for the review repo that will present the repo to people nav
 
 ***
 
-
-
-
-
 #### clone of package source code
 
 To enable local testing of the package, review creation also clones the review package source code into `review_parent` from the github repository defined in `pkg_repo` . This also makes it available for local review and perhaps even a pull request. Correcting typos in documentation can be a great review contribution, but first you might want to check the contributing guidelines or ask the author if they are open to such pull requests.
@@ -225,7 +225,7 @@ Optional. Have a look at the **Publish pkgreview on GitHub** vignette.
 
 ## rOpenSci 2018: `pkgtests` branch
 
-Sam Albers, Leonardo Collado-Torres, Mauro Lepore, Joyce Robbins, Noam Ross, Omayma Said
+Sam Albers, Leonardo Collado-Torres, [Mauro Lepore](https://twitter.com/mauro_lepore), [Joyce Robbins](https://twitter.com/jtrnyc), Noam Ross, [Omayma Said](https://github.com/OmaymaS)
 
 ### Function calls
 
