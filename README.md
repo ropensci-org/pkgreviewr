@@ -258,21 +258,21 @@ package or on an class of `igraph` returned by `create_package_igraph()`
 in which functions are represented as nodes and function calls as
 directed edges.
 
-`rev_fn_summary` returns a data frame with the following columns:
+`rev_fn_summary()` returns a data frame with the following columns:
 
-`f_args`: names of all package functions and default arguments
+  - `f_args`: names of all package functions and default arguments
 
-`called_by`: number of functions that directly depend on `f`
+  - `called_by`: number of functions that directly depend on `f`
 
-`calls`: number of functions directed called by `f`
+  - `calls`: number of functions directed called by `f`
 
-`exported`: logical TRUE if the package exports `f`
+  - `exported`: logical TRUE if the package exports `f`
 
-`all_called_by`: number of functions that depend on `f` (functions that
-directly or indirectly call `f`)
+  - `all_called_by`: number of functions that depend on `f` (functions
+    that directly or indirectly call `f`)
 
-For example, we run `rev_fn_summary()` on a default package included
-with
+For example, we run `rev_fn_summary()` on a default package
+(`viridisLite`) included with
 `pkgreviewr`:
 
 ``` r
