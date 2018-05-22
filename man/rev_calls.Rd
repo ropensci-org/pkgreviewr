@@ -7,9 +7,11 @@
 rev_calls(path = ".", igraph_obj = NULL)
 }
 \arguments{
+
 \item{path}{package path}
 
 \item{igraph_obj}{igraph object for function calls dependencies returned by `create_package_igraph()`}
+
 }
 \value{
 A dataframe of functions in and used by the package and the number of times they are called and called by

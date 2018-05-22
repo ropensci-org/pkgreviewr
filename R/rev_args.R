@@ -14,7 +14,7 @@
 #' The \code{arg_df} is a data.frame with one element per argument that
 #' has the name of the argument, the number of functions where it's used,
 #' whether the default is consistent across all functions and percent
-#' of consistency.
+#' of consistency (based on the first appearance of the argument).
 #' \code{arg_map} is a logical matrix with the functions in the rows and the
 #' arguments in the columns. It specifies which functions use which arguments.
 #'
@@ -87,6 +87,8 @@ rev_args <- function(path = '.', exported_only = FALSE) {
         all(sapply(defaults, function(x) x == defaults[1]))
     })
 
+    ## This consistency percent is calculated against the first appeareance
+    ## of the argument, which might be lower.
     args_df$default_consistent_percent <- sapply(
         sapply(args_df$arg_name, get_defaults), function(defaults) {
         mean(sapply(defaults, function(x) x == defaults[1])) * 100

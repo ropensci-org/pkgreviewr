@@ -18,7 +18,7 @@ A two element list with \code{arg_df} and \code{arg_map}.
 The \code{arg_df} is a data.frame with one element per argument that
 has the name of the argument, the number of functions where it's used,
 whether the default is consistent across all functions and percent
-of consistency.
+of consistency (based on the first appearance of the argument).
 \code{arg_map} is a logical matrix with the functions in the rows and the
 arguments in the columns. It specifies which functions use which arguments.
 }
