@@ -267,3 +267,25 @@ viridisMap TRUE  TRUE  TRUE TRUE      TRUE   TRUE
 
 In this example, the `n` argument doesn't have a consistent default value in all 5 functions where it's used.
 
+
+### Review dependency usage
+
+New `rev_dependency_usage()` counts used functions from external packages.
+
+```{r}
+library(pkgreviewr)
+library(dplyr)
+
+# Usnig default path to review dependency usage of pkgreviewr
+n_deps <- rev_dependency_usage()
+
+# You may want to remove dependency on packages from which you use few functions
+# As tibble truncates `functions` so they use no more than a single line
+as_tibble(arrange(n_deps, n))
+```
+
+```{r}
+# `kable()` lets you see al functions even if they don't fit in a single line.
+knitr::kable(n_deps)
+```
+
