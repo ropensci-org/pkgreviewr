@@ -108,7 +108,7 @@ Prepopulated README for the review repo that will present the repo to people nav
 
 #### clone of package source code
 
-To enable local testing of the package, review creation also clones the review package source code into `review_parent` from the github repository defned in `pkg_repo` . This also makes it available for local review and perhaps even a pull request. Correcting typos in documentation can be a great review contribution, but first you might want to check the contributing guidelines or ask the author if they are open to such pull requests.
+To enable local testing of the package, review creation also clones the review package source code into `review_parent` from the github repository defined in `pkg_repo` . This also makes it available for local review and perhaps even a pull request. Correcting typos in documentation can be a great review contribution, but first you might want to check the contributing guidelines or ask the author if they are open to such pull requests.
 
 The resulting files from a successful review project will look like this: 
 
@@ -207,3 +207,57 @@ Currently the workflow is just set up for you to just copy your response from yo
 ### 4. Publish your report by pushing to GitHub *
 
 Optional. Have a look at the **Publish pkgreview on GitHub** vignette.
+
+
+
+## rOpenSci 2018: `pkgtests` branch
+
+
+### Argument default usage
+
+We introduced the `rev_args()` function that identifies all the arguments used in the functions of a given package and it's main feature is a logical vector indicating if the default value of the argument is consistent across all uses of the argument. The idea is that this information can be useful to a reviewer because it is a proxy of the complexity of the package and potential source of confusion to users. Maybe the package uses the same argument name for two completely different things. Or maybe it's a logical flag that sometimes is set to `TRUE` and others to `FALSE`.
+
+#### Details
+
+The function `rev_args(path = '.', exported_only = FALSE)` takes two arguments:
+
+* `path`: path to a package
+* `exported_only`: logical indicating whether to focus only on the exported functions or not.
+
+`rev_args()` returns a list with two elements:
+
+* `arg_df`: a data.frame with columns
+    - `arg_name`: name of the argument
+    - `n_functions`: number of functions where the argument is used
+    - `default_consistent`: logical, is the argument default value consistent across all usages
+    - `default_consistent_percent`: [0, 100] indicating how consistent the default usage is when compared against the first use of the argument.
+* `arg_map`: a logical matrix with function names in the rows, argument names in the columns. It indicates where each argument is used.
+
+#### Example output
+
+```R
+## Run rev_args() on the example package viridisLite that is included in pkgreviewr
+> arg_info_exported <- rev_args(system.file('viridisLite', package = 'pkgreviewr', mustWork = TRUE), exported_only = TRUE)
+
+## Explore the output
+> arg_info_exported
+$arg_df
+   arg_name n_functions default_consistent default_consistent_percent
+1         n           5              FALSE                         80
+2     alpha           5               TRUE                        100
+3     begin           5               TRUE                        100
+4       end           5               TRUE                        100
+5 direction           5               TRUE                        100
+6    option           2               TRUE                        100
+
+$arg_map
+              n alpha begin  end direction option
+cividis    TRUE  TRUE  TRUE TRUE      TRUE  FALSE
+magma      TRUE  TRUE  TRUE TRUE      TRUE  FALSE
+plasma     TRUE  TRUE  TRUE TRUE      TRUE  FALSE
+viridis    TRUE  TRUE  TRUE TRUE      TRUE   TRUE
+viridisMap TRUE  TRUE  TRUE TRUE      TRUE   TRUE
+```
+
+In this example, the `n` argument doesn't have a consistent default value in all 5 functions where it's used.
+
