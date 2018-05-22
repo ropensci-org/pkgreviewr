@@ -237,7 +237,8 @@ The function `rev_args(path = '.', exported_only = FALSE)` takes two arguments:
 
 ```R
 ## Run rev_args() on the example package viridisLite that is included in pkgreviewr
-> arg_info_exported <- rev_args(system.file('viridisLite', package = 'pkgreviewr', mustWork = TRUE), exported_only = TRUE)
+> arg_info_exported <- rev_args(system.file('viridisLite', package = 'pkgreviewr',
+    mustWork = TRUE), exported_only = TRUE)
 
 ## Explore the output
 > arg_info_exported
