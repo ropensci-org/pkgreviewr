@@ -76,9 +76,9 @@ rev_args <- function(path = '.', exported_only = FALSE) {
         if(any(sapply(raw_default, function(x) { any(is.null(x))}))){
             ## Special case when it's NULL.
             ## This happens with the 'output_file' argument in pkgreviewr
-            raw_default <- sapply(raw_default, function(x) { x[is.null(x)] <- '' })
+            for(i in which(sapply(raw_default, is.null))) raw_default[[i]] <- ''
         }
-        sapply(raw_default, as.character)
+        sapply(raw_default, function(x) paste(as.character(x), collapse = ''))
     }
 
     ## Are the arguments consistent
