@@ -1,6 +1,6 @@
 #' Return a table with package functions call summary
 #' 
-#' @param path package path
+#' @inheritParams functionMap::map_r_package 
 #' @param igraph_obj igraph object for function calls dependencies returned by `create_package_igraph()`
 #' 
 #' @return a table with package functions call summary
@@ -24,9 +24,7 @@ rev_fn_summary <- function(path = ".", igraph_obj = NULL){
 #' 
 #' Create a dataframe of all functions in and used by the package
 #' 
-#' @inheritParams functionMap::map_r_package 
-#' @param path package path
-#' @param igraph_obj igraph object for function calls dependencies returned by `create_package_igraph()`
+#' @inheritParams rev_fn_summary
 #' 
 #' @return A dataframe of functions in and used by the package and the number of times they are called and called by
 #' 
