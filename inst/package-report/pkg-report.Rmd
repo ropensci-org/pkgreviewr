@@ -188,7 +188,7 @@ rev_dependency_usage()
 
 ***TODO: Why are there no results when knitting here?***
 
-```{r cloc, echo = FALSE}
+```{r cloc, echo = FALSE, eval = Sys.which("perl") != ''}
 cloc_obj <- cloc::cloc(params$pkgdir)
 
 cloc_obj %>%
