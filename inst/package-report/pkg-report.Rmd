@@ -178,6 +178,15 @@ corrplot::corrplot(pkgreviewr::rev_args(params$pkgdir)$arg_map, method = 'square
 
 You can also apply `pkgreviewr::rev_args()` to the subset of exported functions. The function also returns a logical matrix with the functions in the rows and the arguments in the columns to identify where each argument is used.
 
+## Dependency usage
+
+```{r}
+rev_dependency_usage()
+```
+
+
+
+
 
 ## CLOC
 
