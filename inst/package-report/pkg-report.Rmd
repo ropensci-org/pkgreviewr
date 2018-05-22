@@ -2,7 +2,7 @@
 output: html_document
 pagetitle: "Onboarding Report"
 params:
-  pkgdir: E:/R_Other/packages/viridisLite
+  pkgdir: !r system.file('viridisLite', package = 'pkgreviewr')
 ---
 
 ```{r setup, include=FALSE}
