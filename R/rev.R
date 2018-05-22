@@ -15,17 +15,23 @@ rev_calls <- function(path = "."){
   check_if_installed(package = package)
   
   
-  call_data <- create_package_igraph()
+  call_data <- create_package_igraph(path = path)
   
-  
+  ## 'Called by' data
   in_degree <- as.data.frame(igraph::degree(call_data, mode = c("in")))
   in_degree$f_name <- rownames(in_degree)
+  
+  ## 'Calls' data
   out_degree <- as.data.frame(igraph::degree(call_data, mode = c("out")))
   out_degree$f_name <- rownames(out_degree)
   
+  ## Combine into one dataframe
   degree_df <- merge(in_degree, out_degree)
   
   colnames(degree_df) <- c("f_name","called-by", "calls")
+  
+  ## add exported flag to degree_df
+  degree_df$exported <- igraph::vertex_attr(call_data, "exported")
   
   return(degree_df)
 }
