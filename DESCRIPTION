@@ -15,7 +15,7 @@ LazyData: true
 Imports:
     git2r (>= 0.21.0),
     devtools,
-    usethis (>= 1.2.0),
+    usethis,
     here,
     reprex,
     gh,
