@@ -27,6 +27,9 @@ rev_calls <- function(path = "."){
   
   colnames(degree_df) <- c("f_name","called-by", "calls")
   
+  ## add exported flag to degree_df
+  degree_df$export <- vertex_attr(k, "exported")
+  
   return(degree_df)
 }
 
