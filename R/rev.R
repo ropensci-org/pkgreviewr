@@ -8,7 +8,7 @@
 #' 
 #' @export
 
-rev_calls <- function(path = "."){
+rev_calls <- function(path = ".", igraph_obj = NULL){
   
   ## Get the name of the package
   package <- devtools::as.package(path)$package
@@ -16,15 +16,15 @@ rev_calls <- function(path = "."){
   
   check_if_installed(package = package)
   
-  
-  call_data <- create_package_igraph(path = path)
+  if(is.null(igraph_obj))
+    igraph_obj <- create_package_igraph(path = path)
   
   ## 'Called by' data
-  in_degree <- as.data.frame(igraph::degree(call_data, mode = c("in")))
+  in_degree <- as.data.frame(igraph::degree(igraph_obj, mode = c("in")))
   in_degree$f_name <- rownames(in_degree)
   
   ## 'Calls' data
-  out_degree <- as.data.frame(igraph::degree(call_data, mode = c("out")))
+  out_degree <- as.data.frame(igraph::degree(igraph_obj, mode = c("out")))
   out_degree$f_name <- rownames(out_degree)
   
   ## Combine into one dataframe
@@ -33,7 +33,7 @@ rev_calls <- function(path = "."){
   colnames(degree_df) <- c("f_name","called-by", "calls")
   
   ## add exported flag to degree_df
-  degree_df$exported <- igraph::vertex_attr(call_data, "exported")
+  degree_df$exported <- igraph::vertex_attr(igraph_obj, "exported")
   
   return(degree_df)
 }
