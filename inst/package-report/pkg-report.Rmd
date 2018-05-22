@@ -157,6 +157,7 @@ but current version broken, so using old commit.***
 ## Functions Calls
 
 ```{r functions_calls, echo = FALSE, comment = "", message = FALSE}
+## get summary of function calls and signature
 res <- pkgreviewr::rev_fn_summary(params$pkgdir)
 
 DT::datatable(res)
@@ -173,23 +174,28 @@ DT::datatable(pkgreviewr::rev_args(params$pkgdir)$arg_df)
 The following plot visualizes which arguments are used in which functions.
 
 ```{r rev_args_mat, echo = FALSE, comment = ""}
-corrplot::corrplot(pkgreviewr::rev_args(params$pkgdir)$arg_map, method = 'square')
+corrplot::corrplot(pkgreviewr::rev_args(params$pkgdir)$arg_map, method = 'square', cl.pos = "n")
 ```
 
 You can also apply `pkgreviewr::rev_args()` to the subset of exported functions. The function also returns a logical matrix with the functions in the rows and the arguments in the columns to identify where each argument is used.
 
+## Dependency usage
+
+```{r}
+rev_dependency_usage()
+```
 
 ## CLOC
 
 ***TODO: Why are there no results when knitting here?***
 
-```{r cloc, echo = FALSE}
+```{r cloc, echo = FALSE, eval = Sys.which("perl") != ''}
 cloc_obj <- cloc::cloc(params$pkgdir)
 
 cloc_obj %>%
   mutate_at(vars(ends_with("pct")),
             funs(as.character(formattable::percent(., digits=1)))) %>%
-  select(-source) %>% 
+  select(-source) %>%
   DT::datatable(rownames = FALSE, width= "100%",  autoHideNavigation=TRUE)
 ```
 
@@ -216,6 +222,7 @@ if(!is.null(gp_obj$result)) {
 }
 ```
 
+## Package Dependancies 
 
 ```{r, include = FALSE}
 # Plan here is to render the manual and store it as a downloadable base64 object)
