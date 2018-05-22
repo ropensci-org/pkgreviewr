@@ -1,5 +1,11 @@
 context("test-rev_args.R")
 
+## viridisLite has to be installed
+installed <- require("viridisLite")
+if(!installed){
+    install.packages('viridisLite')
+}
+
 test_that("extract information for the arguments used in functions", {
     arg_info <- rev_args(system.file('viridisLite', package = 'pkgreviewr', mustWork = TRUE))
     arg_info_exported <- rev_args(system.file('viridisLite', package = 'pkgreviewr', mustWork = TRUE), exported_only = TRUE)
