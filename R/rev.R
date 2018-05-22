@@ -8,7 +8,7 @@
 #' 
 rev_fn_summary <- function(path = ".", igraph_obj = NULL){
   
-  fn_igraph_obj <- create_package_igraph()
+  fn_igraph_obj <- create_package_igraph(path = path)
   ## get functions direct calls/called by count
   rev_calls_res <- rev_calls(path = path, igraph_obj = fn_igraph_obj)
   
@@ -22,7 +22,7 @@ rev_fn_summary <- function(path = ".", igraph_obj = NULL){
   res <- merge(res, rev_signature_res, all.x = TRUE)
   res[is.na(res)] <- 0
   
-  res[,c("f_args","called-by","calls","exported","all_called_by")]
+  res[,c("f_args","called_by","calls","exported","all_called_by")]
   
 }
 
@@ -65,7 +65,15 @@ rev_calls <- function(path = ".", igraph_obj = NULL){
   return(degree_df)
 }
 
-
+#' Extract functions arguments of a package
+#' 
+#' Extracts function arguments of all functions in a package into a dataframe
+#' 
+#' @inheritParams rev_fn_summary
+#' 
+#' @return A dataframe of function names 
+#' 
+#' @export
 rev_signature <- function(path = "."){
   ## Get the name of the package
   package <- devtools::as.package(path)$package
