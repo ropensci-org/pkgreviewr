@@ -160,6 +160,22 @@ but current version broken, so using old commit.***
 DT::datatable(pkgreviewr::rev_calls(params$pkgdir))
 ```
 
+## Argument defaults
+
+Are the default arguments consistent across all the functions? First, across all functions (exported and non-exported):
+
+```{r rev_args, echo = FALSE, comment = ""}
+DT::datatable(pkgreviewr::rev_args(params$pkgdir)$arg_df)
+```
+
+Then only for the exported functions:
+
+```{r rev_args_exported, echo = FALSE, comment = ""}
+DT::datatable(pkgreviewr::rev_args(params$pkgdir, exported_only = TRUE)$arg_df)
+```
+
+You can also apply `pkgreviewr::rev_args()` to the subset of exported functions. The function also returns a logical matrix with the functions in the rows and the arguments in the columns to identify where each argument is used.
+
 
 ## CLOC
 
