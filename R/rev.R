@@ -41,6 +41,22 @@ rev_calls <- function(path = ".", igraph_obj = NULL){
 }
 
 
+rev_signature <- function(path = "."){
+  ## Get the name of the package
+  package <- devtools::as.package(path)$package
+  
+  check_if_installed(package)
+  f_vector <- unclass(lsf.str(envir = asNamespace(package), all = TRUE))
+  
+  f_names <- unlist(lapply(f_vector, get_string_arguments, package = package))
+  
+  f_args <- paste0(f_vector, " ", gsub("function ", "", f_names))
+  
+  data.frame(f_names, f_args)
+  
+}
+
+
 
 
 

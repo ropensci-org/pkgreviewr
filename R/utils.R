@@ -64,6 +64,16 @@ create_package_igraph <- function(path = ".", include_base = FALSE, directed = T
   
 }
 
+get_string_arguments <- function(funcs, package){
+  v <- get(funcs, envir = asNamespace(package))
+  
+  if(typeof(v) == "closure"){
+    return(deparse(v)[1])
+  } else{
+    return("not a function")
+  }
+}
+
 
 
 
