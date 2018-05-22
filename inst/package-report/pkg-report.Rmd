@@ -216,6 +216,7 @@ if(!is.null(gp_obj$result)) {
 }
 ```
 
+## Package Dependancies 
 
 ```{r, include = FALSE}
 # Plan here is to render the manual and store it as a downloadable base64 object)
