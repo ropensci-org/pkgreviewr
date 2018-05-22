@@ -215,7 +215,7 @@ Optional. Have a look at the **Publish pkgreview on GitHub** vignette.
 
 ### Argument default usage
 
-We introduced the `rev_args()` function that identifies all the arguments used in the functions of a given package and it's main feature is a logical vector indicating if the default value of the argument is consistent across all uses of the argument. The idea is that this information can be useful to a reviewer because it is a proxy of the complexity of the package and potential source of confusion to users. Maybe the package uses the same argument name for two completely different things. Or maybe it's a logical flag that sometimes is set to `TRUE` and others to `FALSE`.
+We introduced the `rev_args()` function that identifies all the arguments used in the functions of a given package and its main feature is a logical vector indicating if the default value of the argument is consistent across all uses of the argument. The idea is that this information can be useful to a reviewer because it is a proxy of the complexity of the package and potential source of confusion to users. Maybe the package uses the same argument name for two completely different things. Or maybe it's a logical flag that sometimes is set to `TRUE` and other times to `FALSE`.
 
 #### Details
 
@@ -266,6 +266,8 @@ viridisMap TRUE  TRUE  TRUE TRUE      TRUE   TRUE
 ```
 
 In this example, the `n` argument doesn't have a consistent default value in all 5 functions where it's used.
+<<<<<<< HEAD
+=======
 
 
 ### Review dependency usage
@@ -427,3 +429,4 @@ knitr::kable(n_deps)
 </table>
 
 Created on 2018-05-22 by the [reprex package](http://reprex.tidyverse.org) (v0.2.0).
+
