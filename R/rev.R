@@ -57,7 +57,7 @@ rev_calls <- function(path = ".", igraph_obj = NULL){
   ## Combine into one dataframe
   degree_df <- merge(in_degree, out_degree)
   
-  colnames(degree_df) <- c("f_name","called-by", "calls")
+  colnames(degree_df) <- c("f_name","called_by", "calls")
   
   ## add exported flag to degree_df
   degree_df$exported <- igraph::vertex_attr(igraph_obj, "exported")
