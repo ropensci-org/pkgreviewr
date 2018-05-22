@@ -2,7 +2,7 @@
 output: html_document
 pagetitle: "Onboarding Report"
 params:
-  pkgdir: /Users/noamross/dropbox/reviews/plater
+  pkgdir: E:/R_Other/packages/viridisLite
 ---
 
 ```{r setup, include=FALSE}
@@ -18,6 +18,7 @@ library(covr)
 library(purrr)
 library(DT)
 library(formattable)
+library(pkgreviewr)
 ```
 
 
@@ -35,19 +36,19 @@ pkgname <- pkgdesc$get_field("Package")
 ## README
 
 ```{r readme, echo = FALSE, comment = ""}
-if (file_exists(path(params$pkgdir, "README.md")))  {
-  #knit_print(asis_output(paste(readLines(path(params$pkgdir, "README.md")), collapse = "\n")))
-  readme_tmp <- tempfile()
-  rmarkdown::pandoc_convert(path(params$pkgdir, "README.md"), to="html",
-                               output = readme_tmp)
-  knit_print(asis_output(
-    paste(readLines(readme_tmp), collapse="\n")
-  ))
-} else if (length(dir_ls(params$pkgdir, regexp = "README", ignore.case = TRUE))) {
-  cat(readLines(dir_ls(params$pkgdir, regexp = "README", ignore.case = TRUE)[1]), sep = "\n")
-} else {
-  knit_print(asis_output('<span style="color: red;"><strong>No README found!<strong/><span/>'))
-}
+# if (file_exists(path(params$pkgdir, "README.md")))  {
+#   #knit_print(asis_output(paste(readLines(path(params$pkgdir, "README.md")), collapse = "\n")))
+#   readme_tmp <- tempfile()
+#   rmarkdown::pandoc_convert(path(params$pkgdir, "README.md"), to="html",
+#                                output = readme_tmp)
+#   knit_print(asis_output(
+#     paste(readLines(readme_tmp), collapse="\n")
+#   ))
+# } else if (length(dir_ls(params$pkgdir, regexp = "README", ignore.case = TRUE))) {
+#   cat(readLines(dir_ls(params$pkgdir, regexp = "README", ignore.case = TRUE)[1]), sep = "\n")
+# } else {
+#   knit_print(asis_output('<span style="color: red;"><strong>No README found!<strong/><span/>'))
+# }
 ```
 
 
@@ -132,11 +133,11 @@ as.datatable(rownames=FALSE, autoHideNavigation = TRUE, width = "100%")
 ***TODO: Cleanup the widget for this and make in a function in the package***
 
 ```{r covr, echo=FALSE}
-source("/home/rstudio/coverage-report-widget.R")
-if(!is.null(gp_obj$result)) {
-covr_report <- report_widget(gp_obj$result$result$covr$coverage)
-covr_report
-}
+# source("/home/rstudio/coverage-report-widget.R")
+# if(!is.null(gp_obj$result)) {
+# covr_report <- report_widget(gp_obj$result$result$covr$coverage)
+# covr_report
+# }
 ```
 
 ## Dependencies
@@ -145,13 +146,20 @@ covr_report
 but current version broken, so using old commit.***
 
 ```{r pkgdepends, echo = FALSE, comment = "", error=TRUE}
-
-pkgdepends_obj <- pkgdepends::remotes$new(paste0("installed::",
-                                    system.file(package=pkgname)),
-                            lib = tempfile())
-pkgdepends_obj$solve()
-pkgdepends_obj$draw_tree()
+# 
+# pkgdepends_obj <- pkgdepends::remotes$new(paste0("installed::",
+#                                     system.file(package=pkgname)),
+#                             lib = tempfile())
+# pkgdepends_obj$solve()
+# pkgdepends_obj$draw_tree()
 ```
+
+## Functions Calls
+
+```{r rev_calls, echo = FALSE, comment = ""}
+DT::datatable(pkgreviewr::rev_calls(params$pkgdir))
+```
+
 
 ## CLOC
 
