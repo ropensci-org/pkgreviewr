@@ -3,7 +3,6 @@ output: html_document
 pagetitle: "Onboarding Report"
 params:
   pkgdir: /Users/noamross/dropbox/reviews/plater
-  save_obj: FALSE
 ---
 
 ```{r setup, include=FALSE}
@@ -194,20 +193,5 @@ if(!is.null(gp_obj$result)) {
 # list.files(mp)
 ```
 
-```{r, include = FALSE}
-if(params$save_obj) {
-  if(is.null(params$obj_dir)) {
-    obj_dir <- file.path(params$pkgdir, "ro-check")
-  } else {
-    obj_dir <- params$obj_dir
-  }
-  if(!dir_exists(obj_dir)) dir_create(params$obj_dir)
-  saveRDS(gp_obj, path(obj_dir, "gp_obj.rds"))
-#  saveRDS(pkgdepends_obj, path(params$obj_dir, "pkgdepends.rds"))
-  saveRDS(cloc_obj, path(obj_dir, "cloc_obj.rds"))
-  saveRDS(spell_obj, path(obj_dir, "spell_obj.rds"))
-  saveRDS(test_obj, path(obj_dir, "test_obj.rds"))
-}
-```
 
 

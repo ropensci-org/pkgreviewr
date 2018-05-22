@@ -8,22 +8,14 @@
 #' @export
 #' @importFrom rmarkdown render
 #' @importFrom devtools as.package
-pkg_report <- function(pkgdir = ".", output_file = NULL,
-                       save_obj = FALSE, obj_dir = NULL) {
-
+pkg_report <- function(pkgdir = ".", output_file = NULL) {
     pkg <-as.package(pkgdir)
     pkgname <- pkg$package
   if(is.null(output_file)) {
-    td <- tempdir()
-    output_file <- file.path(td, paste0(pkgname, "-report.html"))
+    output_file <- file.path(paste0(pkgname, "-report.html"))
   }
-
-  if(is.null(obj_dir)) {
-    obj_dir <- file.path(pkgdir, "pkg-report")
-  }
-  render(system.file("templates", "pkg-report.Rmd", package="pkgreviewer"),
-         params = list(pkgdir = pkgdir, save_obj = save_obj, obj_dir = NULL),
-         output_file = output_file)
+  render(system.file("package-report", "pkg-report.Rmd", package="pkgreviewr"),
+         params = list(pkgdir = pkgdir,  output_file = output_file))
 
   return(output_file)
 }

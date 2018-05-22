@@ -29,12 +29,14 @@ Imports:
     rstudioapi,
     functionMap,
     dplyr,
-    tidyr
+    tidyr,
+    igraph
 Suggests: 
     testthat,
     mockery,
     knitr,
     rmarkdown
 RoxygenNote: 6.0.1
-Remotes: MangoTheCat/goodpractice
+Remotes: 
+    MangoTheCat/functionMap
 VignetteBuilder: knitr
