@@ -216,7 +216,7 @@ res <- pkgreviewr::rev_fn_summary(params$pkgdir)
 
 ### Argument default usage
 
-We introduced the `rev_args()` function that identifies all the arguments used in the functions of a given package and it's main feature is a logical vector indicating if the default value of the argument is consistent across all uses of the argument. The idea is that this information can be useful to a reviewer because it is a proxy of the complexity of the package and potential source of confusion to users. Maybe the package uses the same argument name for two completely different things. Or maybe it's a logical flag that sometimes is set to `TRUE` and others to `FALSE`.
+We introduced the `rev_args()` function that identifies all the arguments used in the functions of a given package and its main feature is a logical vector indicating if the default value of the argument is consistent across all uses of the argument. The idea is that this information can be useful to a reviewer because it is a proxy of the complexity of the package and potential source of confusion to users. Maybe the package uses the same argument name for two completely different things. Or maybe it's a logical flag that sometimes is set to `TRUE` and other times to `FALSE`.
 
 ``` r
 ra <- pkgreviewr::rev_args(params$pkgdir)$arg_df
@@ -284,6 +284,8 @@ viridisMap TRUE  TRUE  TRUE TRUE      TRUE   TRUE
 ```
 
 In this example, the `n` argument doesn't have a consistent default value in all 5 functions where it's used.
+<<<<<<< HEAD
+=======
 
 ### Review dependency usage
 
@@ -569,3 +571,4 @@ gh\_username
 </tbody>
 </table>
 Created on 2018-05-22 by the [reprex package](http://reprex.tidyverse.org) (v0.2.0).
+
