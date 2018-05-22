@@ -157,6 +157,7 @@ but current version broken, so using old commit.***
 ## Functions Calls
 
 ```{r functions_calls, echo = FALSE, comment = "", message = FALSE}
+## get summary of function calls and signature
 res <- pkgreviewr::rev_fn_summary(params$pkgdir)
 
 DT::datatable(res)
