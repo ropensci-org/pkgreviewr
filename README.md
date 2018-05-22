@@ -236,9 +236,14 @@ The function `rev_args(path = '.', exported_only = FALSE)` takes two arguments:
 #### Example output
 
 ```R
+## Install viridisLite if needed
+> install.packages('viridisLite')
+
+## Identify the location of the test version of viridisLite that's included
+> path <- system.file('viridisLite', package = 'pkgreviewr', mustWork = TRUE)
+
 ## Run rev_args() on the example package viridisLite that is included in pkgreviewr
-> arg_info_exported <- rev_args(system.file('viridisLite', package = 'pkgreviewr',
-    mustWork = TRUE), exported_only = TRUE)
+> arg_info_exported <- rev_args(path = path, exported_only = TRUE)
 
 ## Explore the output
 > arg_info_exported
