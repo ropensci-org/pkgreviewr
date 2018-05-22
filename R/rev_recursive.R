@@ -13,14 +13,14 @@
 #' rev_recursive(igraph_obj)
 #' }
 rev_recursive <- function(igraph_obj) {
-  order <- length(V(igraph_obj))
+  order <- length(igraph::V(igraph_obj))
   function_list <- igraph::ego(igraph_obj, order = order, mode = "out", mindist = 1)
 
   function_list %>%
     purrr::map(names) %>%
     unlist() %>%
     data.frame() %>%
-    setNames("f_name") %>%
-    group_by(f_name) %>%
-    summarize(all_called_by = n())
+    stats::setNames("f_name") %>%
+    dplyr::group_by(f_name) %>%
+    dplry::summarize(all_called_by = n())
 }
