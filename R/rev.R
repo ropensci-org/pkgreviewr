@@ -5,6 +5,8 @@
 #' @inheritParams functionMap::map_r_package 
 #' 
 #' @return A dataframe of functions in and used by the package and the number of times they are called and called by
+#' 
+#' @export
 
 rev_calls <- function(path = "."){
   
