@@ -226,11 +226,11 @@ res <- pkgreviewr::rev_fn_summary(params$pkgdir)
 | f\_args                                                                          |  called\_by|  calls| exported |  all\_called\_by|
 |:---------------------------------------------------------------------------------|-----------:|------:|:---------|----------------:|
 | cividis (n, alpha = 1, begin = 0, end = 1, direction = 1)                        |           0|      1| TRUE     |                0|
-| inferno (n, alpha = 1, begin = 0, end = 1, direction = 1)                        |           0|      1| FALSE    |                0|
+| inferno (n, alpha = 1, begin = 0, end = 1, direction = 1)                        |           0|      1| TRUE     |                0|
 | magma (n, alpha = 1, begin = 0, end = 1, direction = 1)                          |           0|      1| TRUE     |                0|
 | plasma (n, alpha = 1, begin = 0, end = 1, direction = 1)                         |           0|      1| TRUE     |                0|
 | viridis (n, alpha = 1, begin = 0, end = 1, direction = 1, option = "D")          |           4|      0| TRUE     |                4|
-| viridisMap (n = 256, alpha = 1, begin = 0, end = 1, direction = 1, option = "D") |           0|      0| TRUE     |                0|
+| viridisMap (n = 256, alpha = 1, begin = 0, end = 1, direction = 1, option = "D") |           0|      0| FALSE    |                0|
 
 Note that in order to run `rev_fn_summary()`, the prebuilt package files must exist locally. For packages that exist on GitHub, the easiest way to get the files is to clone the repo that contains them. Another method is to download and unzip the package source file, such as the one found here: `https://cran.r-project.org/src/contrib/skimr_1.0.2.tar.gz`
 
