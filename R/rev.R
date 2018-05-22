@@ -6,7 +6,7 @@
 #' @return a table with package functions call summary
 #' @export
 #' 
-pkg_fn_summary <- function(path = ".", igraph_obj = NULL){
+rev_fn_summary <- function(path = ".", igraph_obj = NULL){
   ## get functions direct calls/called by count
   rev_calls_res <- rev_calls(path = path, igraph_obj = igraph_obj)
   
