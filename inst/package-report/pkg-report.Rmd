@@ -184,10 +184,6 @@ You can also apply `pkgreviewr::rev_args()` to the subset of exported functions.
 rev_dependency_usage()
 ```
 
-
-
-
-
 ## CLOC
 
 ***TODO: Why are there no results when knitting here?***
@@ -198,7 +194,7 @@ cloc_obj <- cloc::cloc(params$pkgdir)
 cloc_obj %>%
   mutate_at(vars(ends_with("pct")),
             funs(as.character(formattable::percent(., digits=1)))) %>%
-  select(-source) %>% 
+  select(-source) %>%
   DT::datatable(rownames = FALSE, width= "100%",  autoHideNavigation=TRUE)
 ```
 
