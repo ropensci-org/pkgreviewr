@@ -66,13 +66,18 @@ gp_obj <- safely(quietly(gp))(path = params$pkgdir)
 
 ```{r rcmdcheck, echo=FALSE, comment=""}
 if(is.null(gp_obj$error)) {
-cat(paste(
-  gp_obj$result$result$rcmdcheck$stderr,
-  "\n----------\n",
-  gp_obj$result$result$rcmdcheck$stdout))
-  gp_obj$result$result$rcmdcheck$session_info
+  cat(paste(
+    gp_obj$result$result$rcmdcheck$output$stdout,
+    "\n----------\n",
+    gp_obj$result$result$rcmdcheck$outstdout),
+    "\n",
+    "Session info \n",
+    paste(gp_obj$result$result$rcmdcheck$package, gp_obj$result$result$rcmdcheck$version),
+    "\n",
+    paste("R version:", gp_obj$result$result$rcmdcheck$rversion),
+    "\n",
+    paste("Platform:", gp_obj$result$result$rcmdcheck$platform))
 }
-
 ```
 
 ## goodpractice
