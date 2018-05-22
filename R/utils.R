@@ -65,5 +65,25 @@ create_package_igraph <- function(path = ".", include_base = FALSE, directed = T
 }
 
 
-
+#' Return a table with package functions call summary
+#' 
+#' @param path package path
+#' @param igraph_obj igraph object for function calls dependencies returned by `create_package_igraph()`
+#' 
+#' @return a table with package functions call summary
+#' @export
+#' 
+pkg_fn_summary <- function(path = ".", igraph_obj = NULL){
+  ## get functions direct calls/called by count
+  rev_calls_res <- rev_calls(path = path, igraph_obj = igraph_obj)
+  
+  ## get functions recursive calls
+  rev_rec_res <- rev_recursive(path = path, igraph_obj = igraph_obj)
+  
+  ## merge results
+  res <- merge(rev_calls_res, rev_rec_res, all.x = TRUE)
+  res[is.na(res)] <- 0
+  
+  return(res)
+}
 
