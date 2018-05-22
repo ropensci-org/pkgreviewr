@@ -60,9 +60,7 @@ create_package_igraph <- function(path = ".", include_base = FALSE, directed = T
 
   igraph_obj <- igraph::graph_from_data_frame(edge_df, directed = directed, vertices = node_df)
   
-  set_vertex_attr(igraph_obj, "exported", value = node_df$exported)
-  
-  return(igraph_obj)
+  igraph::set_vertex_attr(igraph_obj, "exported", value = node_df$exported)
   
 }
 
