@@ -9,6 +9,9 @@
 #' @importFrom rmarkdown render
 #' @importFrom devtools as.package
 pkg_report <- function(pkgdir = ".", output_file = NULL) {
+    ## Make an absolute path if it's not
+    pkgdir <- normalizePath(pkgdir)
+
     pkg <-as.package(pkgdir)
     pkgname <- pkg$package
   if(is.null(output_file)) {
