@@ -68,9 +68,10 @@ create_package_igraph <- function(path = ".", include_base = FALSE, directed = T
 
 get_string_arguments <- function(funcs, package){
   v <- get(funcs, envir = asNamespace(package))
-  
+
   if(typeof(v) == "closure"){
-    return(deparse(v)[1])
+    v_deparsed <- deparse(v)
+    return(paste(v_deparsed[seq_len(which(v_deparsed == '{')[1] - 1)], collapse = ''))
   } else{
     return("not a function")
   }
