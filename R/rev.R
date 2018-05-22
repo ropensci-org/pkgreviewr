@@ -7,17 +7,23 @@
 #' @export
 #' 
 rev_fn_summary <- function(path = ".", igraph_obj = NULL){
+  
+  fn_igraph_obj <- create_package_igraph()
   ## get functions direct calls/called by count
-  rev_calls_res <- rev_calls(path = path, igraph_obj = igraph_obj)
+  rev_calls_res <- rev_calls(path = path, igraph_obj = fn_igraph_obj)
   
   ## get functions recursive calls
-  rev_rec_res <- rev_recursive(path = path, igraph_obj = igraph_obj)
+  rev_rec_res <- rev_recursive(path = path, igraph_obj = fn_igraph_obj)
+  
+  rev_signature_res <- rev_signature(path = path)
   
   ## merge results
   res <- merge(rev_calls_res, rev_rec_res, all.x = TRUE)
+  res <- merge(res, rev_signature_res, all.x = TRUE)
   res[is.na(res)] <- 0
   
-  return(res)
+  res[,c("f_args","called-by","calls","exported","all_called_by")]
+  
 }
 
 #' Create a dataframe of functions that a called and called by
@@ -38,8 +44,7 @@ rev_calls <- function(path = ".", igraph_obj = NULL){
   
   check_if_installed(package = package)
   
-  if(is.null(igraph_obj))
-    igraph_obj <- create_package_igraph(path = path)
+  if(is.null(igraph_obj)) igraph_obj <- create_package_igraph(path = path)
   
   ## 'Called by' data
   in_degree <- as.data.frame(igraph::degree(igraph_obj, mode = c("in")))
@@ -66,13 +71,13 @@ rev_signature <- function(path = "."){
   package <- devtools::as.package(path)$package
   
   check_if_installed(package)
-  f_vector <- unclass(lsf.str(envir = asNamespace(package), all = TRUE))
+  f_name <- unclass(lsf.str(envir = asNamespace(package), all = TRUE))
   
-  f_names <- unlist(lapply(f_vector, get_string_arguments, package = package))
+  f_bare_args <- unlist(lapply(f_name, get_string_arguments, package = package))
   
-  f_args <- paste0(f_vector, " ", gsub("function ", "", f_names))
+  f_args <- paste0(f_name, " ", gsub("function ", "", f_bare_args))
   
-  data.frame(f_names, f_args)
+  data.frame(f_name, f_args)
   
 }
 
