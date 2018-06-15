@@ -37,3 +37,12 @@ use_git_pkgrv <- function (path = ".", message = "Initial commit") {
 uses_git_pkgrv <- function (path) {
     !is.null(git2r::discover_repository(path))
 }
+
+
+get_repo_meta <- function(pkg_repo){
+    meta <- devtools:::github_remote(pkg_repo)
+    assertthat::assert_that(assertthat::are_equal(class(meta),
+                                                  c("github_remote",
+                                                    "remote")))
+    meta
+}
