@@ -44,3 +44,36 @@ check_global_git <- function(){
              in the terminal to configure your global settings")
     }
 }
+
+clone_pkg <- function(pkg_repo, pkg_dir){
+
+    clone <- try(git2r::clone(paste0("https://github.com/", pkg_repo),
+                              pkg_dir))
+
+    if(class(clone) == "try-error"){
+        todo("Cloning through ", code("git2r::clone() "),
+             "failed. Attempting ", code("system"), "clone")
+        clone <- try(paste(paste0("git clone https://github.com/", pkg_repo),
+                                  pkg_dir))
+    }
+    if(clone > 0){
+        warning("clone of ", pkg_repo, " unsuccesful.")
+        return(FALSE)
+    }
+    done("Package ", field("source"), " cloned successfully")
+    TRUE
+}
+
+get_repo_meta <- function(pkg_repo, full = FALSE){
+    meta <- try(gh::gh(paste0("/repos/", pkg_repo)), silent = T)
+    if(inherits(meta, "try-error")) {
+        if(grepl("404", meta)){
+            stop("Public repo: ", pkg_repo, " not found on GitHub. 404 error")
+        }else{
+            stop("Call to gh API failed with error: \n\n", meta)
+        }
+    }
+    if(full){meta}else{list(name = meta$name, owner = meta$owner$login)}
+}
+
+
