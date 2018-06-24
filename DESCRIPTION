@@ -13,8 +13,8 @@ BugReports: https://github.com/ropenscilabs/pkgreviewr/issues
 Encoding: UTF-8
 LazyData: true
 Imports:
-    git2r (>= 0.21.0),
     devtools,
+    git2r (>= 0.22.0),
     usethis (>= 1.2.0),
     here,
     reprex,
@@ -37,7 +37,6 @@ Suggests:
     knitr,
     rmarkdown
 RoxygenNote: 6.0.1
-Remotes: 
-    MangoTheCat/goodpractice,
-    ropensci/ghql
+Remotes:  
+    ropensci/git2r
 VignetteBuilder: knitr
