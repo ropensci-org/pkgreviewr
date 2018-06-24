@@ -50,18 +50,15 @@ clone_pkg <- function(pkg_repo, pkg_dir){
     clone <- try(git2r::clone(paste0("https://github.com/", pkg_repo),
                               pkg_dir))
 
-    if(class(clone) == "try-error"){
-        todo("Cloning through ", code("git2r::clone() "),
-             "failed. Attempting ", code("system"), "clone")
-        clone <- try(system(paste(paste0("git clone https://github.com/", pkg_repo),
-                                  pkg_dir)))
-    }
-    if(clone > 0){
+    if(inherits(clone, "try-error")){
         warning("clone of ", pkg_repo, " unsuccesful.")
+        todo("Try \n\n",
+             code(paste0("git clone https://github.com/", pkg_repo), " ", pkg_dir),
+             "\n\n in the terminal to clone pkg source code")
         return(FALSE)
     }
     done("Package ", field("source"), " cloned successfully")
-    TRUE
+    return(TRUE)
 }
 
 get_repo_meta <- function(pkg_repo, full = FALSE){
