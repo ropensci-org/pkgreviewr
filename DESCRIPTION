@@ -26,12 +26,18 @@ Imports:
     goodpractice,
     assertthat,
     httr,
-    rstudioapi
+    rstudioapi,
+    clipr,
+    clisymbols,
+    crayon,
+    dplyr
 Suggests: 
     testthat,
     mockery,
     knitr,
     rmarkdown
 RoxygenNote: 6.0.1
-Remotes: MangoTheCat/goodpractice
+Remotes: 
+    MangoTheCat/goodpractice,
+    ropensci/ghql
 VignetteBuilder: knitr
