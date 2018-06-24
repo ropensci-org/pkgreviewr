@@ -38,11 +38,20 @@ uses_git_pkgrv <- function (path) {
     !is.null(git2r::discover_repository(path))
 }
 
+write_dir <- function(tmp_dir, out_dir){
+    assertthat::assert_that(dir.exists(dirname(out_dir)))
 
-get_repo_meta <- function(pkg_repo){
-    meta <- devtools:::github_remote(pkg_repo)
-    assertthat::assert_that(assertthat::are_equal(class(meta),
-                                                  c("github_remote",
-                                                    "remote")))
-    meta
+    dir_type <- dplyr::case_when(
+        file.exists(file.path(tmp_dir, "DESCRIPTION")) ~ "pkg_dir",
+        TRUE ~ "review_dir")
+
+    if (!usethis:::can_overwrite(out_dir)){
+        message(dir_type, ":", out_dir, " already exists. Not overwitten")
+    }else{
+        if (dir.exists(out_dir)) {
+            unlink(out_dir, recursive=TRUE)
+        }
+        file.copy(tmp_dir, dirname(out_dir), recursive = T)
+        usethis:::done(field(dir_type), " written out successfully")
+    }
 }
