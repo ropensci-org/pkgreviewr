@@ -53,8 +53,8 @@ clone_pkg <- function(pkg_repo, pkg_dir){
     if(class(clone) == "try-error"){
         todo("Cloning through ", code("git2r::clone() "),
              "failed. Attempting ", code("system"), "clone")
-        clone <- try(paste(paste0("git clone https://github.com/", pkg_repo),
-                                  pkg_dir))
+        clone <- try(system(paste(paste0("git clone https://github.com/", pkg_repo),
+                                  pkg_dir)))
     }
     if(clone > 0){
         warning("clone of ", pkg_repo, " unsuccesful.")
