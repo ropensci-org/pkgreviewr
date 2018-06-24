@@ -1,60 +1,26 @@
-context("test-setup.R")
-
-# set test parameters
-pkg_repo <- "annakrystalli/rdflib"
-review_parent <- file.path(tempdir())
-review_dir <- file.path(review_parent, "rdflib-review")
-
-test_that("check-rstudio", {
-    expect_error(pkgreviewr:::check_rstudio())
-})
-
-library(rstudioapi)
-#  create review project
-mockery::stub(pkgreview_create,"check_rstudio", NULL)
-#mockery::stub(pkgreview_create,"openProject", NULL)
-pkgreview_create(pkg_repo, review_parent)
+context("test-create-pkgreview.R")
+on.exit(unlink(review_parent, recursive = T))
 
 test_that("review-proj-created-correctly", {
-  expect_true("rdflib-review" %in% list.files(review_parent))
-   # expect_true("rdflib-review.Rproj" %in% list.files(review_dir))
-})
 
+    #  create review project
+    mockery::stub(pkgreview_create,"check_rstudio", NULL)
+    #mockery::stub(pkgreview_create,"openProject", NULL)
+    pkgreview_create(pkg_repo, review_parent)
 
-test_that("gh_username-works", {
-    expect_equal(whoami::gh_username(),
-                 "annakrystalli")
-})
-
-test_that("missing-config-throws-error", {
-    check_global_git <- pkgreviewr:::check_global_git
-    mockery::stub(check_global_git,
-                  "try", function(){
-                      error <- TRUE
-                      class(error) <- "try-error"
-                      error
-                  })
-    expect_error(check_global_git())
-    rm(check_global_git)
-})
-
-
-
-
-test_that("initialised-correctly", {
+    expect_true("rdflib-review" %in% list.files(review_parent))
+    expect_true(git2r::in_repository(review_dir))
     expect_setequal(c("index.Rmd", "pkgreview.md", "README.md"),
                     list.files(review_dir, include.dirs = T))
-        #expect_true("rdflib-review.Rproj" %in% list.files(review_dir))
+    expect_identical(list.files(pkg_dir),
+                     c("appveyor.yml", "codecov.yml", "codemeta.json", "DESCRIPTION",
+                       "docs", "inst", "LICENSE", "man", "NAMESPACE", "NEWS.md", "paper.bib",
+                       "paper.md", "R", "rdflib.Rproj", "README.md", "README.Rmd", "tests",
+                       "vignettes"))
+    # expect_true("rdflib-review.Rproj" %in% list.files(review_dir))
 })
 
-
-meta <- devtools:::github_remote(pkg_repo)
-pkg_dir <- file.path(review_dir, "..", meta$repo)
-
-
-
-test_that("check-pkg_data", {
-
+test_that("get-pkg_data", {
     tr <- try(
         silent = TRUE,
         gh <- httr::GET(
@@ -68,10 +34,10 @@ test_that("check-pkg_data", {
         skip("No internet, skipping")
     }
 
-    pkg_data <- pkgreview_getdata(pkg_dir)
+    pkg_data <- pkgreview_getdata(pkg_dir, pkg_repo)
 
     # issue_meta
-    expect_equal(pkgreviewr:::issue_meta("cboettig/rdflibh"), "undetermined")
+    expect_warning(pkgreviewr:::issue_meta("cboettig/rdflibh"), "undetermined")
     expect_equal(pkgreviewr:::issue_meta("cboettig/rdflib"), 169)
     expect_equal(pkgreviewr:::issue_meta("cboettig/rdflib", "url"),
                  "https://github.com/ropensci/onboarding/issues/169")
@@ -88,6 +54,24 @@ test_that("check-pkg_data", {
     expect_equal(pkg_data$pkg_dir, pkg_dir)
     expect_equal(pkg_data$Package, "rdflib")
     expect_equal(pkg_data$repo, "rdflib")
-    expect_equal(pkg_data$site, "https://annakrystalli.github.io/rdflib/")
+    expect_equal(pkg_data$site, "https://cboettig.github.io/rdflib")
     expect_false(pkg_data$Rmd)
 })
+
+
+
+
+
+
+
+
+#test_that("render-works", {
+#tmp <- tempdir()
+#on.exit(unlink(tmp, recursive = T))
+#pkgreview_getdata(pkg_dir, pkg_repo)
+#pkgreview_readme_md()
+#expect_equal(whoami::gh_username(),
+#              "annakrystalli")
+#})
+
+
