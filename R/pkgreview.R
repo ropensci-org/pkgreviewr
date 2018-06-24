@@ -59,7 +59,7 @@ pkgreview_create <- function(pkg_repo, review_parent = ".") {
     # write out review dir
     write_dir(tmp_dir = tmp_review_dir, out_dir = review_dir)
 
-    if (rstudioapi::isAvailable()) rstudioapi::openProject(review_dir,
+    if (interactive() & rstudioapi::isAvailable()) rstudioapi::openProject(review_dir,
                                                            newSession = T)
 }
 
