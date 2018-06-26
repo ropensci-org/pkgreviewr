@@ -149,7 +149,7 @@ pkgreview_getdata <- function(pkg_dir, pkg_repo) {
 
     # reviewer data
     whoami_try <- try(whoami::gh_username())
-    if(!class(whoami_try) == "try-error"){
+    if(!inherits(whoami_try, "try-error")){
         pkg_data$whoami <- whoami_try
         pkg_data$whoami_url <- paste0("https://github.com/", pkg_data$whoami)
         pkg_data$review_repo <- paste0(pkg_data$whoami, "/",
