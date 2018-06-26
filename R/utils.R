@@ -23,10 +23,10 @@ use_git_pkgrv <- function (path = ".", message = "Initial commit") {
     if (uses_git_pkgrv(path)) {
         return(invisible())
     }
-    usethis:::done("Initialising Git repo")
+    done("Initialising Git repo")
     r <- git2r::init(path)
     usethis::use_git_ignore(c(".Rhistory", ".RData", ".Rproj.user"))
-    usethis:::done("Adding files and committing")
+    done("Adding files and committing")
     paths <- unlist(git2r::status(r))
     git2r::add(r, paths)
     git2r::commit(r, message)
@@ -52,6 +52,6 @@ write_dir <- function(tmp_dir, out_dir){
             unlink(out_dir, recursive=TRUE)
         }
         file.copy(tmp_dir, dirname(out_dir), recursive = T)
-        usethis:::done(field(dir_type), " written out successfully")
+        done(field(dir_type), " written out successfully")
     }
 }
