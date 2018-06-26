@@ -7,7 +7,7 @@ Authors@R: person("Anna", "Krystalli", email = "annakrystalli@googlemail.com",
 Description: Creates files and collects materials necessary to complete an rOpenSci package review. 
     Review files are prepopulated with review package specific metadata. Review package source code is
     also cloned for local testing and inspection.
-License: MIT + file LICENSE
+License: GPL-3
 URL: https://github.com/ropenscilabs/pkgreviewr
 BugReports: https://github.com/ropenscilabs/pkgreviewr/issues
 Encoding: UTF-8
@@ -37,6 +37,6 @@ Suggests:
     knitr,
     rmarkdown
 RoxygenNote: 6.0.1
-Remotes:  
+Remotes: 
     ropensci/git2r
 VignetteBuilder: knitr
