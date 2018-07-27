@@ -69,8 +69,8 @@ pkgreview_readme_md <- function(pkg_data) {
 use_reviewtmpl <- function(){
     review_txt <- gh::gh("/repos/:owner/:repo/contents/:path",
                          owner = "ropensci",
-                         repo = "onboarding",
-                         path = "reviewer_template.md")
+                         repo = "dev_guide",
+                         path = "templates/review.md")
 
     review_txt <- review_txt$content
     review_txt <- rawToChar(base64enc::base64decode(review_txt))
