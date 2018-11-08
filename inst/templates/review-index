@@ -220,7 +220,7 @@ exports
 
 #### **comments:**
 
-<!-- record comments on rdflib experimentation here -->
+<!-- record comments on package experimentation here -->
 
 ***
 
@@ -243,7 +243,7 @@ pkgreviewr::pkgreview_print_source("{{{ Package }}}")
 
 #### **comments:**
 
-<!-- record comments on rdflib source code here -->
+<!-- record comments on package source code here -->
 
 
 ## Review test suite:
