@@ -30,13 +30,14 @@ Imports:
     clipr,
     clisymbols,
     crayon,
-    dplyr
+    dplyr,
+    glue
 Suggests: 
     testthat,
     mockery,
     knitr,
     rmarkdown
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 Remotes: 
     ropensci/git2r
 VignetteBuilder: knitr
