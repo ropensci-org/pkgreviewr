@@ -14,7 +14,7 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     devtools,
-    git2r (>= 0.22.0),
+    git2r (>= 0.23.0),
     usethis (>= 1.2.0),
     here,
     reprex,
