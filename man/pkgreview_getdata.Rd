@@ -4,7 +4,7 @@
 \alias{pkgreview_getdata}
 \title{pkgreview_getdata}
 \usage{
-pkgreview_getdata(pkg_dir, pkg_repo)
+pkgreview_getdata(pkg_dir = NULL, pkg_repo)
 }
 \arguments{
 \item{pkg_dir}{path to the package source code directory}

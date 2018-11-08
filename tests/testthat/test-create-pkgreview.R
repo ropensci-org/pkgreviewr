@@ -10,7 +10,7 @@ test_that("review-proj-created-correctly", {
 
     expect_true("rdflib-review" %in% list.files(review_parent))
     expect_true(git2r::in_repository(review_dir))
-    expect_setequal(c("index.Rmd", "pkgreview.md", "README.md"),
+    expect_setequal(c("index.Rmd", "README.md", "review.md"),
                     list.files(review_dir, include.dirs = T))
     expect_identical(list.files(pkg_dir),
                      c("appveyor.yml", "codecov.yml", "codemeta.json", "DESCRIPTION",

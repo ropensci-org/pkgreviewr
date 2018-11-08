@@ -4,7 +4,8 @@
 \alias{pkgreview_init}
 \title{Initialise pkgreview}
 \usage{
-pkgreview_init(pkg_repo, review_dir = NULL, pkg_dir = NULL, tmp = NULL)
+pkgreview_init(pkg_repo, review_dir = ".", pkg_dir = NULL,
+  template = c("review", "editor"))
 }
 \arguments{
 \item{pkg_repo}{character string of the repo owner and name in the form of
@@ -12,10 +13,10 @@ pkgreview_init(pkg_repo, review_dir = NULL, pkg_dir = NULL, tmp = NULL)
 
 \item{review_dir}{path to the review directory}
 
-\item{pkg_dir}{path to package source directory, cloned from github}
-
-\item{tmp}{used to specify a tmp directory during project creation.
+\item{pkg_dir}{path to package source directory, cloned from github
 Ignore for manual initialisation}
+
+\item{template}{character string, one of `review` or `editor`.}
 }
 \value{
 Initialisation creates pre-populated `index.Rmd`, `pkgreview.md` and `README.md` documents.

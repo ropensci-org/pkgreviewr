@@ -5,18 +5,18 @@
 #'  `"owner/repo"`.
 #' @param review_parent directory in which to setup review project and source package
 #'  source code.
+#' @param template character string, one of `review` or `editor`.
 #'
 #' @return setup review project with templates
-# @importFrom devtools getFromNamespace github_remote
-# @importFrom usethis getFromNamespace can_overwrite
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' pkgreview_create(pkg_repo = "cboettig/rdflib")
 #' }
-pkgreview_create <- function(pkg_repo, review_parent = ".") {
-
+pkgreview_create <- function(pkg_repo, review_parent = ".",
+                             template = c("review", "editor")) {
+    template <- match.arg(template)
     # checks
     check_rstudio()
     check_global_git()
@@ -47,7 +47,9 @@ pkgreview_create <- function(pkg_repo, review_parent = ".") {
 
     # initialise and copy review project to review_parent
     if(clone){
-        pkgreview_init(pkg_repo, review_dir = review_dir, tmp = tmp)
+        pkgreview_init(pkg_repo, review_dir = tmp_review_dir,
+                       pkg_dir = pkg_dir,
+                       template = template)
     }else{
         todo("Template initialisation of review project",
              value(basename(review_dir)) ,"not possible. \n Use: ",
@@ -72,8 +74,8 @@ pkgreview_create <- function(pkg_repo, review_parent = ".") {
 #'  `"owner/repo"`.
 #' @param review_dir path to the review directory
 #' @param pkg_dir path to package source directory, cloned from github
-#' @param tmp used to specify a tmp directory during project creation.
 #' Ignore for manual initialisation
+#' @param template character string, one of `review` or `editor`.
 #'
 #' @return Initialisation creates pre-populated `index.Rmd`, `pkgreview.md` and `README.md` documents.
 #' To initialise correctly, the function requires that the source code for the
@@ -86,38 +88,29 @@ pkgreview_create <- function(pkg_repo, review_parent = ".") {
 #' \dontrun{
 #' pkgreview_init(pkg_repo = "cboettig/rdflib")
 #' }
-pkgreview_init <- function(pkg_repo, review_dir = NULL,
-                           pkg_dir = NULL, tmp = NULL){
+pkgreview_init <- function(pkg_repo, review_dir = ".",
+                           pkg_dir = NULL,
+                           template = c("review", "editor")){
     # get repo metadata
     meta <- get_repo_meta(pkg_repo)
 
     # get package metadata
-    if(is.null(review_dir)){
-        review_dir <- here::here()}
     if(is.null(pkg_dir)){
-        pkg_dir <- file.path(dirname(review_dir), meta$name)}
-    if(!is.null(tmp)){
-        tmp_pkg_dir <- file.path(tmp, meta$name)
-        tmp_review_dir <- file.path(tmp, paste0(meta$name, "-review"))
+        pkg_dir <- file.path(dirname(normalizePath(review_dir)), meta$name)}
 
-        here::set_here(tmp_review_dir)
-        assertthat::assert_that(assertthat::is.dir(tmp_pkg_dir))
-        assertthat::assert_that(file.exists(file.path(tmp_pkg_dir,
-                                                      "DESCRIPTION")))
-        pkg_data <- pkgreview_getdata(pkg_dir = tmp_pkg_dir, pkg_repo)
-        pkg_data$pkg_dir <- pkg_dir
-    }else{
-        assertthat::assert_that(assertthat::is.dir(pkg_dir))
-        assertthat::assert_that(file.exists(file.path(pkg_dir, "DESCRIPTION")))
-        pkg_data <- pkgreview_getdata(pkg_dir = pkg_dir, pkg_repo)
-    }
+    assertthat::assert_that(assertthat::is.dir(pkg_dir))
+    assertthat::assert_that(file.exists(file.path(pkg_dir, "DESCRIPTION")))
+    pkg_data <- pkgreview_getdata(pkg_dir = pkg_dir, pkg_repo)
 
     # create templates
-    use_reviewtmpl()
-    pkgreview_readme_md(pkg_data)
-    pkgreview_index_rmd(pkg_data)
+    use_onboarding_tmpl(template)
+    pkgreview_index_rmd(pkg_data, template)
+    switch (template,
+        "review" = pkgreview_readme_md(pkg_data),
+        "editor" = pkgreview_request(pkg_data)
+    )
 
-    done("Review project ", value(basename(review_dir)),
+    done(template, " project ", value(basename(review_dir)),
          " initialised successfully")
 }
 
@@ -135,9 +128,11 @@ pkgreview_init <- function(pkg_repo, review_dir = NULL,
 #' \dontrun{
 #' pkgreview_getdata("../rdflib")
 #' }
-pkgreview_getdata <- function(pkg_dir, pkg_repo) {
+pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo) {
     # get repo metadata
     meta <- get_repo_meta(pkg_repo, full = T)
+    if(is.null(pkg_dir)){
+        pkg_dir <- file.path(usethis::proj_path(".."), meta$name)}
 
     # package repo data
     pkg_data <- usethis:::package_data(pkg_dir)

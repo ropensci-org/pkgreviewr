@@ -10,3 +10,5 @@ dir.create(review_parent, showWarnings = F)
 review_dir <- file.path(review_parent, "rdflib-review")
 pkg_dir <- file.path(review_parent, "rdflib")
 
+
+#pkgreview_create(pkg_repo, review_parent, template = "editor")
