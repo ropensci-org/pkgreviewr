@@ -90,3 +90,22 @@ pkgreview_request <- function(pkg_data) {
     package = "pkgreviewr"
   )
 }
+
+
+#' Render request email body
+#'
+#' Launches an interactive input browser tab to complete required parameters:
+#' - `reviewer_first_name`: reviewers first name
+#' - `banter`: character string of custom greeting message
+#' - `JOSS`: logical, whether review includes submission to JOSS
+#' @return renders `request.Rmd` using parameters provided.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' render_request()
+#' }
+render_request <- function() {
+    rmarkdown::render(usethis::proj_path("request.Rmd"),
+                      params = "ask")
+}
