@@ -15,7 +15,7 @@ Hi, this is {{{editor}}} from rOpenSci `r emo::ji("wave")`.
 
 I'm writing to ask if you would be willing to review a package for rOpenSci. As you probably know, rOpenSci conducts peer review of R packages contributed to our collection in a manner similar to journals.
 
-The package, {{{ Package }}} by `r {{{Authors@R}}}`, does:
+The package is **`{{{ Package }}}`** by `r {{{Authors@R}}}`:
 
 > {{{Description}}}.
 
@@ -25,7 +25,7 @@ You can find it on GitHub [here]({{{URL}}}). We conduct our open review process 
 
 If you accept, note that we ask reviewers to complete reviews in three weeks. (We’ve found it takes a similar amount of time to review a package as an academic paper.)
 
-Our [reviewers guide] details what we look for in a package review, and includes links to example reviews. Our standards are detailed in our [packaging guide], and we provide reviewer [template] for you to use. If you have questions or feedback, feel free to ask me or post to the [rOpenSci forum].
+Our [reviewers guide] details what we look for in a package review, and includes links to example reviews. Our standards are detailed in our [packaging guide], and we provide a reviewer [template] for you to use. You can also use package [pkgreviewr] to help set up and guide your review. If you have questions or feedback, feel free to ask me or post to the [rOpenSci forum]. You can also try the rOpenSci [slack] community.
 
 `r if(params$JOSS){"The authors have also chosen to jointly submit their package to the Journal of Open Source Software, so this package includes a short paper.md manuscript describing the software that we ask you include in your review."}`
 
@@ -39,7 +39,8 @@ Sincerely,
 {{{editor}}}
 
 [reviewers guide]: https://ropensci.github.io/dev_guide/onboarding-guide-for-reviewers.html
-[packaging guide]: https://ropensci.github.io/dev_guide/https://ropensci.github.io/dev_guide/building.html
+[packaging guide]: https://ropensci.github.io/dev_guide/building.html
 [template]: https://ropensci.github.io/dev_guide/reviewtemplate.html
 [rOpenSci forum]: https://discuss.ropensci.org/
-[issue]:
+[pkgreviewr]: https://github.com/ropenscilabs/pkgreviewr
+[slack]: http://slack.ropensci.org/
