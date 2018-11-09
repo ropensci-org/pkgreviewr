@@ -9,21 +9,20 @@ pkgreview_init(pkg_repo, review_dir = ".", pkg_dir = NULL,
 }
 \arguments{
 \item{pkg_repo}{character string of the repo owner and name in the form of
-`"owner/repo"`.}
+\code{"owner/repo"}.}
 
 \item{review_dir}{path to the review directory}
 
-\item{pkg_dir}{path to package source directory, cloned from github
-Ignore for manual initialisation}
+\item{pkg_dir}{path to package source directory, cloned from github. Ignore for manual initialisation}
 
-\item{template}{character string, one of `review` or `editor`.}
+\item{template}{character string, one of \code{review} or \code{editor}.}
 }
 \value{
-Initialisation creates pre-populated `index.Rmd`, `pkgreview.md` and `README.md` documents.
+Initialisation creates pre-populated \code{index.Rmd}, \code{pkgreview.md} and \code{README.md} documents.
 To initialise correctly, the function requires that the source code for the
 package has been cloned. This might need to be done manually if it failed
 during review creation. If setup is correct. Defaults are set to work in the
-root of the `review_dir` with `pkg_dir` set to `"../`
+root of the \code{review_dir} with \code{pkg_dir} set to \code{"../"}.
 }
 \description{
 Initialise pkgreview
