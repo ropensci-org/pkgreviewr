@@ -73,15 +73,14 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
 #' @param pkg_repo character string of the repo owner and name in the form of
 #'  `"owner/repo"`.
 #' @param review_dir path to the review directory
-#' @param pkg_dir path to package source directory, cloned from github
-#' Ignore for manual initialisation
+#' @param pkg_dir path to package source directory, cloned from github. Ignore for manual initialisation
 #' @param template character string, one of `review` or `editor`.
 #'
 #' @return Initialisation creates pre-populated `index.Rmd`, `pkgreview.md` and `README.md` documents.
 #' To initialise correctly, the function requires that the source code for the
 #' package has been cloned. This might need to be done manually if it failed
 #' during review creation. If setup is correct. Defaults are set to work in the
-#' root of the `review_dir` with `pkg_dir` set to `"../`
+#' root of the `review_dir` with `pkg_dir` set to `"../"`.
 #' @export
 #'
 #' @examples
