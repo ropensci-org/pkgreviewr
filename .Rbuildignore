@@ -7,3 +7,5 @@
 ^pkgreview\.md$
 ^\.travis\.yml$
 ^codecov\.yml$
+^dev$
+^docs$

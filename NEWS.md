@@ -1,3 +1,11 @@
+# pkgreviewr 0.0.4
+
+* Added temporary workaround for git2r authentication issues, created by GitHub security protocol change (esp on macOSX).
+* `pkgreview_init()` re-instated allowing for the configuration of the review separately form the creation stage.
+* More isolated workflow and improved error and exception handling
+
+
+
 # pkgreviewr 0.0.3
 
 * Added a `NEWS.md` file to track changes to the package.

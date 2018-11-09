@@ -4,14 +4,17 @@
 \alias{pkgreview_create}
 \title{Create a review project.}
 \usage{
-pkgreview_create(pkg_repo, review_parent = ".")
+pkgreview_create(pkg_repo, review_parent = ".", template = c("review",
+  "editor"))
 }
 \arguments{
 \item{pkg_repo}{character string of the repo owner and name in the form of
-`"owner/repo"`.}
+\code{"owner/repo"}.}
 
 \item{review_parent}{directory in which to setup review project and source package
 source code.}
+
+\item{template}{character string, one of \code{review} or \code{editor}.}
 }
 \value{
 setup review project with templates
