@@ -21,18 +21,26 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Create review templates. — pkgreview_index_rmd" />
 
 <meta property="og:description" content="Creates skeleton review files:
-`index.Rmd`: `html_notebook` to perform and record review in
-`README.md`: prepopulated README for review repo.
-`index.Rmd` will be automatically added to `.Rbuildignore`. The resulting templates are populated with default
-YAML frontmatter and R fenced code chunks (`Rmd`)." />
+index.Rmd: html_notebook to perform and record review in
+README.md: prepopulated README for review repo.
+index.Rmd will be automatically added to .Rbuildignore. The resulting templates are populated with default
+YAML frontmatter and R fenced code chunks (Rmd)." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +63,12 @@ YAML frontmatter and R fenced code chunks (`Rmd`)." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">pkgreviewr</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">pkgreviewr</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -76,6 +88,9 @@ YAML frontmatter and R fenced code chunks (`Rmd`)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/editors.html">pkgreviewr for editors</a>
+    </li>
+    <li>
       <a href="../articles/publish-review-on-github.html">Publish pkgreview on GitHub</a>
     </li>
   </ul>
@@ -93,6 +108,7 @@ YAML frontmatter and R fenced code chunks (`Rmd`)." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -100,31 +116,40 @@ YAML frontmatter and R fenced code chunks (`Rmd`)." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create review templates.</h1>
-    <small>Source: <a href='https:/github.com/ropenscilabs/pkgreviewr/blob/master/R/render-templates.R'><code>R/render-templates.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgreviewr/blob/master/R/render-templates.R'><code>R/render-templates.R</code></a></small>
+    <div class="hidden name"><code>pkgreview_index_rmd.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Creates skeleton review files:</p><ul>
-<li><p>`index.Rmd`: `html_notebook` to perform and record review in</p></li>
-<li><p>`README.md`: prepopulated README for review repo.</p></li>
-</ul><p>`index.Rmd` will be automatically added to `.Rbuildignore`. The resulting templates are populated with default
-YAML frontmatter and R fenced code chunks (`Rmd`).</p>
+<li><p><code>index.Rmd</code>: <code>html_notebook</code> to perform and record review in</p></li>
+<li><p><code>README.md</code>: prepopulated README for review repo.</p></li>
+</ul><p><code>index.Rmd</code> will be automatically added to <code>.Rbuildignore</code>. The resulting templates are populated with default
+YAML frontmatter and R fenced code chunks (<code>Rmd</code>).</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>pkgreview_index_rmd</span>(<span class='no'>pkg_data</span>)
+    <pre class="usage"><span class='fu'>pkgreview_index_rmd</span>(<span class='no'>pkg_data</span>, <span class='kw'>template</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"review"</span>, <span class='st'>"editor"</span>))
 
-<span class='fu'>pkgreview_readme_md</span>(<span class='no'>pkg_data</span>)</pre>
+<span class='fu'>pkgreview_readme_md</span>(<span class='no'>pkg_data</span>)
+
+<span class='fu'>pkgreview_request</span>(<span class='no'>pkg_data</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>pkg_data</th>
       <td><p>package metadata generated by pkgreview_getdata()</p></td>
+    </tr>
+    <tr>
+      <th>template</th>
+      <td><p>character string, one of <code>review</code> or <code>editor</code>.</p></td>
     </tr>
     </table>
     
@@ -158,6 +183,8 @@ YAML frontmatter and R fenced code chunks (`Rmd`).</p>
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

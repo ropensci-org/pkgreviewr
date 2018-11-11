@@ -8,8 +8,8 @@
 <title>rOpenSci package review project template • pkgreviewr</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="rOpenSci package review project template">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><meta property="og:title" content="rOpenSci package review project template">
 <meta property="og:description" content="Creates files and collects materials necessary to complete an rOpenSci package review. 
     Review files are prepopulated with review package specific metadata. Review package source code is
     also cloned for local testing and inspection.">
@@ -29,8 +29,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">pkgreviewr</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="index.html">pkgreviewr</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
@@ -50,6 +54,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/editors.html">pkgreviewr for editors</a>
+    </li>
+    <li>
       <a href="articles/publish-review-on-github.html">Publish pkgreview on GitHub</a>
     </li>
   </ul>
@@ -85,9 +92,9 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install pkgreviewr from GitHub with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"ropenscilabs/pkgreviewr"</span>)</code></pre></div>
+<p>You can install <code>pkgreviewr</code> from GitHub with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"ropenscilabs/pkgreviewr"</span>)</a></code></pre></div>
 <p>Because rOpenSci reviews are conducted through github repository <a href="https://github.com/ropensci/onboarding"><code>ropensci/onboarding</code></a>, <code>pkgreviewr</code> uses your GitHub user.name and user.email when creating new review projects. If you do not have both settings in your global configuration, you will receive an error. You can set both from within your terminal:</p>
 <pre><code># Example GitHub global configuration
 git config --global user.name "Mona Lisa"
@@ -127,9 +134,9 @@ git config --global user.email "email@example.com"</code></pre>
 <li>
 <strong><code>review_parent</code>:</strong>, the <strong>local directory</strong> in which the <strong>review project (and folder) will be created</strong> and <strong>package source code will be cloned into</strong>.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pkgreviewr)
-<span class="kw"><a href="reference/pkgreview_create.html">pkgreview_create</a></span>(<span class="dt">pkg_repo =</span> <span class="st">"cboettig/rdflib"</span>, 
-                 <span class="dt">review_parent =</span> <span class="st">"~/Documents/workflows/rOpenSci/reviews/"</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(pkgreviewr)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="reference/pkgreview_create.html">pkgreview_create</a></span>(<span class="dt">pkg_repo =</span> <span class="st">"ropensci/rdflib"</span>, </a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">                 <span class="dt">review_parent =</span> <span class="st">"~/Documents/workflows/rOpenSci/reviews/"</span>)</a></code></pre></div>
 <p>The function creates a new review project in the <code>review_parent</code> directory following project naming convention <code>{pkgname}-review</code> and populates the review templates to create all required documents.</p>
 <div id="review-files" class="section level4">
 <h4 class="hasAnchor">
@@ -263,31 +270,50 @@ git config --global user.email "email@example.com"</code></pre>
 <h3 class="hasAnchor">
 <a href="#publish-your-report-by-pushing-to-github" class="anchor"></a>4. Publish your report by pushing to GitHub *</h3>
 <p>Optional. Have a look at the <strong>Publish pkgreview on GitHub</strong> vignette.</p>
+<hr>
 </div>
+</div>
+<div id="pkgreviewr-for-editors" class="section level2">
+<h2 class="hasAnchor">
+<a href="#pkgreviewr-for-editors" class="anchor"></a><code>pkgreviewr</code> for editors</h2>
+<p><code>pkgreviewr</code> can now also be used to set up projects for editor checks. See <a href="articles/editors.html"><code>pkgreviewr</code> for editors</a> vignette.</p>
 </div>
 </div>
 
   </div>
 
   <div class="col-md-3" id="sidebar">
-    <h2>Links</h2>
+    <div class="links">
+<h2>Links</h2>
 <ul class="list-unstyled">
 <li>Browse source code at <br><a href="https://github.com/ropenscilabs/pkgreviewr">https://​github.com/​ropenscilabs/​pkgreviewr</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/ropenscilabs/pkgreviewr/issues">https://​github.com/​ropenscilabs/​pkgreviewr/​issues</a>
 </li>
 </ul>
+</div>
+<div class="license">
 <h2>License</h2>
-<p><a href="LICENSE.html">Full license</a><br><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a><small></small></small></p>
+<ul class="list-unstyled">
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></small></li>
+</ul>
+</div>
+<div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Anna Krystalli <br><small class="roles"> Author, maintainer </small>  </li>
 </ul>
+</div>
+
+  <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
+<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="lifecycle"></a></li>
 <li><a href="https://travis-ci.org/ropenscilabs/pkgreviewr"><img src="https://travis-ci.org/ropenscilabs/pkgreviewr.svg?branch=master" alt="Travis build status"></a></li>
 <li><a href="https://codecov.io/gh/ropenscilabs/pkgreviewr"><img src="https://codecov.io/gh/ropenscilabs/pkgreviewr/branch/master/graph/badge.svg" alt="codecov"></a></li>
 </ul>
+</div>
 </div>
 </div>
 
@@ -302,6 +328,8 @@ git config --global user.email "email@example.com"</code></pre>
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>

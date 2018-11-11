@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>pkgreview_getdata — pkgreview_getdata • pkgreviewr</title>
+<title>Initialise pkgreview — pkgreview_init • pkgreviewr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="pkgreview_getdata — pkgreview_getdata" />
+<meta property="og:title" content="Initialise pkgreview — pkgreview_init" />
 
-<meta property="og:description" content="get package metadata from package source code." />
+<meta property="og:description" content="Initialise pkgreview" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -115,41 +115,54 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>pkgreview_getdata</h1>
+    <h1>Initialise pkgreview</h1>
     <small class="dont-index">Source: <a href='https://github.com/ropenscilabs/pkgreviewr/blob/master/R/pkgreview.R'><code>R/pkgreview.R</code></a></small>
-    <div class="hidden name"><code>pkgreview_getdata.Rd</code></div>
+    <div class="hidden name"><code>pkgreview_init.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>get package metadata from package source code.</p>
+    <p>Initialise pkgreview</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>pkgreview_getdata</span>(<span class='kw'>pkg_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>pkg_repo</span>)</pre>
+    <pre class="usage"><span class='fu'>pkgreview_init</span>(<span class='no'>pkg_repo</span>, <span class='kw'>review_dir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>pkg_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>template</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"review"</span>, <span class='st'>"editor"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>pkg_dir</th>
-      <td><p>path to the package source code directory</p></td>
-    </tr>
-    <tr>
       <th>pkg_repo</th>
       <td><p>character string of the repo owner and name in the form of
 <code>"owner/repo"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>review_dir</th>
+      <td><p>path to the review directory</p></td>
+    </tr>
+    <tr>
+      <th>pkg_dir</th>
+      <td><p>path to package source directory, cloned from github. Ignore for manual initialisation</p></td>
+    </tr>
+    <tr>
+      <th>template</th>
+      <td><p>character string, one of <code>review</code> or <code>editor</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a list of package metadata</p>
+    <p>Initialisation creates pre-populated <code>index.Rmd</code>, <code>pkgreview.md</code> and <code>README.md</code> documents.
+To initialise correctly, the function requires that the source code for the
+package has been cloned. This might need to be done manually if it failed
+during review creation. If setup is correct. Defaults are set to work in the
+root of the <code>review_dir</code> with <code>pkg_dir</code> set to <code>"../"</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>pkgreview_getdata</span>(<span class='st'>"../rdflib"</span>)
+<span class='fu'>pkgreview_init</span>(<span class='kw'>pkg_repo</span> <span class='kw'>=</span> <span class='st'>"cboettig/rdflib"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
