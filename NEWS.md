@@ -1,3 +1,9 @@
+# pkgreviewr 0.1.0
+
+* Added editor templates to enable editor checks and other duties
+* git2r updates resolved authentication issues so temporary workaround removed.
+* Functionality streamlined more stable
+
 # pkgreviewr 0.0.4
 
 * Added temporary workaround for git2r authentication issues, created by GitHub security protocol change (esp on macOSX).
