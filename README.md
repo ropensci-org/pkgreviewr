@@ -8,7 +8,7 @@ The goal of pkgreviewr is to facilitate **rOpenSci** package reviews.
 
 ## Installation
 
-You can install pkgreviewr from GitHub with:
+You can install `pkgreviewr` from GitHub with:
 
 
 ``` r
@@ -62,7 +62,7 @@ Create the review project, using `pkgreview_create`. The function takes argument
 
 ``` r
 library(pkgreviewr)
-pkgreview_create(pkg_repo = "cboettig/rdflib", 
+pkgreview_create(pkg_repo = "ropensci/rdflib", 
                  review_parent = "~/Documents/workflows/rOpenSci/reviews/")
 ```
 
@@ -207,3 +207,10 @@ Currently the workflow is just set up for you to just copy your response from yo
 ### 4. Publish your report by pushing to GitHub *
 
 Optional. Have a look at the **Publish pkgreview on GitHub** vignette.
+
+
+***
+
+## `pkgreviewr` for editors 
+
+`pkgreviewr` can now also be used to set up projects for editor checks. See [`pkgreviewr` for editors](articles/editors.html) vignette.
