@@ -1,0 +1,66 @@
+---
+title: "pkgreviewr for editors"
+author: "Anna Krystalli"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{pkgreviewr for editors}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+`pkgreviewr` now also provides templates for editors. 
+
+```{r, eval = F}
+library(pkgreviewr)
+
+pkgreview_create("nldoc/nlrx", 
+                 review_parent = "~/Documents/workflows/rOpenSci/editorials/",
+                 template = "editor")
+```
+
+As with initialising a review, the repo is downloaded into `review_parent`. 
+
+It also creates a `pkgreviewr` project containing editor related templates: 
+
+```
+.
+├── editor.md
+├── index.Rmd
+├── nlrx-review.Rproj
+└── request.Rmd
+```
+
+### `index.Rmd`
+
+Similar to a review project, `index.Rmd` is a pre-populated notebook where initial editor checks can be performed 
+
+
+### `editor.md`
+
+This file contains the editor checks response template
+
+### `request.Rmd`
+
+This contains a prepopulated parametarised `.Rmd` for generating request emails. The parameters it accepts are:
+
+- person's name 
+- some friendly banter
+- whether JOSS submission is involved
+
+Use:
+
+```{r, eval=FALSE}
+render_request()
+```
+
+to render the document by first launching a form in the browser to enter parameter values. Alternatively, you can manually edit the YAML header with parameter values and knit.
+
