@@ -32,7 +32,8 @@ Imports:
     crayon,
     dplyr,
     glue,
-    fs
+    fs,
+    urltools
 Suggests: 
     testthat,
     mockery,

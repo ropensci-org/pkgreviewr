@@ -18,6 +18,7 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
                              template = c("review", "editor")) {
     template <- match.arg(template)
     # checks
+    review_parent <- fs::path_real(review_parent)
     check_rstudio()
     check_global_git()
 
@@ -27,13 +28,10 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
     on.exit(unlink(tmp, recursive = T))
     dir.create(tmp, showWarnings = F)
 
-    tmp_pkg_dir <- normalizePath(file.path(tmp, meta$name), mustWork = F)
-    pkg_dir <- normalizePath(file.path(review_parent, meta$name), mustWork = F)
-    tmp_review_dir <- normalizePath(file.path(tmp, glue::glue("{meta$name}-{template}")),
-                                    mustWork = F)
-    review_dir <- normalizePath(file.path(review_parent,
-                                          glue::glue("{meta$name}-{template}")),
-                                mustWork = F)
+    tmp_pkg_dir <- fs::path(tmp, meta$name)
+    pkg_dir <- fs::path(review_parent, meta$name)
+    tmp_review_dir <- fs::path(tmp, glue::glue("{meta$name}-{template}"))
+    review_dir <- fs::path(review_parent, glue::glue("{meta$name}-{template}"))
 
     # clone package source code directory and write to review_parent
     clone <- clone_pkg(pkg_repo, pkg_dir = tmp_pkg_dir)
@@ -98,7 +96,7 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
 
     # get package metadata
     if(is.null(pkg_dir)){
-        pkg_dir <- file.path(dirname(normalizePath(review_dir)), meta$name)}
+        pkg_dir <- fs::path(fs::path_dir(review_dir), meta$name)}
 
     assertthat::assert_that(assertthat::is.dir(pkg_dir))
     assertthat::assert_that(file.exists(file.path(pkg_dir, "DESCRIPTION")))
@@ -143,6 +141,11 @@ pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
 
     # package repo data
     pkg_data <- usethis:::package_data(pkg_dir)
+
+    parsed_url <- urltools::url_parse(pkg_data$URL)
+    parsed_url$path <- fs::path(parsed_url$path)
+    pkg_data$URL <- urltools::url_compose(parsed_url)
+
     pkg_data$pkg_dir <- pkg_dir
     pkg_data$Rmd <- FALSE
     pkg_data$pkg_repo <- pkg_repo
@@ -159,7 +162,7 @@ pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
         pkg_data$pkgreview_url <- glue::glue("https://github.com/{pkg_data$review_repo}/blob/master/pkgreview.md")
     }else{
         warning("GitHub user unidentifed.
-                URLs related to review and review repository not intitialised.")
+                URLs related to review and review repository not initialised.")
         pkg_data$whoami <- NULL
         pkg_data$whoami_url <- NULL
         pkg_data$review_repo <- NULL
