@@ -4,13 +4,16 @@
 \alias{pkgreview_getdata}
 \title{pkgreview_getdata}
 \usage{
-pkgreview_getdata(pkg_dir = NULL, pkg_repo)
+pkgreview_getdata(pkg_dir = NULL, pkg_repo, template = c("review",
+  "editor"))
 }
 \arguments{
 \item{pkg_dir}{path to the package source code directory}
 
 \item{pkg_repo}{character string of the repo owner and name in the form of
 \code{"owner/repo"}.}
+
+\item{template}{character string, one of \code{review} or \code{editor}.}
 }
 \value{
 a list of package metadata
