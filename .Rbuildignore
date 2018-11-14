@@ -1,3 +1,6 @@
+^_pkgdown\.yml$
+^tic\.R$
+^appveyor\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
