@@ -31,7 +31,8 @@ Imports:
     clisymbols,
     crayon,
     dplyr,
-    glue
+    glue,
+    fs
 Suggests: 
     testthat,
     mockery,

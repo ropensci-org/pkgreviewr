@@ -131,7 +131,7 @@ pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo) {
     # get repo metadata
     meta <- get_repo_meta(pkg_repo, full = T)
     if(is.null(pkg_dir)){
-        pkg_dir <- file.path(usethis::proj_path(".."), meta$name)}
+        pkg_dir <- fs::path(usethis::proj_path(".."), meta$name)}
 
     # package repo data
     pkg_data <- usethis:::package_data(pkg_dir)
