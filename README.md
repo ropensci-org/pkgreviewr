@@ -214,3 +214,8 @@ Optional. Have a look at the **Publish pkgreview on GitHub** vignette.
 ## `pkgreviewr` for editors 
 
 `pkgreviewr` can now also be used to set up projects for editor checks. See [`pkgreviewr` for editors](articles/editors.html) vignette.
+
+
+***
+
+Please note that 'pkgreviewr' is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
