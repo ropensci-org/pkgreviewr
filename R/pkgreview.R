@@ -12,7 +12,11 @@
 #'
 #' @examples
 #' \dontrun{
+#' # for a review project
 #' pkgreview_create(pkg_repo = "ropensci/rdflib", review_parent = "~/Documents/reviews/")
+#' # for editors checks
+#' pkgreview_create(pkg_repo = "ropensci/rdflib", review_parent = "~/Documents/editorials/",
+#' template = "editor")
 #' }
 pkgreview_create <- function(pkg_repo, review_parent = ".",
                              template = c("review", "editor")) {
