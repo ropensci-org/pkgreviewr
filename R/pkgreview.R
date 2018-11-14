@@ -61,6 +61,20 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
     # write out review dir
     write_dir(tmp_dir = tmp_review_dir, out_dir = review_dir)
 
+    # pre-commit hook
+    # code from usethis::use_git_hook
+    # but without using the active project
+    message("* Adding a pre-commit git hook ensuring that index.nb.html is up-to-date") # nolint
+
+    hook_dir <- file.path(review_dir, ".git/hooks")
+    dir.create(hook_dir)
+    hook_path <- file.path(hook_dir, "pre-commit")
+    script <- strsplit(whisker::whisker.render(readLines(system.file("templates", "index-pre-commit.sh",
+                                                                     package = "pkgreviewr"),
+                                                         encoding = "UTF-8"), data), "\n")[[1]]
+    writeLines(script, hook_path)
+    Sys.chmod(hook_path, "0744")
+
     if (interactive() & rstudioapi::isAvailable()) rstudioapi::openProject(review_dir,
                                                            newSession = T)
 }
