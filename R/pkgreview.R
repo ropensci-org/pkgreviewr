@@ -29,10 +29,10 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
 
     tmp_pkg_dir <- normalizePath(file.path(tmp, meta$name), mustWork = F)
     pkg_dir <- normalizePath(file.path(review_parent, meta$name), mustWork = F)
-    tmp_review_dir <- normalizePath(file.path(tmp, paste0(meta$name, "-review")),
+    tmp_review_dir <- normalizePath(file.path(tmp, glue::glue("{meta$name}-{template}")),
                                     mustWork = F)
     review_dir <- normalizePath(file.path(review_parent,
-                                          paste0(meta$name, "-review")),
+                                          glue::glue("{meta$name}-{template}")),
                                 mustWork = F)
 
     # clone package source code directory and write to review_parent
