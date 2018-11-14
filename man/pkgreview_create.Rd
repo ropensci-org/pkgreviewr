@@ -24,6 +24,6 @@ Create and initialise an rOpenSci package review project
 }
 \examples{
 \dontrun{
-pkgreview_create(pkg_repo = "cboettig/rdflib")
+pkgreview_create(pkg_repo = "ropensci/rdflib", review_parent = "~/Documents/reviews/")
 }
 }

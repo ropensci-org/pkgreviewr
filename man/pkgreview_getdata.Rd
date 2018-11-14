@@ -23,6 +23,8 @@ get package metadata from package source code.
 }
 \examples{
 \dontrun{
+# run from within a pkgreviewr project with the package source code in a
+sibling directory
 pkgreview_getdata("../rdflib")
 }
 }

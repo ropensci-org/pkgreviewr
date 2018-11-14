@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' pkgreview_create(pkg_repo = "cboettig/rdflib")
+#' pkgreview_create(pkg_repo = "ropensci/rdflib", review_parent = "~/Documents/reviews/")
 #' }
 pkgreview_create <- function(pkg_repo, review_parent = ".",
                              template = c("review", "editor")) {
@@ -70,20 +70,21 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
 #'
 #' @param pkg_repo character string of the repo owner and name in the form of
 #'  `"owner/repo"`.
-#' @param review_dir path to the review directory
-#' @param pkg_dir path to package source directory, cloned from github. Ignore for manual initialisation
+#' @param review_dir path to the review directory. Defaults to the working directory.
+#' @param pkg_dir path to package source directory, cloned from github. Defaults
+#' to the package source code directory in the review parent.
 #' @param template character string, one of `review` or `editor`.
 #'
 #' @return Initialisation creates pre-populated `index.Rmd`, `pkgreview.md` and `README.md` documents.
 #' To initialise correctly, the function requires that the source code for the
 #' package has been cloned. This might need to be done manually if it failed
-#' during review creation. If setup is correct. Defaults are set to work in the
-#' root of the `review_dir` with `pkg_dir` set to `"../"`.
+#' during review creation. If setup is correct.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' pkgreview_init(pkg_repo = "cboettig/rdflib")
+#' # run from within an uninitialised pkgreviewr project
+#' pkgreview_init(pkg_repo = "ropensci/rdflib")
 #' }
 pkgreview_init <- function(pkg_repo, review_dir = ".",
                            pkg_dir = NULL,
@@ -128,6 +129,8 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
 # @importFrom usethis getFromNamespace project_data
 #' @examples
 #' \dontrun{
+#' # run from within a pkgreviewr project with the package source code in a
+#' sibling directory
 #' pkgreview_getdata("../rdflib")
 #' }
 pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
