@@ -1,7 +1,0 @@
-pandoc: 2.3.1
-pkgdown: 1.1.0
-pkgdown_sha: ~
-articles:
-  editors: editors.html
-  publish-review-on-github: publish-review-on-github.html
-
