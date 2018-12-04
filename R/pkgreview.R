@@ -12,12 +12,17 @@
 #'
 #' @examples
 #' \dontrun{
-#' pkgreview_create(pkg_repo = "cboettig/rdflib")
+#' # for a review project
+#' pkgreview_create(pkg_repo = "ropensci/rdflib", review_parent = "~/Documents/reviews/")
+#' # for editors checks
+#' pkgreview_create(pkg_repo = "ropensci/rdflib", review_parent = "~/Documents/editorials/",
+#' template = "editor")
 #' }
 pkgreview_create <- function(pkg_repo, review_parent = ".",
                              template = c("review", "editor")) {
     template <- match.arg(template)
     # checks
+    review_parent <- fs::path_real(review_parent)
     check_rstudio()
     check_global_git()
 
@@ -27,13 +32,10 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
     on.exit(unlink(tmp, recursive = T))
     dir.create(tmp, showWarnings = F)
 
-    tmp_pkg_dir <- normalizePath(file.path(tmp, meta$name), mustWork = F)
-    pkg_dir <- normalizePath(file.path(review_parent, meta$name), mustWork = F)
-    tmp_review_dir <- normalizePath(file.path(tmp, paste0(meta$name, "-review")),
-                                    mustWork = F)
-    review_dir <- normalizePath(file.path(review_parent,
-                                          paste0(meta$name, "-review")),
-                                mustWork = F)
+    tmp_pkg_dir <- fs::path(tmp, meta$name)
+    pkg_dir <- fs::path(review_parent, meta$name)
+    tmp_review_dir <- fs::path(tmp, glue::glue("{meta$name}-{template}"))
+    review_dir <- fs::path(review_parent, glue::glue("{meta$name}-{template}"))
 
     # clone package source code directory and write to review_parent
     clone <- clone_pkg(pkg_repo, pkg_dir = tmp_pkg_dir)
@@ -72,34 +74,39 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
 #'
 #' @param pkg_repo character string of the repo owner and name in the form of
 #'  `"owner/repo"`.
-#' @param review_dir path to the review directory
-#' @param pkg_dir path to package source directory, cloned from github. Ignore for manual initialisation
+#' @param review_dir path to the review directory. Defaults to the working directory.
+#' @param pkg_dir path to package source directory, cloned from github. Defaults
+#' to the package source code directory in the review parent.
 #' @param template character string, one of `review` or `editor`.
 #'
 #' @return Initialisation creates pre-populated `index.Rmd`, `pkgreview.md` and `README.md` documents.
 #' To initialise correctly, the function requires that the source code for the
 #' package has been cloned. This might need to be done manually if it failed
-#' during review creation. If setup is correct. Defaults are set to work in the
-#' root of the `review_dir` with `pkg_dir` set to `"../"`.
+#' during review creation. If setup is correct.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' pkgreview_init(pkg_repo = "cboettig/rdflib")
+#' # run from within an uninitialised pkgreviewr project
+#' pkgreview_init(pkg_repo = "ropensci/rdflib")
 #' }
 pkgreview_init <- function(pkg_repo, review_dir = ".",
                            pkg_dir = NULL,
                            template = c("review", "editor")){
+
+    template <- match.arg(template)
+
     # get repo metadata
     meta <- get_repo_meta(pkg_repo)
 
     # get package metadata
     if(is.null(pkg_dir)){
-        pkg_dir <- file.path(dirname(normalizePath(review_dir)), meta$name)}
+        pkg_dir <- fs::path(fs::path_dir(review_dir), meta$name)}
 
     assertthat::assert_that(assertthat::is.dir(pkg_dir))
     assertthat::assert_that(file.exists(file.path(pkg_dir, "DESCRIPTION")))
-    pkg_data <- pkgreview_getdata(pkg_dir = pkg_dir, pkg_repo)
+    pkg_data <- pkgreview_getdata(pkg_dir = pkg_dir, pkg_repo,
+                                  template = template)
 
     # create templates
     use_onboarding_tmpl(template)
@@ -120,21 +127,32 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
 #' @param pkg_dir path to the package source code directory
 #' @param pkg_repo character string of the repo owner and name in the form of
 #'  `"owner/repo"`.
+#' @param template character string, one of `review` or `editor`.
 #'
 #' @return a list of package metadata
 # @importFrom usethis getFromNamespace project_data
 #' @examples
 #' \dontrun{
+#' # run from within a pkgreviewr project with the package source code in a
+#' sibling directory
 #' pkgreview_getdata("../rdflib")
 #' }
-pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo) {
+pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
+                              template = c("review", "editor")) {
+    template <- match.arg(template)
+
     # get repo metadata
     meta <- get_repo_meta(pkg_repo, full = T)
     if(is.null(pkg_dir)){
-        pkg_dir <- file.path(usethis::proj_path(".."), meta$name)}
+        pkg_dir <- fs::path(usethis::proj_path(".."), meta$name)}
 
     # package repo data
     pkg_data <- usethis:::package_data(pkg_dir)
+
+    parsed_url <- urltools::url_parse(pkg_data$URL)
+    parsed_url$path <- fs::path(parsed_url$path)
+    pkg_data$URL <- urltools::url_compose(parsed_url)
+
     pkg_data$pkg_dir <- pkg_dir
     pkg_data$Rmd <- FALSE
     pkg_data$pkg_repo <- pkg_repo
@@ -145,16 +163,13 @@ pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo) {
     whoami_try <- try(whoami::gh_username())
     if(!inherits(whoami_try, "try-error")){
         pkg_data$whoami <- whoami_try
-        pkg_data$whoami_url <- paste0("https://github.com/", pkg_data$whoami)
-        pkg_data$review_repo <- paste0(pkg_data$whoami, "/",
-                                       pkg_data$repo, "-review")
-        pkg_data$index_url <- paste0("https://", pkg_data$whoami, ".github.io/",
-                                     pkg_data$repo, "-review", "/index.nb.html")
-        pkg_data$pkgreview_url <- paste0("https://github.com/", pkg_data$review_repo,
-                                         "/blob/master/pkgreview.md")
+        pkg_data$whoami_url <- glue::glue("https://github.com/{pkg_data$whoami}")
+        pkg_data$review_repo <- glue::glue("{pkg_data$whoami}/{pkg_data$repo}-{template}")
+        pkg_data$index_url <- glue::glue("https://{pkg_data$whoami}.github.io/{pkg_data$repo}-{template}/index.nb.html")
+        pkg_data$pkgreview_url <- glue::glue("https://github.com/{pkg_data$review_repo}/blob/master/pkgreview.md")
     }else{
         warning("GitHub user unidentifed.
-                URLs related to review and review repository not intitialised.")
+                URLs related to review and review repository not initialised.")
         pkg_data$whoami <- NULL
         pkg_data$whoami_url <- NULL
         pkg_data$review_repo <- NULL

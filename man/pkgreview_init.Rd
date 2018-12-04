@@ -11,9 +11,10 @@ pkgreview_init(pkg_repo, review_dir = ".", pkg_dir = NULL,
 \item{pkg_repo}{character string of the repo owner and name in the form of
 \code{"owner/repo"}.}
 
-\item{review_dir}{path to the review directory}
+\item{review_dir}{path to the review directory. Defaults to the working directory.}
 
-\item{pkg_dir}{path to package source directory, cloned from github. Ignore for manual initialisation}
+\item{pkg_dir}{path to package source directory, cloned from github. Defaults
+to the package source code directory in the review parent.}
 
 \item{template}{character string, one of \code{review} or \code{editor}.}
 }
@@ -21,14 +22,14 @@ pkgreview_init(pkg_repo, review_dir = ".", pkg_dir = NULL,
 Initialisation creates pre-populated \code{index.Rmd}, \code{pkgreview.md} and \code{README.md} documents.
 To initialise correctly, the function requires that the source code for the
 package has been cloned. This might need to be done manually if it failed
-during review creation. If setup is correct. Defaults are set to work in the
-root of the \code{review_dir} with \code{pkg_dir} set to \code{"../"}.
+during review creation. If setup is correct.
 }
 \description{
 Initialise pkgreview
 }
 \examples{
 \dontrun{
-pkgreview_init(pkg_repo = "cboettig/rdflib")
+# run from within an uninitialised pkgreviewr project
+pkgreview_init(pkg_repo = "ropensci/rdflib")
 }
 }

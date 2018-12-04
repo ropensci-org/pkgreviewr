@@ -1,3 +1,4 @@
+options(usethis.quiet = TRUE)
 detach("package:pkgreviewr", unload=TRUE)
 library(pkgreviewr)
 library(rstudioapi)
