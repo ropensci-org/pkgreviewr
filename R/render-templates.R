@@ -48,12 +48,12 @@ pkgreview_readme_md <- function(pkg_data) {
   )
 }
 
-#' Create onboarding template
+#' Create software review/editor response template
 #'
-#' Clone an up to date copy of the specified ropensci onboarding template.
+#' Clone an up to date copy of the specified ropensci software review/editor response template.
 #' @param template character string, one of `review` or `editor`.
 #'
-#' @return writes a `pkg{template}.md` checklist template file in the project root.
+#' @return writes a `{template}.md` checklist template file in the project root.
 #' @export
 #'
 #' @examples

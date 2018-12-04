@@ -31,7 +31,7 @@ library(magrittr)
 
 This report documents the editor checks of **rOpenSci** submitted package:
 
-### **`{{{ Package }}}`: ropensci/onboarding**  issue [\#{{{ number }}}]({{{issue_url}}}).
+### **`{{{ Package }}}`: ropensci/software-review**  issue [\#{{{ number }}}]({{{issue_url}}}).
 
 <br>
 
@@ -50,13 +50,13 @@ This report documents the editor checks of **rOpenSci** submitted package:
 ## Review info
 
 
-#### See [reviewer guidelines](https://github.com/ropensci/onboarding/blob/master/reviewing_guide.md) for further information on the rOpenSci review process.
+#### See [editors guidelines](https://ropensci.github.io/dev_guide/editorguide.html) for further information on the rOpenSci editors checks process.
 
 **key editor checks:**
 
 
 
-Please be respectful and kind to the authors in your reviews. The rOpenSci [code of conduct](https://github.com/ropensci/onboarding/blob/master/policies.md/#code-of-conduct) is mandatory for everyone involved in our review process.
+Please be respectful and kind to the authors in your editors checks. The rOpenSci [code of conduct](https://ropensci.github.io/dev_guide/policies.html#code-of-conduct) is mandatory for everyone involved in our review process.
 
 ***
 
@@ -176,3 +176,23 @@ covr::package_coverage(pkg_dir)
 
 
 ***
+
+
+### Reviewer assignment response:
+
+
+{{{ username }}}, could you please add the rOpenSci under review badge to your README?
+```
+[![](https://badges.ropensci.org/{{{ number }}}_status.svg)](https://github.com/ropensci/software-review/issues/{{{ number }}})
+```
+
+---
+
+Reviewers:
+Due date:
+
+***
+
+
+
+
