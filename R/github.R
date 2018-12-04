@@ -1,6 +1,7 @@
 # get issue metadata
 issue_meta <- function(pkg_repo, parameter = c("number", "url"), strict = F){
 
+    software_review_url <- "https://github.com/ropensci/software-review/issues/"
     onboard_url <- "https://github.com/ropensci/onboarding/issues/"
     readme_url <- paste0("https://raw.githubusercontent.com/",
                          pkg_repo,"/master/README.md")
@@ -24,7 +25,8 @@ ropensci onboarding issue undetermined"))
     }
 
     number <- gsub("([^0-9]).*$", "",
-                   gsub(paste0("^.*", onboard_url), "",
+                   gsub(paste0("(^.*", onboard_url, "|^.*",
+                               software_review_url,")"), "",
                         readme))
 
     switch(match.arg(parameter),

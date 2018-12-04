@@ -2,7 +2,7 @@
 % Please edit documentation in R/render-templates.R
 \name{use_onboarding_tmpl}
 \alias{use_onboarding_tmpl}
-\title{Create onboarding template}
+\title{Create software review/editor response template}
 \usage{
 use_onboarding_tmpl(template = c("review", "editor"))
 }
@@ -10,8 +10,8 @@ use_onboarding_tmpl(template = c("review", "editor"))
 \item{template}{character string, one of \code{review} or \code{editor}.}
 }
 \value{
-writes a \code{pkg{template}.md} checklist template file in the project root.
+writes a \code{{template}.md} checklist template file in the project root.
 }
 \description{
-Clone an up to date copy of the specified ropensci onboarding template.
+Clone an up to date copy of the specified ropensci software review/editor response template.
 }

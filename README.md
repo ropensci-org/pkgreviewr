@@ -17,7 +17,7 @@ devtools::install_github("ropenscilabs/pkgreviewr")
 ```
 
 
-Because rOpenSci reviews are conducted through github repository [`ropensci/onboarding`](https://github.com/ropensci/onboarding), `pkgreviewr` uses your GitHub user.name and user.email when creating new review projects. If you do not have both settings in your global configuration, you will receive an error. You can set both from within your terminal:
+Because rOpenSci reviews are conducted through github repository [`ropensci/software-review`](https://github.com/ropensci/software-review), `pkgreviewr` uses your GitHub user.name and user.email when creating new review projects. If you do not have both settings in your global configuration, you will receive an error. You can set both from within your terminal:
 
 ```
 # Example GitHub global configuration
@@ -42,7 +42,7 @@ The package also makes use of [**`R Notebooks`**](https://rmarkdown.rstudio.com/
 
 1. Open `index.Rmd` and work through the review in the notebook. You can make notes either in `index.Rmd` or directly in the `pkgreview.md` response template.
 
-1. Submit your review in the package `ropensci/onboarding` issue by copying and pasting the completed `pkgreview.md` template.
+1. Submit your review in the package `ropensci/software-review` issue by copying and pasting the completed `pkgreview.md` template.
 
 1. OPTIONAL: Publish your report by pushing to GitHub.
 
