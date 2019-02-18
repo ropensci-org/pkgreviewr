@@ -33,7 +33,8 @@ Imports:
     dplyr,
     glue,
     fs,
-    urltools
+    urltools,
+    shiny
 Suggests: 
     testthat,
     mockery,
