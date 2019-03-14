@@ -21,5 +21,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Anna Krystalli \email{annakrystalli@googlemail.com}
 
+Authors:
+\itemize{
+  \item Maëlle Salmon \email{maelle.salmon@yahoo.se}
+}
+
 }
 \keyword{internal}
