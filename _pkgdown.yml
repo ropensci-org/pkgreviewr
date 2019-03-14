@@ -30,3 +30,11 @@ navbar:
     github:
       icon: fa-github fa-lg
       href: https://github.com/ropenscilabs/pkgreviewr
+
+articles:
+- title: All vignettes
+  desc: ~
+  contents:
+  - '`publish-review-on-github`'
+  - '`get_started`'
+
