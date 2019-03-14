@@ -15,3 +15,8 @@ writes a \code{{template}.md} checklist template file in the project root.
 \description{
 Clone an up to date copy of the specified ropensci software review/editor response template.
 }
+\examples{
+\dontrun{
+use_onboarding_tmpl(template = "editor")
+}
+}

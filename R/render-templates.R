@@ -57,6 +57,9 @@ pkgreview_readme_md <- function(pkg_data) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' use_onboarding_tmpl(template = "editor")
+#' }
 use_onboarding_tmpl <- function(template = c("review", "editor")) {
   template <- match.arg(template)
   tmpl_txt <- gh::gh("/repos/:owner/:repo/contents/:path",
