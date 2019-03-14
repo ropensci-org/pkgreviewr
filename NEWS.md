@@ -1,3 +1,8 @@
+# pkgreviewr 0.1.1
+
+* Added ability to specify issue_no
+
+
 # pkgreviewr 0.1.0
 
 * Added editor templates to enable editor checks and other duties
