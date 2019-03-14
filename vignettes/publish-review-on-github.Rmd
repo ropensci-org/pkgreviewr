@@ -57,7 +57,7 @@ To use `usethis::use_github`, you'll need to supply a **github personal access t
 3. **Create Github repo & add as remote:** Now, while in your review project in Rstudio, run: 
 
     ```r
-    usethis::use_github()
+    usethis::use_github(protocol = "https")
     ```
   to create a github repository for your review and add it as a remote for your review project. The naming of the github repository is handled automatically.
 
