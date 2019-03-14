@@ -1,11 +1,15 @@
 #' Create a review project.
 #'
 #' Create and initialise an rOpenSci package review project
+#'
 #' @param pkg_repo character string of the repo owner and name in the form of
 #'  `"owner/repo"`.
 #' @param review_parent directory in which to setup review project and source package
 #'  source code.
 #' @param template character string, one of `review` or `editor`.
+#' @param issue_no integer. Issue number of the pkg review in the rOpenSci [`software-review` repository](https://github.com/ropensci/software-review/issues).
+#' If `NULL` (default), the issue number is extracted from the rOpenSci **Under Review** badge on the pkg repository README.
+#' Supplying an integer to `issue_no` overrides this behaviour and can be useful if a badge has not been added to the README yet.
 #'
 #' @return setup review project with templates
 #' @export
@@ -19,7 +23,8 @@
 #' template = "editor")
 #' }
 pkgreview_create <- function(pkg_repo, review_parent = ".",
-                             template = c("review", "editor")) {
+                             template = c("review", "editor"),
+                             issue_no = NULL) {
     template <- match.arg(template)
     # checks
     review_parent <- fs::path_real(review_parent)
@@ -51,7 +56,8 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
     if(clone){
         pkgreview_init(pkg_repo, review_dir = tmp_review_dir,
                        pkg_dir = pkg_dir,
-                       template = template)
+                       template = template,
+                       issue_no = issue_no)
     }else{
         todo("Template initialisation of review project",
              value(basename(review_dir)) ,"not possible. \n Use: ",
@@ -72,12 +78,10 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
 
 #' Initialise pkgreview
 #'
-#' @param pkg_repo character string of the repo owner and name in the form of
-#'  `"owner/repo"`.
+#' @inheritParams pkgreview_create
 #' @param review_dir path to the review directory. Defaults to the working directory.
 #' @param pkg_dir path to package source directory, cloned from github. Defaults
 #' to the package source code directory in the review parent.
-#' @param template character string, one of `review` or `editor`.
 #'
 #' @return Initialisation creates pre-populated `index.Rmd`, `pkgreview.md` and `README.md` documents.
 #' To initialise correctly, the function requires that the source code for the
@@ -92,7 +96,8 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
 #' }
 pkgreview_init <- function(pkg_repo, review_dir = ".",
                            pkg_dir = NULL,
-                           template = c("review", "editor")){
+                           template = c("review", "editor"),
+                           issue_no = NULL){
 
     template <- match.arg(template)
 
@@ -106,7 +111,8 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
     assertthat::assert_that(assertthat::is.dir(pkg_dir))
     assertthat::assert_that(file.exists(file.path(pkg_dir, "DESCRIPTION")))
     pkg_data <- pkgreview_getdata(pkg_dir = pkg_dir, pkg_repo,
-                                  template = template)
+                                  template = template,
+                                  issue_no = issue_no)
 
     # create templates
     use_onboarding_tmpl(template)
@@ -123,11 +129,8 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
 #' pkgreview_getdata
 #'
 #' get package metadata from package source code.
-#'
-#' @param pkg_dir path to the package source code directory
-#' @param pkg_repo character string of the repo owner and name in the form of
-#'  `"owner/repo"`.
-#' @param template character string, one of `review` or `editor`.
+#' @inheritParams pkgreview_create
+#' @inheritParams pkgreview_init
 #'
 #' @return a list of package metadata
 # @importFrom usethis getFromNamespace project_data
@@ -138,7 +141,9 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
 #' pkgreview_getdata("../rdflib")
 #' }
 pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
-                              template = c("review", "editor")) {
+                              template = c("review", "editor"),
+                              issue_no = NULL) {
+
     template <- match.arg(template)
 
     # get repo metadata
@@ -177,8 +182,12 @@ pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
         pkg_data$pkgreview_url <- NULL
     }
 
-    pkg_data$issue_url <- issue_meta(pkg_data$pkg_repo, parameter = "url")
-    pkg_data$number <- issue_meta(pkg_data$pkg_repo)
+    pkg_data$issue_url <- ifelse(is.null(issue_no),
+                                 issue_meta(pkg_data$pkg_repo, parameter = "url"),
+                                 paste0("https://github.com/ropensci/software-review/issues/", issue_no))
+    pkg_data$number <- ifelse(is.null(issue_no),
+                              issue_meta(pkg_data$pkg_repo),
+                              issue_no)
     pkg_data$site <- meta$homepage
 
     pkg_data

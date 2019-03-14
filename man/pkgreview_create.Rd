@@ -5,7 +5,7 @@
 \title{Create a review project.}
 \usage{
 pkgreview_create(pkg_repo, review_parent = ".", template = c("review",
-  "editor"))
+  "editor"), issue_no = NULL)
 }
 \arguments{
 \item{pkg_repo}{character string of the repo owner and name in the form of
@@ -15,6 +15,10 @@ pkgreview_create(pkg_repo, review_parent = ".", template = c("review",
 source code.}
 
 \item{template}{character string, one of \code{review} or \code{editor}.}
+
+\item{issue_no}{integer. Issue number of the pkg review in the rOpenSci \href{https://github.com/ropensci/software-review/issues}{software-review repository}.
+If \code{NULL} (default), the issue number is extracted from the rOpenSci \strong{Under Review} badge on the pkg repository README.
+Supplying an integer to \code{issue_no} overrides this behaviour and can be useful if a badge has not been added to the README yet.}
 }
 \value{
 setup review project with templates
