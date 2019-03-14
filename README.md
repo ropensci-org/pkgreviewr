@@ -8,7 +8,7 @@ The goal of pkgreviewr is to facilitate **rOpenSci** reviewers in their package 
 
 It creates a review project containing populated templates of all the files you'll need to complete your review. It also clones the source code of the package under review to a convenient location, allowing easy checking and testing.
 
-See [Getting started](articles/01_get_started.html) vignette for more details
+See [Getting started](articles/get_started.html) vignette for more details
 
 ## Installation
 
