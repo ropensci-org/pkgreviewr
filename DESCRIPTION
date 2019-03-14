@@ -40,7 +40,7 @@ Suggests:
     mockery,
     knitr,
     rmarkdown
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Remotes: 
     ropensci/git2r
 VignetteBuilder: knitr
