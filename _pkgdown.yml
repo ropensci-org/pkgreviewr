@@ -1,0 +1,32 @@
+navbar:
+  structure:
+    left:
+    - home
+    - getting_started
+    - reference
+    - articles
+    - news
+    right: github
+  components:
+    home:
+      icon: fa-home fa-lg
+      href: index.html
+    getting_started:
+      text: Getting Started
+      href: articles/get_started.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    articles:
+      text: Articles
+      menu:
+      - text: Publish pkgreview on GitHub
+        href: articles/publish-review-on-github.html
+      - text: pkgreviewr for editors
+        href: articles/editors.html
+    news:
+      text: Changelog
+      href: news/index.html
+    github:
+      icon: fa-github fa-lg
+      href: https://github.com/ropenscilabs/pkgreviewr
