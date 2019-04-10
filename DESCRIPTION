@@ -46,3 +46,4 @@ Remotes:
     ropensci/git2r
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
+Date: 2019-01-01
