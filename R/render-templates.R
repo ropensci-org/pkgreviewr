@@ -22,7 +22,7 @@
 #' }
 pkgreview_index_rmd <- function(pkg_data,
                                 template = c("review", "editor")) {
-  template <- match.arg(template)
+  template <- match.arg(template, c("review", "editor"))
 
   usethis::use_template(
     glue::glue("{template}-index"),
@@ -61,7 +61,7 @@ pkgreview_readme_md <- function(pkg_data) {
 #' use_onboarding_tmpl(template = "editor")
 #' }
 use_onboarding_tmpl <- function(template = c("review", "editor")) {
-  template <- match.arg(template)
+  template <- match.arg(template, c("review", "editor"))
   tmpl_txt <- gh::gh("/repos/:owner/:repo/contents/:path",
     owner = "ropensci",
     repo = "dev_guide",
