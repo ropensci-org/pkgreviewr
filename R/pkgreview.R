@@ -114,13 +114,15 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
                                   template = template,
                                   issue_no = issue_no)
 
-    # create templates
-    use_onboarding_tmpl(template)
-    pkgreview_index_rmd(pkg_data, template)
-    switch (template,
-        "review" = pkgreview_readme_md(pkg_data),
-        "editor" = pkgreview_request(pkg_data)
-    )
+    usethis::with_project(review_dir, {
+        # create templates
+        use_onboarding_tmpl(template)
+        pkgreview_index_rmd(pkg_data, template)
+        switch (template,
+                "review" = pkgreview_readme_md(pkg_data),
+                "editor" = pkgreview_request(pkg_data)
+        )
+    })
 
     done(template, " project ", value(basename(review_dir)),
          " initialised successfully")
