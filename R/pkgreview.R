@@ -25,7 +25,7 @@
 pkgreview_create <- function(pkg_repo, review_parent = ".",
                              template = c("review", "editor"),
                              issue_no = NULL) {
-    template <- match.arg(template, c("review", "editor"))
+    template <- match.arg(template)
     # checks
     review_parent <- fs::path_real(review_parent)
     check_rstudio()
@@ -99,7 +99,7 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
                            template = c("review", "editor"),
                            issue_no = NULL){
 
-    template <- match.arg(template, c("review", "editor"))
+    template <- match.arg(template)
 
     # get repo metadata
     meta <- get_repo_meta(pkg_repo)
@@ -146,7 +146,7 @@ pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
                               template = c("review", "editor"),
                               issue_no = NULL) {
 
-    template <- match.arg(template, c("review", "editor"))
+    template <- match.arg(template)
 
     # get repo metadata
     meta <- get_repo_meta(pkg_repo, full = T)
