@@ -25,7 +25,9 @@ use_git_pkgrv <- function (path = ".", message = "Initial commit") {
     }
     done("Initialising Git repo")
     r <- git2r::init(path)
-    usethis::use_git_ignore(c(".Rhistory", ".RData", ".Rproj.user"))
+    usethis::with_project(path = path, {
+        usethis::use_git_ignore(c(".Rhistory", ".RData", ".Rproj.user"))
+    })
     done("Adding files and committing")
     paths <- unlist(git2r::status(r))
     git2r::add(r, paths)
