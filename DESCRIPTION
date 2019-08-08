@@ -35,7 +35,8 @@ Imports:
     glue,
     fs,
     urltools,
-    shiny
+    shiny,
+    withr
 Suggests: 
     testthat,
     mockery,
@@ -47,3 +48,4 @@ Remotes:
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 Date: 2019-01-01
+
