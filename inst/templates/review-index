@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 )
 
 library(magrittr)
+library(devtools)
 ```
 
 # `{{{ Package }}}` - package review

@@ -49,6 +49,7 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
     }
 
     # create project
+    withr::local_options(list(usethis.quiet = TRUE))
     usethis::create_project(tmp_review_dir, open = FALSE)
     unlink(file.path(tmp_review_dir,"R"), recursive = TRUE)
 
@@ -122,7 +123,7 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
                 "review" = pkgreview_readme_md(pkg_data),
                 "editor" = pkgreview_request(pkg_data)
         )
-    })
+    }, quiet = TRUE)
 
     done(template, " project ", value(basename(review_dir)),
          " initialised successfully")

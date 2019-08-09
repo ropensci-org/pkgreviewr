@@ -1,3 +1,8 @@
+# pkgreviewr 0.1.2
+
+* Streamlined initialisation messages
+
+
 # pkgreviewr 0.1.1
 
 * Added ability to specify issue_no
