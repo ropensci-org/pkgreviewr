@@ -54,24 +54,10 @@ test_that("get-pkg_data", {
     expect_equal(pkg_data$pkg_dir, pkg_dir)
     expect_equal(pkg_data$Package, "rdflib")
     expect_equal(pkg_data$repo, "rdflib")
+    expect_equal(pkg_data$URL, "https://github.com/annakrystalli/rdflib")
     expect_equal(pkg_data$site, "https://cboettig.github.io/rdflib")
     expect_false(pkg_data$Rmd)
 })
 
-
-
-
-
-
-
-
-#test_that("render-works", {
-#tmp <- tempdir()
-#on.exit(unlink(tmp, recursive = T))
-#pkgreview_getdata(pkg_dir, pkg_repo)
-#pkgreview_readme_md()
-#expect_equal(whoami::gh_username(),
-#              "annakrystalli")
-#})
 
 

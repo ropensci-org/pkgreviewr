@@ -157,9 +157,7 @@ pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
     # package repo data
     pkg_data <- usethis:::package_data(pkg_dir)
 
-    parsed_url <- urltools::url_parse(pkg_data$URL)
-    parsed_url$path <- fs::path(parsed_url$path)
-    pkg_data$URL <- urltools::url_compose(parsed_url)
+    pkg_data$URL <- meta$html_url
 
     pkg_data$pkg_dir <- pkg_dir
     pkg_data$Rmd <- FALSE
