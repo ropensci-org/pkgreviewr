@@ -21,48 +21,23 @@ devtools::install_github("ropenscilabs/pkgreviewr")
 ```
 <br>
 
+### Git
 
-### git configuration
+`pkgreviewr` functions clone the source code of the package under review so require **Git** to be installed. 
 
-Because rOpenSci reviews are conducted through github repository [`ropensci/software-review`](https://github.com/ropensci/software-review), **`pkgreviewr` uses your GitHub `user.name` and `user.email` when creating new review projects**. If you do not have both settings in your global configuration, you will receive an error. 
+### GitHub user configuration
 
-#### `usethis`
+Because rOpenSci reviews are conducted through github repository [`ropensci/software-review`](https://github.com/ropensci/software-review), **`pkgreviewr` uses your GitHub username to prepopulate various fields in the review project files**.
 
-You see if user name and email are currently configured with **`usethis` function `use_git_config()`**
+To detect your username correctly, a PAT, Personal Authorisation Token, needs to be set up.
+You can use `usethis::browse_github_pat()` to generate a PAT and `usethis::edit_r_environ()` to store it as environment variable `GITHUB_PAT` or `GITHUB_TOKEN` in your .`Renviron` file. For more info, see article on publishing review on GitHub in pkgreviewr documentation.
 
-```r
-# install.packages("usethis")
-usethis::use_git_config()
-```
+If you do not have a PAT set up, you will receive an warning and any fields related to your GitHub username will not be correctly populated. However, this shouldn't affect your ability to complete your review. 
 
-You can set both using:
-
-```r
-usethis::use_git_config(
-    user.name = "Jane", 
-    user.email = "jane@example.org")
-```
-
-#### terminal
-
-Alternatively, from **within your terminal**,
-
-check you current git configuration with:
-
-```{bash}
-git config --global --list
-```
-and set it with
-
-```{bash}
-git config --global user.name "Jane"
-git config --global user.email "jane@example.org"
-```
-<br>
 
 ### R Notebooks
 
-The package also makes use of [**`R Notebooks`**](https://rmarkdown.rstudio.com/r_notebooks.html) (an RMarkdown format) and requires installation of **Rstudio version 1.0** or higher 
+The package currently also makes use of [**`R Notebooks`**](https://rmarkdown.rstudio.com/r_notebooks.html) (an RMarkdown format) and requires installation of **Rstudio version 1.0** or higher, but we are [considering offering an option to remove the requirement for RStudio](https://github.com/ropenscilabs/pkgreviewr/issues/64).
 
 ***
 
