@@ -82,7 +82,7 @@ use_onboarding_tmpl <- function(template = c("review", "editor")) {
 #' @export
 #' @rdname pkgreview_index_rmd
 pkgreview_request <- function(pkg_data) {
-  pkg_data$editor <- whoami::fullname()
+  pkg_data$editor <- gh::gh_whoami(usethis::github_token())$name
 
   usethis::use_template(
     "request",

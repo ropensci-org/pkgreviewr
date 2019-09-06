@@ -157,9 +157,7 @@ pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
     # package repo data
     pkg_data <- usethis:::package_data(pkg_dir)
 
-    parsed_url <- urltools::url_parse(pkg_data$URL)
-    parsed_url$path <- fs::path(parsed_url$path)
-    pkg_data$URL <- urltools::url_compose(parsed_url)
+    pkg_data$URL <- meta$html_url
 
     pkg_data$pkg_dir <- pkg_dir
     pkg_data$Rmd <- FALSE
@@ -168,10 +166,10 @@ pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
     pkg_data$repo <- meta$name
 
     # reviewer data
-    whoami_try <- try(whoami::gh_username())
+    whoami_try <- try(gh::gh_whoami(usethis::github_token()))
     if(!inherits(whoami_try, "try-error")){
-        pkg_data$whoami <- whoami_try
-        pkg_data$whoami_url <- glue::glue("https://github.com/{pkg_data$whoami}")
+        pkg_data$whoami <- whoami_try$login
+        pkg_data$whoami_url <- whoami_try$html_url
         pkg_data$review_repo <- glue::glue("{pkg_data$whoami}/{pkg_data$repo}-{template}")
         pkg_data$index_url <- glue::glue("https://{pkg_data$whoami}.github.io/{pkg_data$repo}-{template}/index.nb.html")
         pkg_data$pkgreview_url <- glue::glue("https://github.com/{pkg_data$review_repo}/blob/master/pkgreview.md")
