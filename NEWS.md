@@ -1,7 +1,8 @@
 # pkgreviewr 0.1.2
 
+* More robust project handling (thanks @rorynolan for PR)
 * Streamlined initialisation messages
-
+* More robust detection of gh username (thanks @benmarwick & @llrs for suggestion) and repository url
 
 # pkgreviewr 0.1.1
 
