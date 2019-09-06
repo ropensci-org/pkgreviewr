@@ -37,13 +37,16 @@ ropensci onboarding issue undetermined"))
 
 # check username
 check_global_git <- function(){
-    test <- try(whoami::gh_username(), silent = T)
-    if(class(test) == "try-error"){
-        stop("All rOpenSci package review is conducted through github \n
-             Prior to initialising a review, please ensure your global github credentials are correctly up. Use: \n\n
-             git config --global user.name 'your.gh.username' \n
-             git config --global user.email 'your.gh.email@example.com'\n
-             in the terminal to configure your global settings")
+    test <- try(gh::gh_whoami(usethis::github_token()), silent = T)
+    if(class(test)[1] == "try-error"){
+        warning("All rOpenSci package review is conducted through GitHub.
+             To enable correct detection of your GitHub username,
+             a PAT, Personal Authorisation Token, needs to be set up. \n
+             Use `usethis::browse_github_pat` to generate a PAT. \n
+             Use `usethis::edit_r_environ` to store it as environment variable
+             GITHUB_PAT or GITHUB_TOKEN in your .Renviron file. \n
+
+             For more info, see article on publishing review on GitHub in pkgreviewr documentation.")
     }
 }
 

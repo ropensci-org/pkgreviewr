@@ -21,7 +21,6 @@ Imports:
     reprex,
     gh,
     base64enc,
-    whoami,
     magrittr,
     covr,
     goodpractice,

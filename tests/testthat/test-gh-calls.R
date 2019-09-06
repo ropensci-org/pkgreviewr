@@ -30,7 +30,7 @@ test_that("check-get_repo_meta", {
 })
 
 test_that("gh_username-works", {
-    expect_equal(whoami::gh_username(),
+    expect_equal(gh::gh_whoami(usethis::github_token())$login,
                  "annakrystalli")
 })
 
