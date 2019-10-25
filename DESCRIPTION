@@ -1,7 +1,7 @@
 Package: pkgreviewr
 Type: Package
 Title: rOpenSci package review project template
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: c(person("Anna", "Krystalli", email = "annakrystalli@googlemail.com",
                   role = c("aut", "cre")),
              person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role = "aut"))
@@ -34,7 +34,8 @@ Imports:
     glue,
     fs (>= 1.3.1),
     shiny,
-    withr
+    withr,
+    spelling
 Suggests: 
     testthat,
     mockery,
@@ -46,4 +47,3 @@ Remotes:
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 Date: 2019-01-01
-
