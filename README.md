@@ -1,7 +1,10 @@
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing) ![GitHub R package version](https://img.shields.io/github/r-package/v/ropensci-org/pkgreviewr) [![Travis build status](https://travis-ci.org/ropenscilabs/pkgreviewr.svg?branch=master)](https://travis-ci.org/ropenscilabs/pkgreviewr)
+<!-- badges: start -->
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing) ![GitHub R package version](https://img.shields.io/github/r-package/v/ropensci-org/pkgreviewr) 
+  [![R-CMD-check](https://github.com/ropenscilabs/pkgreviewr/workflows/R-CMD-check/badge.svg)](https://github.com/ropenscilabs/pkgreviewr/actions)
 [![codecov](https://codecov.io/gh/ropenscilabs/pkgreviewr/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/pkgreviewr)
-
+ <!-- badges: end -->
+ 
 # pkgreviewr
 
 The goal of pkgreviewr is to facilitate **rOpenSci** reviewers in their package reviews. 
