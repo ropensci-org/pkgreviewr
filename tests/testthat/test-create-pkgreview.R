@@ -10,13 +10,14 @@ test_that("review-proj-created-correctly", {
 
     expect_true("rdflib-review" %in% list.files(review_parent))
     expect_true(git2r::in_repository(review_dir))
-    expect_setequal(c("index.Rmd", "README.md", "review.md"),
-                    list.files(review_dir, include.dirs = T))
-    expect_identical(list.files(pkg_dir),
-                     c("appveyor.yml", "codecov.yml", "codemeta.json", "DESCRIPTION",
+    expect_true(all(c("index.Rmd", "README.md", "review.md") %in%
+                    list.files(review_dir)))
+    expect_identical(sort(list.files(pkg_dir, all.files = TRUE)),
+                     sort(c(".", "..", ".git", ".gitignore", ".Rbuildignore", ".travis.yml",
+                       "appveyor.yml", "codecov.yml", "codemeta.json", "DESCRIPTION",
                        "docs", "inst", "LICENSE", "man", "NAMESPACE", "NEWS.md", "paper.bib",
                        "paper.md", "R", "rdflib.Rproj", "README.md", "README.Rmd", "tests",
-                       "vignettes"))
+                       "vignettes")))
     # expect_true("rdflib-review.Rproj" %in% list.files(review_dir))
 })
 
@@ -34,7 +35,7 @@ test_that("get-pkg_data", {
         skip("No internet, skipping")
     }
 
-    pkg_data <- pkgreview_getdata(pkg_dir, pkg_repo)
+    pkg_data <- pkgreviewr:::pkgreview_getdata(pkg_dir, pkg_repo)
 
     # issue_meta
     expect_warning(pkgreviewr:::issue_meta("cboettig/rdflibh"), "undetermined")
