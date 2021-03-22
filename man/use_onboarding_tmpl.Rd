@@ -10,7 +10,7 @@ use_onboarding_tmpl(template = c("review", "editor"))
 \item{template}{character string, one of \code{review} or \code{editor}.}
 }
 \value{
-writes a \code{{template}.md} checklist template file in the project root.
+writes a \verb{\{template\}.md} checklist template file in the project root.
 }
 \description{
 Clone an up to date copy of the specified ropensci software review/editor response template.

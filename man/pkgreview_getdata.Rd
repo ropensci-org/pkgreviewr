@@ -4,8 +4,12 @@
 \alias{pkgreview_getdata}
 \title{pkgreview_getdata}
 \usage{
-pkgreview_getdata(pkg_dir = NULL, pkg_repo, template = c("review",
-  "editor"), issue_no = NULL)
+pkgreview_getdata(
+  pkg_dir = NULL,
+  pkg_repo,
+  template = c("review", "editor"),
+  issue_no = NULL
+)
 }
 \arguments{
 \item{pkg_dir}{path to package source directory, cloned from github. Defaults
@@ -16,7 +20,7 @@ to the package source code directory in the review parent.}
 
 \item{template}{character string, one of \code{review} or \code{editor}.}
 
-\item{issue_no}{integer. Issue number of the pkg review in the rOpenSci \href{https://github.com/ropensci/software-review/issues}{software-review repository}.
+\item{issue_no}{integer. Issue number of the pkg review in the rOpenSci \href{https://github.com/ropensci/software-review/issues}{\code{software-review} repository}.
 If \code{NULL} (default), the issue number is extracted from the rOpenSci \strong{Under Review} badge on the pkg repository README.
 Supplying an integer to \code{issue_no} overrides this behaviour and can be useful if a badge has not been added to the README yet.}
 }
