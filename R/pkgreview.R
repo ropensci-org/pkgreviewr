@@ -166,7 +166,7 @@ pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
     pkg_data$repo <- meta$name
 
     # reviewer data
-    whoami_try <- try(gh::gh_whoami(usethis::github_token()))
+    whoami_try <- try(gh::gh_whoami(gh::gh_token()))
     if(!inherits(whoami_try, "try-error")){
         pkg_data$whoami <- whoami_try$login
         pkg_data$whoami_url <- whoami_try$html_url
