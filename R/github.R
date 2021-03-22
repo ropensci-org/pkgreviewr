@@ -1,5 +1,5 @@
 # get issue metadata
-issue_meta <- function(pkg_repo, parameter = c("number", "url"), strict = F){
+issue_meta <- function(pkg_repo, parameter = c("number", "url"), strict = FALSE){
 
     software_review_url <- "https://github.com/ropensci/software-review/issues/"
     onboard_url <- "https://github.com/ropensci/onboarding/issues/"
@@ -7,6 +7,7 @@ issue_meta <- function(pkg_repo, parameter = c("number", "url"), strict = F){
                          pkg_repo,"/master/README.md")
 
     readme <- suppressMessages(httr::content(httr::GET(readme_url)))
+
     if(strict){
         assertthat::assert_that(readme != "404: Not Found\n",
                                 msg = paste0(readme_url,
@@ -14,6 +15,7 @@ issue_meta <- function(pkg_repo, parameter = c("number", "url"), strict = F){
     }else{
         valid_issue <- assertthat::validate_that(
             readme != "404: Not Found\n",
+            readme != "404: Not Found",
             msg = "undetermined")
 
         if(valid_issue == "undetermined"){
