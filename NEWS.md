@@ -1,3 +1,10 @@
+# pkgreviewr 0.2.0
+
+* Adjust to new location of templates (thanks @maelle for PR)
+* More robust handling of 404 messages
+* Use `gh::gh_token` instead of deprecated `usethis::github_token`
+* Make testing of created folder contents more robust.
+
 # pkgreviewr 0.1.2
 
 * More robust project handling (thanks @rorynolan for PR)
