@@ -9,8 +9,8 @@ Description: Creates files and collects materials necessary to complete an rOpen
     Review files are prepopulated with review package specific metadata. Review package source code is
     also cloned for local testing and inspection.
 License: GPL-3 + file LICENSE
-URL: https://github.com/ropenscilabs/pkgreviewr
-BugReports: https://github.com/ropenscilabs/pkgreviewr/issues
+URL: https://github.com/ropensci-org/pkgreviewr
+BugReports: https://github.com/ropensci-org/pkgreviewr/issues
 Encoding: UTF-8
 LazyData: true
 Imports:
@@ -35,7 +35,8 @@ Imports:
     fs (>= 1.3.1),
     shiny,
     withr,
-    spelling
+    spelling,
+    emo
 Suggests: 
     testthat,
     mockery,
@@ -43,7 +44,7 @@ Suggests:
     rmarkdown
 RoxygenNote: 7.1.1
 Remotes: 
-    ropensci/git2r
+    hadley/emo
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 Date: 2021-03-22

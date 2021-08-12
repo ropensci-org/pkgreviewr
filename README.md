@@ -1,8 +1,8 @@
 
 <!-- badges: start -->
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing) ![GitHub R package version](https://img.shields.io/github/r-package/v/ropensci-org/pkgreviewr) 
-  [![R-CMD-check](https://github.com/ropenscilabs/pkgreviewr/workflows/R-CMD-check/badge.svg)](https://github.com/ropenscilabs/pkgreviewr/actions)
-[![codecov](https://codecov.io/gh/ropenscilabs/pkgreviewr/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/pkgreviewr)
+  [![R-CMD-check](https://github.com/ropensci-org/pkgreviewr/workflows/R-CMD-check/badge.svg)](https://github.com/ropensci-org/pkgreviewr/actions)
+[![codecov](https://codecov.io/gh/ropensci-org/pkgreviewr/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci-org/pkgreviewr)
  <!-- badges: end -->
  
 # pkgreviewr
@@ -19,8 +19,8 @@ You can install `pkgreviewr` from GitHub with:
 
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("ropenscilabs/pkgreviewr")
+# install.packages("remotes")
+remotes::install_github("ropensci-org/pkgreviewr")
 ```
 <br>
 
