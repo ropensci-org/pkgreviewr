@@ -30,6 +30,9 @@ test_that("check-get_repo_meta", {
 })
 
 test_that("gh_username-works", {
+    if (!identical(Sys.getenv("AK_LOCAL"), "true")) {
+        skip("Credentials to test against unknown.")
+    }
     expect_equal(gh::gh_whoami(gh::gh_token())$login,
                  "annakrystalli")
 })
