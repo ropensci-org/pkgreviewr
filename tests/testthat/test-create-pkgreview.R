@@ -5,6 +5,7 @@ test_that("review-proj-created-correctly", {
 
     #  create review project
     mockery::stub(pkgreview_create,"check_rstudio", NULL)
+    mockery::stub(pkgreview_getdata,"gh_whoami", "annakrystalli")
     #mockery::stub(pkgreview_create,"openProject", NULL)
     pkgreview_create(pkg_repo, review_parent)
 
