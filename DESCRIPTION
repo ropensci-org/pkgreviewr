@@ -8,7 +8,7 @@ Authors@R: c(person("Anna", "Krystalli", email = "annakrystalli@googlemail.com",
 Description: Creates files and collects materials necessary to complete an rOpenSci package review. 
     Review files are prepopulated with review package specific metadata. Review package source code is
     also cloned for local testing and inspection.
-License: GPL-3 + file LICENSE
+License: GPL (>= 3)+ file LICENSE
 URL: https://github.com/ropensci-org/pkgreviewr
 BugReports: https://github.com/ropensci-org/pkgreviewr/issues
 Encoding: UTF-8
@@ -41,10 +41,11 @@ Suggests:
     testthat,
     mockery,
     knitr,
-    rmarkdown
+    rmarkdown,
+    mockthat
 RoxygenNote: 7.1.1
 Remotes: 
     hadley/emo
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-Date: 2021-03-22
+Date: 2021-08-12
