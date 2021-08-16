@@ -1,13 +1,20 @@
-context("test-create-pkgreview.R")
 on.exit(unlink(review_parent, recursive = T))
-
+context("test-create-pkgreview.R")
 test_that("review-proj-created-correctly", {
 
-    #  create review project
+    #  stub out internal function with mockery stub at depth 1
     mockery::stub(pkgreview_create,"check_rstudio", NULL)
-    mockery::stub(pkgreview_getdata,"gh_whoami", "annakrystalli")
-    #mockery::stub(pkgreview_create,"openProject", NULL)
-    pkgreview_create(pkg_repo, review_parent)
+    mockery::stub(pkgreview_create,"check_global_git", NULL)
+
+    mockthat::with_mock(
+        # stub out deeper try_whoami with mockthat with_mock function
+        try_whoami = function() structure(list(name = "name of user", login = "user",
+                                               html_url = "https://github.com/user",
+                                               scopes = "",
+                                               token = ""), class = c("gh_response", "list")),
+        # create package review
+        pkgreview_create(pkg_repo, review_parent)
+    )
 
     expect_true("rdflib-review" %in% list.files(review_parent))
     expect_true(git2r::in_repository(review_dir))
@@ -36,7 +43,13 @@ test_that("get-pkg_data", {
         skip("No internet, skipping")
     }
 
-    pkg_data <- pkgreviewr:::pkgreview_getdata(pkg_dir, pkg_repo)
+    mockery::stub(pkgreview_getdata, "try_whoami",
+                  structure(list(name = "name of user", login = "user",
+                                 html_url = "https://github.com/user",
+                                 scopes = "",
+                                 token = ""), class = c("gh_response", "list")))
+    pkg_data <- pkgreview_getdata(pkg_dir, pkg_repo)
+
 
     # issue_meta
     expect_warning(pkgreviewr:::issue_meta("cboettig/rdflibh"), "undetermined")
@@ -46,13 +59,13 @@ test_that("get-pkg_data", {
 
     expect_equal(pkg_data$pkg_repo, "annakrystalli/rdflib")
     expect_equal(pkg_data$username, "annakrystalli")
-    expect_equal(pkg_data$index_url, "https://annakrystalli.github.io/rdflib-review/index.nb.html")
-    expect_equal(pkg_data$review_repo, "annakrystalli/rdflib-review")
-    expect_equal(pkg_data$pkgreview_url, "https://github.com/annakrystalli/rdflib-review/blob/master/pkgreview.md")
+    expect_equal(pkg_data$index_url, "https://user.github.io/rdflib-review/index.nb.html")
+    expect_equal(pkg_data$review_repo, "user/rdflib-review")
+    expect_equal(pkg_data$pkgreview_url, "https://github.com/user/rdflib-review/blob/master/pkgreview.md")
     expect_equal(pkg_data$issue_url, "https://github.com/ropensci/onboarding/issues/169")
     expect_equal(pkg_data$number, 169)
-    expect_equal(pkg_data$whoami, "annakrystalli")
-    expect_equal(pkg_data$whoami_url, "https://github.com/annakrystalli")
+    expect_equal(pkg_data$whoami, "user")
+    expect_equal(pkg_data$whoami_url, "https://github.com/user")
     expect_equal(pkg_data$pkg_dir, pkg_dir)
     expect_equal(pkg_data$Package, "rdflib")
     expect_equal(pkg_data$repo, "rdflib")
