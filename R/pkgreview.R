@@ -143,6 +143,7 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
 #' sibling directory
 #' pkgreview_getdata("../rdflib")
 #' }
+#' @export
 pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
                               template = c("review", "editor"),
                               issue_no = NULL) {
@@ -166,7 +167,7 @@ pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
     pkg_data$repo <- meta$name
 
     # reviewer data
-    whoami_try <- try(gh::gh_whoami(gh::gh_token()))
+    whoami_try <- try_whoami()
     if(!inherits(whoami_try, "try-error")){
         pkg_data$whoami <- whoami_try$login
         pkg_data$whoami_url <- whoami_try$html_url
@@ -192,4 +193,15 @@ pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
     pkg_data$site <- meta$homepage
 
     pkg_data
+}
+
+
+#' Try whoami
+#'
+#' Try to get whoami info from local  gh token.
+#'
+#' @return a list of whoami token metadata
+#' @export
+try_whoami <- function() {
+    try(gh::gh_whoami(gh::gh_token()), silent = T)
 }

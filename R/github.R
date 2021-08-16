@@ -39,7 +39,7 @@ ropensci onboarding issue undetermined"))
 
 # check username
 check_global_git <- function(){
-    test <- try(gh::gh_whoami(gh::gh_token()), silent = T)
+    test <- try_whoami()
     if(class(test)[1] == "try-error"){
         warning("All rOpenSci package review is conducted through GitHub.
              To enable correct detection of your GitHub username,

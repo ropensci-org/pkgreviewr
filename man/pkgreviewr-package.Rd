@@ -13,8 +13,8 @@ Creates files and collects materials necessary to complete an rOpenSci package r
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/ropenscilabs/pkgreviewr}
-  \item Report bugs at \url{https://github.com/ropenscilabs/pkgreviewr/issues}
+  \item \url{https://github.com/ropensci-org/pkgreviewr}
+  \item Report bugs at \url{https://github.com/ropensci-org/pkgreviewr/issues}
 }
 
 }
