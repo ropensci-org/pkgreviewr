@@ -76,10 +76,8 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
                        issue_no = issue_no)
 
     }else{
-        todo("Template initialisation of review project",
-             value(basename(review_dir)) ,"not possible. \n Use: ",
-             code(" pkgreview_init() "), "after you've cloned repo ",
-             value(pkg_repo))
+        usethis::ui_todo("Template initialisation of review project {usethis::ui_value(basename(review_dir))} not possible. \n
+        Use:  {usethis::ui_code(' pkgreview_init() ')} after you've cloned repo {usethis::ui_value(pkg_repo)}")
     }
     # initialise with git
     use_git_pkgrv(path = tmp_review_dir)
@@ -87,7 +85,7 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
     if (overwrite_dir(review_dir)) {
         write_dir(tmp_dir = tmp_review_dir, out_dir = review_dir)
     } else {
-        message("review_dir:", review_dir, " already exists. Not overwitten")
+        usethis::ui_info("review_dir:{usethis::ui_path(review_dir)} already exists. Not overwitten")
     }
     if (interactive() & rstudioapi::isAvailable()) rstudioapi::openProject(review_dir,
                                                                            newSession = T)
@@ -144,8 +142,7 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
         )
     }, quiet = TRUE)
 
-    done(template, " project ", value(basename(review_dir)),
-         " initialised successfully")
+    usethis::ui_done('{template} project {usethis::ui_value(basename(review_dir))} initialised successfully')
 }
 
 #' pkgreview_getdata

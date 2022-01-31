@@ -58,13 +58,11 @@ clone_pkg <- function(pkg_repo, pkg_dir){
                               pkg_dir))
 
     if(inherits(clone, "try-error")){
-        warning("clone of ", pkg_repo, " unsuccesful.")
-        todo("Try \n\n",
-             code(paste0("git clone https://github.com/", pkg_repo), " ", pkg_dir),
-             "\n\n in the terminal to clone pkg source code")
+        usethis::ui_warn("clone of {usethis::ui_value(pkg_repo)} unsuccesful.")
+        usethis::ui_todo("Try {usethis::ui_code(paste0('git clone https://github.com/', pkg_repo, ' ', pkg_dir))} in the terminal to clone pkg source code")
         return(FALSE)
     }
-    done("Package ", field("source"), " cloned successfully")
+    usethis::ui_done("Package {usethis::ui_field('source')} cloned successfully")
     return(TRUE)
 }
 
