@@ -1,3 +1,7 @@
+# pkgreviewr 0.3.0
+
+* Adjust to new location of templates (thanks @beatrizmilz for issue)
+
 # pkgreviewr 0.2.0
 
 * Adjust to new location of templates (thanks @maelle for PR)

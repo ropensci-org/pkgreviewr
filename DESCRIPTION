@@ -36,7 +36,8 @@ Imports:
     shiny,
     withr,
     spelling,
-    emo
+    emo,
+    pkgcheck
 Suggests: 
     testthat,
     mockery,
