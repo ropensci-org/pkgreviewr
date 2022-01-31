@@ -1,7 +1,7 @@
 Package: pkgreviewr
 Type: Package
 Title: rOpenSci package review project template
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: c(person("Anna", "Krystalli", email = "annakrystalli@googlemail.com",
                   role = c("aut", "cre")),
              person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role = "aut"))
@@ -44,7 +44,7 @@ Suggests:
     knitr,
     rmarkdown,
     mockthat
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Remotes: 
     hadley/emo
 VignetteBuilder: knitr
