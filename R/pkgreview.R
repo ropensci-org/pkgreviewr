@@ -42,10 +42,24 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
     tmp_review_dir <- fs::path(tmp, glue::glue("{meta$name}-{template}"))
     review_dir <- fs::path(review_parent, glue::glue("{meta$name}-{template}"))
 
-    # clone package source code directory and write to review_parent
-    clone <- clone_pkg(pkg_repo, pkg_dir = tmp_pkg_dir)
-    if(clone){
-        write_dir(tmp_dir = tmp_pkg_dir, out_dir = pkg_dir)
+
+    #if pkg_dir already exists, overwrite?
+    write_clone <- overwrite_dir(pkg_dir)
+    if(write_clone) {
+        # clone package source code directory and write to review_parent if clone successful
+        clone_successful <- clone_pkg(pkg_repo, pkg_dir = tmp_pkg_dir)
+        if(clone_successful){
+            write_dir(tmp_dir = tmp_pkg_dir, out_dir = pkg_dir)
+        }
+    }  else {
+        usethis::ui_info("pkg_dir:{usethis::ui_path(pkg_dir)} already exists. Not overwitten")
+        if (!file.exists(file.path(pkg_dir, "DESCRIPTION"))) {
+        usethis::ui_warn("No {usethis::ui_field('DESCRIPTION')} file detected in {usethis::ui_path(pkg_dir)}.
+                         Please check the directory contains the source code for {usethis::ui_value(pkg_repo)}")
+            clone_successful <- FALSE
+        } else {
+            clone_successful <- TRUE
+        }
     }
 
     # create project
@@ -53,12 +67,14 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
     usethis::create_project(tmp_review_dir, open = FALSE)
     unlink(file.path(tmp_review_dir,"R"), recursive = TRUE)
 
-    # initialise and copy review project to review_parent
-    if(clone){
+    # initialise and copy review project to review_parent if clone was successful
+    # and write required (either pkg_dir does not exist or overwrite has been requested)
+    if(clone_successful){
         pkgreview_init(pkg_repo, review_dir = tmp_review_dir,
                        pkg_dir = pkg_dir,
                        template = template,
                        issue_no = issue_no)
+
     }else{
         todo("Template initialisation of review project",
              value(basename(review_dir)) ,"not possible. \n Use: ",
@@ -68,10 +84,13 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
     # initialise with git
     use_git_pkgrv(path = tmp_review_dir)
     # write out review dir
-    write_dir(tmp_dir = tmp_review_dir, out_dir = review_dir)
-
+    if (overwrite_dir(review_dir)) {
+        write_dir(tmp_dir = tmp_review_dir, out_dir = review_dir)
+    } else {
+        message("review_dir:", review_dir, " already exists. Not overwitten")
+    }
     if (interactive() & rstudioapi::isAvailable()) rstudioapi::openProject(review_dir,
-                                                           newSession = T)
+                                                                           newSession = T)
 }
 
 

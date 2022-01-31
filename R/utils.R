@@ -40,6 +40,21 @@ uses_git_pkgrv <- function (path) {
     !is.null(git2r::discover_repository(path))
 }
 
+# inspired by usethis:::can_overwrite
+overwrite_dir <- function (path)
+{
+    if (!fs::file_exists(path)) {
+        return(TRUE)
+    }
+    if (interactive()) {
+        usethis::ui_yeah("Overwrite pre-existing directory {ui_path(path)}?")
+    }
+    else {
+        FALSE
+    }
+}
+
+
 write_dir <- function(tmp_dir, out_dir){
     assertthat::assert_that(dir.exists(dirname(out_dir)))
 
@@ -47,13 +62,9 @@ write_dir <- function(tmp_dir, out_dir){
         file.exists(file.path(tmp_dir, "DESCRIPTION")) ~ "pkg_dir",
         TRUE ~ "review_dir")
 
-    if (!usethis:::can_overwrite(out_dir)){
-        message(dir_type, ":", out_dir, " already exists. Not overwitten")
-    }else{
         if (dir.exists(out_dir)) {
             unlink(out_dir, recursive=TRUE)
         }
         file.copy(tmp_dir, dirname(out_dir), recursive = T)
         done(field(dir_type), " written out successfully")
-    }
 }

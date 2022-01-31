@@ -6,9 +6,7 @@
 \alias{pkgreviewr-package}
 \title{pkgreviewr: rOpenSci package review project template}
 \description{
-Creates files and collects materials necessary to complete an rOpenSci package review. 
-    Review files are prepopulated with review package specific metadata. Review package source code is
-    also cloned for local testing and inspection.
+Creates files and collects materials necessary to complete an rOpenSci package review. Review files are prepopulated with review package specific metadata. Review package source code is also cloned for local testing and inspection.
 }
 \seealso{
 Useful links:
