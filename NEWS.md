@@ -1,6 +1,7 @@
 # pkgreviewr 0.3.0
 
 * Adjust to new location of templates (thanks @beatrizmilz for issue)
+* Ask whether to overwrite source code directory before cloning
 
 # pkgreviewr 0.2.0
 
