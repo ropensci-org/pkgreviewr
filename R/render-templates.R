@@ -65,7 +65,7 @@ use_onboarding_tmpl <- function(template = c("review", "editor")) {
   tmpl_txt <- gh::gh("/repos/:owner/:repo/contents/:path",
     owner = "ropensci",
     repo = "dev_guide",
-    path = glue::glue("templates/{template}.md?ref=dev")
+    path = glue::glue("templates/{template}.md")
   )
 
   tmpl_txt <- rawToChar(base64enc::base64decode(tmpl_txt$content))
