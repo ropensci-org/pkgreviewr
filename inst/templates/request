@@ -13,24 +13,33 @@ Hi, this is {{{editor}}} from rOpenSci `r emo::ji("wave")`.
 
 `r params$banter`
 
-I'm writing to ask if you would be willing to review a package for rOpenSci. As you probably know, rOpenSci conducts peer review of R packages contributed to our collection in a manner similar to journals.
+I'm writing to ask if you would be willing to review a package for rOpenSci.
+As you probably know, rOpenSci conducts peer review of R packages contributed to our collection in a manner similar to journals.
 
 The package is **`{{{ Package }}}`** by `r {{{Authors@R}}}`:
 
-> {{{Description}}}.
+> {{{Description}}}
 
 
-You can find it on GitHub [here]({{{URL}}}). We conduct our open review process via GitHub as well, [here]({{{issue_url}}})
+You can find it on GitHub [here]({{{URL}}}).
+We conduct our open review process via GitHub as well, [here]({{{issue_url}}}).
 
 
-If you accept, note that we ask reviewers to complete reviews in three weeks. (We’ve found it takes a similar amount of time to review a package as an academic paper.)
+If you accept, note that we ask reviewers to complete reviews in three weeks.
+(We’ve found it takes a similar amount of time to review a package as an academic paper.)
 
-Our [reviewers guide] details what we look for in a package review, and includes links to example reviews. Our standards are detailed in our [packaging guide], and we provide a reviewer [template] for you to use. You can also use package [pkgreviewr] to help set up and guide your review. If you have questions or feedback, feel free to ask me or post to the [rOpenSci forum]. You can also try the rOpenSci slack community. If you accept to review and are not already a member of the slack community, please let me know so I can invite you.
+Our [reviewers guide] details what we look for in a package review and includes links to example reviews.
+Our standards are detailed in our [packaging guide], and we provide a reviewer [template] for you to use.
+You can also use package [pkgreviewr] to help set up and guide your review.
+If you have questions or feedback, feel free to ask me or post to the [rOpenSci forum].
+You can also try the rOpenSci Slack community.
+If you accept to review and are not already a member of the Slack community, please let me know so I can invite you.
 
 `r if(params$JOSS){"The authors have also chosen to jointly submit their package to the Journal of Open Source Software, so this package includes a short paper.md manuscript describing the software that we ask you include in your review."}`
 
-Are you able to review? If you can not, suggestions for alternate reviewers are always helpful. If I don't hear from you within a week, I will assume you are unable to
-review at this time.
+Are you able to review?
+If you cannot, suggestions for alternate reviewers are always helpful.
+If I don't hear from you within a week, I will assume you are unable to review at this time.
 
 Thank you for your time.
 
