@@ -48,7 +48,7 @@ Currently we've not integrated the creation of an remote GitHub repo but we're e
 
 To use `usethis::use_github`, you'll need to supply a **github personal access token (PAT) token**. The easiest way to set it up for all your r workflows is to store you PAT in a `GITHUB_PAT` system variable in your [.Renviron](https://csgillespie.github.io/efficientR/3-3-r-startup.html#renviron) dotfile.  To do this:
 
-1. **Generate PAT**: use `usethis::browse_github_pat` to launch page to generate a PAT on GitHub.
+1. **Generate PAT**: use `usethis::create_github_token` to launch page to generate a PAT on GitHub.
 
 2. **[Add PAT to your `.Renviron`](https://github.com/jennybc/happy-git-with-r/blob/master/81_github-api-tokens.Rmd) dot file**: Use `usethis::edit_r_environ()` to open your user level `.Renviron`, paste the copied PAT token from github and save it like so:
 
