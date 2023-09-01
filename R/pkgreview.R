@@ -172,7 +172,7 @@ pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
         pkg_dir <- fs::path(usethis::proj_path(".."), meta$name)}
 
     # package repo data
-    pkg_data <- usethis:::package_data(pkg_dir)
+    pkg_data <- package_data(pkg_dir)
 
     pkg_data$URL <- meta$html_url
 
