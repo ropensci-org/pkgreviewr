@@ -68,3 +68,10 @@ write_dir <- function(tmp_dir, out_dir){
         file.copy(tmp_dir, dirname(out_dir), recursive = T)
         usethis::ui_done("{usethis::ui_field(dir_type)} written out successfully")
 }
+
+
+### add former usethis:::package_data(), now removed (see https://github.com/r-lib/usethis/pull/1747)
+package_data <- function(base_path = NULL) {
+  desc <- desc::description$new(base_path)
+  as.list(desc$get(desc$fields()))
+}
