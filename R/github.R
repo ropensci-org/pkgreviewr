@@ -3,28 +3,11 @@ issue_meta <- function(pkg_repo, parameter = c("number", "url"), strict = FALSE)
 
     software_review_url <- "https://github.com/ropensci/software-review/issues/"
     onboard_url <- "https://github.com/ropensci/onboarding/issues/"
-    readme_url <- paste0("https://raw.githubusercontent.com/",
-                         pkg_repo,"/master/README.md")
+    readme_url <- gh::gh(sprintf("/repos/%s/readme", pkg_repo))[["download_url"]]
 
-    readme <- suppressMessages(httr::content(httr::GET(readme_url)))
-
-    if(strict){
-        assertthat::assert_that(readme != "404: Not Found\n",
-                                msg = paste0(readme_url,
-                                             ": \n not valid url for repo README raw text"))
-    }else{
-        valid_issue <- assertthat::validate_that(
-            readme != "404: Not Found\n",
-            readme != "404: Not Found",
-            msg = "undetermined")
-
-        if(valid_issue == "undetermined"){
-            warning(paste0(readme_url,
-                           "\n not a valid url to review pkg README raw contents
-ropensci onboarding issue undetermined"))
-            return(valid_issue)
-        }
-    }
+    temp_readme <- withr::local_tempfile()
+    curl::curl_download(readme_url, temp_readme)
+    readme <- brio::read_lines(temp_readme)
 
     number <- gsub("([^0-9]).*$", "",
                    gsub(paste0("(^.*", onboard_url, "|^.*",
