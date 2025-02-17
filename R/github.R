@@ -58,15 +58,13 @@ clone_pkg <- function(pkg_repo, pkg_dir) {
 }
 
 get_repo_meta <- function(pkg_repo, full = FALSE){
-    meta <- try(gh::gh(paste0("/repos/", pkg_repo)), silent = T)
-    if(inherits(meta, "try-error")) {
-        if(grepl("404", meta)){
-            stop("Public repo: ", pkg_repo, " not found on GitHub. 404 error")
-        }else{
-            stop("Call to gh API failed with error: \n\n", meta)
-        }
+   meta <- gh::gh(paste0("/repos/", pkg_repo))
+
+    if (full) {
+      meta
+    } else {
+      list(name = meta$name, owner = meta$owner$login)
     }
-    if(full){meta}else{list(name = meta$name, owner = meta$owner$login)}
 }
 
 
