@@ -17,10 +17,12 @@ BugReports: https://github.com/ropensci-org/pkgreviewr/issues
 Imports:
     assertthat,
     base64enc,
+    brio,
     clipr,
     clisymbols,
     covr,
     crayon,
+    curl,
     devtools,
     dplyr,
     emo,
@@ -34,7 +36,6 @@ Imports:
     magrittr,
     reprex,
     rlang,
-    rstudioapi,
     shiny,
     spelling,
     usethis,
@@ -53,5 +54,5 @@ Remotes:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.2.9000
 Config/testthat/edition: 3
