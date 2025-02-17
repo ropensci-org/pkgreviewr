@@ -41,14 +41,7 @@ ropensci onboarding issue undetermined"))
 check_global_git <- function(){
     test <- try_whoami()
     if(class(test)[1] == "try-error"){
-        warning("All rOpenSci package review is conducted through GitHub.
-             To enable correct detection of your GitHub username,
-             a PAT, Personal Authorisation Token, needs to be set up. \n
-             Use `usethis::create_github_token` to generate a PAT. \n
-             Use `usethis::edit_r_environ` to store it as environment variable
-             GITHUB_PAT or GITHUB_TOKEN in your .Renviron file. \n
-
-             For more info, see article on publishing review on GitHub in pkgreviewr documentation.")
+        usethis::git_sitrep()
     }
 }
 
