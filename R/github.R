@@ -29,8 +29,8 @@ check_global_git <- function(){
 }
 
 clone_pkg <- function(pkg_repo, pkg_dir) {
-
-    usethis::create_from_github(pkg_repo, destdir = pkgdir, open = FALSE)
+  fs::dir_create(pkg_dir)
+  usethis::create_from_github(pkg_repo, destdir = pkg_dir, open = FALSE)
 }
 
 get_repo_meta <- function(pkg_repo, full = FALSE){
