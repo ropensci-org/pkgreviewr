@@ -32,10 +32,7 @@ remotes::install_github("ropensci-org/pkgreviewr")
 
 Because rOpenSci reviews are conducted through github repository [`ropensci/software-review`](https://github.com/ropensci/software-review), **`pkgreviewr` uses your GitHub username to prepopulate various fields in the review project files**.
 
-To detect your username correctly, a PAT, Personal Authorisation Token, needs to be set up.
-You can use `usethis::create_github_token()` to generate a PAT and `usethis::edit_r_environ()` to store it as environment variable `GITHUB_PAT` or `GITHUB_TOKEN` in your .`Renviron` file. For more info, see article on publishing review on GitHub in pkgreviewr documentation.
-
-If you do not have a PAT set up, you will receive an warning and any fields related to your GitHub username will not be correctly populated. However, this shouldn't affect your ability to complete your review. 
+Refer to `usethis::git_sitrep()`.
 
 
 ### R Notebooks
