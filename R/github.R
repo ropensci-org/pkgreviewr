@@ -52,18 +52,9 @@ check_global_git <- function(){
     }
 }
 
-clone_pkg <- function(pkg_repo, pkg_dir){
+clone_pkg <- function(pkg_repo, pkg_dir) {
 
-    clone <- try(git2r::clone(paste0("https://github.com/", pkg_repo),
-                              pkg_dir))
-
-    if(inherits(clone, "try-error")){
-        usethis::ui_warn("clone of {usethis::ui_value(pkg_repo)} unsuccesful.")
-        usethis::ui_todo("Try {usethis::ui_code(paste0('git clone https://github.com/', pkg_repo, ' ', pkg_dir))} in the terminal to clone pkg source code")
-        return(FALSE)
-    }
-    usethis::ui_done("Package {usethis::ui_field('source')} cloned successfully")
-    return(TRUE)
+    usethis::create_from_github(pkg_repo, destdir = pkgdir, open = FALSE)
 }
 
 get_repo_meta <- function(pkg_repo, full = FALSE){

@@ -24,20 +24,19 @@ use_git_pkgrv <- function (path = ".", message = "Initial commit") {
         return(invisible())
     }
     usethis::ui_done("Initialising Git repo")
-    r <- git2r::init(path)
+    repo <- gert::git_init(path)
     usethis::with_project(path = path, {
         usethis::use_git_ignore(c(".Rhistory", ".RData", ".Rproj.user"))
     })
     usethis::ui_done("Adding files and committing")
-    paths <- unlist(git2r::status(r))
-    git2r::add(r, paths)
-    git2r::commit(r, message)
+    gert::git_commit_all(message, repo = repo)
     invisible(TRUE)
 }
 
 # modified from usethis:::uses_git
 uses_git_pkgrv <- function (path) {
-    !is.null(git2r::discover_repository(path))
+    repo <- tryCatch(gert::git_find(proj_get()), error = function(e) NULL)
+    !is.null(repo)
 }
 
 # inspired by usethis:::can_overwrite

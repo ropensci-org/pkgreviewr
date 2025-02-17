@@ -1,52 +1,57 @@
-Package: pkgreviewr
 Type: Package
+Package: pkgreviewr
 Title: rOpenSci package review project template
 Version: 0.3.1
-Authors@R: c(person("Anna", "Krystalli", email = "annakrystalli@googlemail.com",
-                  role = c("aut", "cre")),
-             person("Maëlle", "Salmon", email = "maelle.salmon@yahoo.se", role = "aut"))
-Description: Creates files and collects materials necessary to complete an rOpenSci package review. 
-    Review files are prepopulated with review package specific metadata. Review package source code is
-    also cloned for local testing and inspection.
+Date: 2021-08-12
+Authors@R: c(
+    person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut", "cre")),
+    person("Maëlle", "Salmon", , "maelle.salmon@yahoo.se", role = "aut")
+  )
+Description: Creates files and collects materials necessary to complete an
+    rOpenSci package review.  Review files are prepopulated with review
+    package specific metadata. Review package source code is also cloned
+    for local testing and inspection.
 License: GPL (>= 3)+ file LICENSE
 URL: https://github.com/ropensci-org/pkgreviewr
 BugReports: https://github.com/ropensci-org/pkgreviewr/issues
-Encoding: UTF-8
-LazyData: true
 Imports:
-    devtools,
-    git2r (>= 0.23.0),
-    usethis (>= 1.2.0),
-    here,
-    reprex,
-    gh,
-    base64enc,
-    magrittr,
-    covr,
-    goodpractice,
     assertthat,
-    httr,
-    rstudioapi,
+    base64enc,
     clipr,
     clisymbols,
+    covr,
     crayon,
+    devtools,
     dplyr,
-    glue,
+    emo,
     fs (>= 1.3.1),
+    gert,
+    gh,
+    glue,
+    goodpractice,
+    here,
+    httr,
+    magrittr,
+    reprex,
+    rlang,
+    rstudioapi,
     shiny,
-    withr,
     spelling,
-    emo
+    usethis,
+    withr
 Suggests: 
-    testthat,
-    mockery,
     knitr,
+    mockery,
+    mockthat,
     rmarkdown,
-    mockthat
-RoxygenNote: 7.1.2
+    testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
 Remotes: 
     hadley/emo,
     mangoTheCat/goodpractice
-VignetteBuilder: knitr
+Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
-Date: 2021-08-12
+RoxygenNote: 7.1.2
+Config/testthat/edition: 3
