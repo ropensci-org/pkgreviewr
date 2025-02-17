@@ -41,7 +41,6 @@ Imports:
     usethis,
     withr
 Suggests: 
-    httptest2,
     knitr,
     mockery,
     mockthat,

@@ -18,17 +18,17 @@ test_that("review-proj-created-correctly", {
 })
 
 test_that("get-pkg_data", {
+
+  skip_if_offline()
+
   review_parent <- withr::local_tempdir()
   review_dir <- file.path(review_parent, "riem-review")
   pkg_dir <- file.path(review_parent, "riem")
   pkgreview_create("ropensci/riem", review_parent)
 
-  httptest::with_mock_dir("data", {
-    pkg_data <- pkgreview_getdata(pkg_dir, "ropensci/riem")
-    issue_no <- issue_meta("ropensci/riem")
-    issue_url <- issue_meta("ropensci/riem", "url")
-  })
-
+  pkg_data <- pkgreview_getdata(pkg_dir, "ropensci/riem")
+  issue_no <- issue_meta("ropensci/riem")
+  issue_url <- issue_meta("ropensci/riem", "url")
 
   # issue_meta
   expect_equal(issue_meta, issue_meta)
