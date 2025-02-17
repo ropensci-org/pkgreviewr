@@ -16,7 +16,7 @@ use_git_pkgrv <- function (path = ".", message = "Initial commit") {
 
 # modified from usethis:::uses_git
 uses_git_pkgrv <- function (path) {
-    repo <- tryCatch(gert::git_find(proj_get()), error = function(e) NULL)
+    repo <- tryCatch(gert::git_find(usethis::proj_get(path)), error = function(e) NULL)
     !is.null(repo)
 }
 
