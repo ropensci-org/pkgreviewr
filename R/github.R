@@ -7,7 +7,7 @@ issue_meta <- function(pkg_repo, parameter = c("number", "url"), strict = FALSE)
 
     temp_readme <- withr::local_tempfile()
     curl::curl_download(readme_url, temp_readme)
-    readme <- brio::read_lines(temp_readme)
+    readme <- paste(brio::read_lines(temp_readme), collapse = "\n")
 
     number <- gsub("([^0-9]).*$", "",
                    gsub(paste0("(^.*", onboard_url, "|^.*",

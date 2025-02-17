@@ -9,6 +9,7 @@ use_git_pkgrv <- function (path = ".", message = "Initial commit") {
         usethis::use_git_ignore(c(".Rhistory", ".RData", ".Rproj.user"))
     })
     usethis::ui_done("Adding files and committing")
+    gert::git_add("*", repo = repo)
     gert::git_commit_all(message, repo = repo)
     invisible(TRUE)
 }

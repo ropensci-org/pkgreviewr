@@ -14,7 +14,7 @@ Description: Creates files and collects materials necessary to complete an
 License: GPL (>= 3)+ file LICENSE
 URL: https://github.com/ropensci-org/pkgreviewr
 BugReports: https://github.com/ropensci-org/pkgreviewr/issues
-Imports:
+Imports: 
     assertthat,
     base64enc,
     brio,
@@ -41,6 +41,7 @@ Imports:
     usethis,
     withr
 Suggests: 
+    httptest2,
     knitr,
     mockery,
     mockthat,
