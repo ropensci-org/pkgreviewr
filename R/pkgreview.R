@@ -151,8 +151,8 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
 #' }
 #' @export
 pkgreview_getdata <- function(pkg_repo, pkg_dir = NULL,
-  template = c("review", "editor"),
-  issue_no = NULL) {
+                              template = c("review", "editor"),
+                              issue_no = NULL) {
 
   template <- match.arg(template)
 
@@ -163,39 +163,51 @@ pkgreview_getdata <- function(pkg_repo, pkg_dir = NULL,
   # package repo data
   pkg_data <- package_data(pkg_dir)
 
-  pkg_data$URL <- meta$html_url
-
-  pkg_data$pkg_dir <- pkg_dir
-  pkg_data$Rmd <- FALSE
-  pkg_data$pkg_repo <- pkg_repo
-  pkg_data$username <- meta$owner$login
-  pkg_data$repo <- meta[["name"]]
+  pkg_data <- c(
+    pkg_data,
+    URL  = meta[["html_url"]],
+    pkg_dir = pkg_dir,
+    Rmd = FALSE,
+    pkg_repo = pkg_repo,
+    username = meta[["owner"]][["login"]],
+    repo = meta[["name"]]
+  )
 
   # reviewer data
-  whoami_try <- try_whoami()
-  if(!inherits(whoami_try, "try-error")){
-    pkg_data$whoami <- whoami_try$login
-    pkg_data$whoami_url <- whoami_try$html_url
-    pkg_data$review_repo <- glue::glue("{pkg_data$whoami}/{pkg_data$repo}-{template}")
-    pkg_data$index_url <- glue::glue("https://{pkg_data$whoami}.github.io/{pkg_data$repo}-{template}/index.nb.html")
-    pkg_data$pkgreview_url <- glue::glue("https://github.com/{pkg_data$review_repo}/blob/master/pkgreview.md")
-  }else{
-    warning("GitHub user unidentifed.
-                URLs related to review and review repository not initialised.")
-    pkg_data$whoami <- NULL
-    pkg_data$whoami_url <- NULL
-    pkg_data$review_repo <- NULL
-    pkg_data$index_url <- NULL
-    pkg_data$pkgreview_url <- NULL
+  whoami <- try_whoami()
+  if (!inherits(whoami, "try-error")) {
+    pkg_data <- c(
+      pkg_data,
+      whoami = whoami[["login"]],
+      whoami_url = whoami[["html_url"]],
+      review_repo = sprintf("%s/%s-%s", whoami[["html_url"]], pkg_data[["repo"]], template),  # nolint: line_length_linter
+      index_url = sprintf("https://%s.github.io/%s-%s/index.nb.html", whoami[["login"]], pkg_data[["repo"]], template), # nolint: line_length_linter
+      pkgreview_url = sprintf("https://github.com/%s/blob/master/pkgreview.md", pkg_data[["review_repo"]]) # nolint: line_length_linter
+    )
+  } else {
+    cli::cli_warn(c(
+    "GitHub user unidentifed.",
+    "URLs related to review and review repository not initialised."
+    ))
+    pkg_data <- c(
+      pkg_data,
+      whoami = NULL,
+      whoami_url = NULL,
+      review_repo = NULL,
+      index_url = NULL,
+      pkgreview_url = NULL
+    )
   }
 
-  pkg_data$issue_url <- ifelse(is.null(issue_no),
-    issue_meta(pkg_data$pkg_repo, parameter = "url"),
-    paste0("https://github.com/ropensci/software-review/issues/", issue_no))
-  pkg_data$number <- ifelse(is.null(issue_no),
-    issue_meta(pkg_data$pkg_repo),
-    issue_no)
-  pkg_data$site <- meta$homepage
+  issue_no <- issue_no %||% issue_meta(pkg_data[["pkg_repo"]])
+  issue_url <- paste0("https://github.com/ropensci/software-review/issues/", issue_no) # nolint: line_length_linter
+
+  pkg_data <- c(
+    pkg_data,
+    issue_url = issue_url,
+    number = issue_no,
+    site = meta[["homepage"]]
+  )
 
   pkg_data
 }

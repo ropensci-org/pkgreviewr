@@ -25,7 +25,7 @@
       [1] "GPL (>= 2)"
       
       $URL
-      [1] "https://github.com/ropensci/riem"
+      [1] "https://docs.ropensci.org/riem/, https://github.com/ropensci/riem"
       
       $BugReports
       [1] "https://github.com/ropensci/riem/issues"
@@ -44,6 +44,9 @@
       
       $RoxygenNote
       [1] "7.3.2.9000"
+      
+      $URL
+      [1] "https://github.com/ropensci/riem"
       
       $pkg_dir
       [1] "<path>"
@@ -67,16 +70,13 @@
       [1] "https://github.com/maelle"
       
       $review_repo
-      maelle/riem-review
+      [1] "https://github.com/maelle/riem-review"
       
       $index_url
-      https://maelle.github.io/riem-review/index.nb.html
-      
-      $pkgreview_url
-      https://github.com/maelle/riem-review/blob/master/pkgreview.md
+      [1] "https://maelle.github.io/riem-review/index.nb.html"
       
       $issue_url
-      [1] "https://github.com/ropensci/onboarding/issues/39"
+      [1] "https://github.com/ropensci/software-review/issues/39"
       
       $number
       [1] 39
