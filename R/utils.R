@@ -16,7 +16,10 @@ use_git_pkgrv <- function(path = ".", message = "Initial commit") {
 
 # modified from usethis:::uses_git
 uses_git_pkgrv <- function(path) {
-  repo <- tryCatch(gert::git_find(usethis::proj_get(path)), error = function(e) NULL)
+  repo <- tryCatch(
+    gert::git_find(usethis::proj_get(path)),
+    error = function(e) NULL
+  )
   !is.null(repo)
 }
 
@@ -34,23 +37,24 @@ overwrite_dir <- function(path) {
 
 
 write_dir <- function(tmp_dir, out_dir) {
-  assertthat::assert_that(dir.exists(dirname(out_dir)))
+  assertthat::assert_that(fs::dir_exists(fs::path_dir(out_dir)))
 
-  dir_type <- dplyr::case_when(
-    file.exists(file.path(tmp_dir, "DESCRIPTION")) ~ "pkg_dir",
-    TRUE ~ "review_dir"
+  dir_type <- switch( # nolint: object_usage_linter
+    fs::file_exists(file.path(tmp_dir, "DESCRIPTION")),
+    TRUE ~ "pkg_dir",
+    FALSE ~ "review_dir"
   )
 
-  if (dir.exists(out_dir)) {
-    unlink(out_dir, recursive = TRUE)
+  if (fs::dir_exists(out_dir)) {
+    fs::dir_delete(out_dir)
   }
-  file.copy(tmp_dir, dirname(out_dir), recursive = T)
-  usethis::ui_done("{usethis::ui_field(dir_type)} written out successfully")
+  fs::dir_copy(tmp_dir, dirname(out_dir))
+  cli::cli_alert_success("{.val {dir_type}} written out")
 }
 
 
 ### add former usethis:::package_data(), now removed (see https://github.com/r-lib/usethis/pull/1747)
 package_data <- function(base_path = NULL) {
-  desc <- desc::description$new(base_path)
-  as.list(desc$get(desc$fields()))
+  desc <- desc::description$new(base_path) # nolint: extraction_operator_linter
+  as.list(desc$get(desc$fields())) # nolint: extraction_operator_linter
 }
