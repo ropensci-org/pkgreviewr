@@ -1,9 +1,9 @@
 
 <!-- badges: start -->
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing) ![GitHub R package version](https://img.shields.io/github/r-package/v/ropensci-org/pkgreviewr) 
-  [![R-CMD-check](https://github.com/ropensci-org/pkgreviewr/workflows/R-CMD-check/badge.svg)](https://github.com/ropensci-org/pkgreviewr/actions)
-[![codecov](https://codecov.io/gh/ropensci-org/pkgreviewr/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci-org/pkgreviewr)
- <!-- badges: end -->
+[![R-CMD-check](https://github.com/ropensci-org/pkgreviewr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ropensci-org/pkgreviewr/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/ropensci-org/pkgreviewr/graph/badge.svg)](https://app.codecov.io/gh/ropensci-org/pkgreviewr)
+<!-- badges: end -->
  
 # pkgreviewr
 
