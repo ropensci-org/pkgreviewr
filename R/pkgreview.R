@@ -246,7 +246,7 @@ create_from_github <- function(pkg_repo, destdir, open) {
       file.path(destdir, zip_name),
       file.path(destdir, fs::path_file(pkg_repo))
     )
-    fs::dir_create(fs::path(destdir, fs::path_file(pkg_repo), ".git"))
+    gert::git_init(fs::path(destdir, fs::path_file(pkg_repo)))
     return(TRUE)
   }
 

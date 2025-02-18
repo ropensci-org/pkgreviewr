@@ -4,13 +4,15 @@
 \alias{use_onboarding_tmpl}
 \title{Create software review/editor response template}
 \usage{
-use_onboarding_tmpl(template = c("review", "editor"))
+use_onboarding_tmpl(template = c("review", "editor"), destdir)
 }
 \arguments{
 \item{template}{character string, one of \code{review} or \code{editor}.}
+
+\item{destdir}{where to save the template}
 }
 \value{
-writes a \verb{\{template\}.md} checklist template file in the project root.
+writes a \verb{\{template\}.md} checklist template file in \code{destdir}.
 }
 \description{
 Clone an up to date copy of the specified ropensci software
