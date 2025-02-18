@@ -20,7 +20,7 @@ pkgreview_index_rmd <- function(pkg_data,
   template <- match.arg(template)
 
   usethis::use_template(
-    glue::glue("{template}-index"),
+    sprintf("%s-index", template),
     "index.Rmd",
     data = pkg_data,
     ignore = FALSE,
@@ -61,7 +61,7 @@ use_onboarding_tmpl <- function(template = c("review", "editor")) {
   tmpl_txt <- gh::gh("/repos/:owner/:repo/contents/:path",
     owner = "ropensci",
     repo = "dev_guide",
-    path = glue::glue("templates/{template}.md") # nolint: nonportable_path_litner
+    path = sprintf("templates/%s.md", template) # nolint: nonportable_path_litner
   )
 
   temp_file <- withr::local_tempfile()

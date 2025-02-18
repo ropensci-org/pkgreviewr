@@ -24,7 +24,6 @@ Imports:
     fs (>= 1.3.1),
     gert,
     gh,
-    glue,
     magrittr,
     rlang,
     usethis,
