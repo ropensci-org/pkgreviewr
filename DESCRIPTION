@@ -3,7 +3,7 @@ Package: pkgreviewr
 Title: rOpenSci package review project template
 Version: 0.3.9999
 Authors@R: c(
-    person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut", "cre"),
+    person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut"),
            comment = c(ORCID = "0000-0002-2378-4915", "Created the package")),
     person("Maëlle", "Salmon", , "maelle@ropensci.org", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2815-0399"))
