@@ -15,24 +15,27 @@ See [Getting started](articles/get_started.html) vignette for more details
 
 ## Installation
 
-You can install `pkgreviewr` from GitHub with:
+You can install `pkgreviewr` from R-universe with:
+
+``` r
+install.packages("pkgreviewr", repos = c("https://ropensci.r-universe.dev", "https://cloud.r-project.org"))
+```
+
+Or from GitHub with:
 
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("ropensci-org/pkgreviewr")
+# install.packages("pak")
+pak::pak("ropensci-org/pkgreviewr")
 ```
-<br>
 
-### Git
+
+### Git and GitHub setup
 
 `pkgreviewr` functions clone the source code of the package under review so require **Git** to be installed. 
+It also interacts with GitHub to get data from the software-review repository and to prepopulate review project files.
 
-### GitHub user configuration
-
-Because rOpenSci reviews are conducted through github repository [`ropensci/software-review`](https://github.com/ropensci/software-review), **`pkgreviewr` uses your GitHub username to prepopulate various fields in the review project files**.
-
-Refer to `usethis::git_sitrep()`.
+Therefore, to ensure it will work well, please run [`usethis::git_sitrep()`](https://usethis.r-lib.org/reference/git_sitrep.html).
 
 
 ### R Notebooks
