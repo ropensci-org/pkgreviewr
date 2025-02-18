@@ -18,7 +18,7 @@
 # @importFrom usethis getFromNamespace render_template
 pkgreview_index_rmd <- function(pkg_data,
                                 template = c("review", "editor"),
-                                destdir) {
+                                destdir) { # nolint: function_argument_linter
   template <- match.arg(template)
 
   usethis::with_project(destdir, {
@@ -62,7 +62,7 @@ pkgreview_readme_md <- function(pkg_data, destdir) {
 #' \dontrun{
 #' use_onboarding_tmpl(template = "editor")
 #' }
-use_onboarding_tmpl <- function(template = c("review", "editor"), destdir) {
+use_onboarding_tmpl <- function(template = c("review", "editor"), destdir) { # nolint: function_argument_linter
   template <- match.arg(template)
   tmpl_txt <- gh::gh("/repos/:owner/:repo/contents/:path",
     owner = "ropensci",

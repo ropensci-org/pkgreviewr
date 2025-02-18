@@ -217,7 +217,7 @@ pkgreview_getdata <- function(pkg_repo, pkg_dir = NULL,
 #' @return a list of whoami token metadata
 #' @export
 try_whoami <- function() {
-  if (on_ci()) {
+  if (on_ci()) { # nolint: object_usage_linter
     list(
       login = "maelle",
       html_url = "https://github.com/maelle"
@@ -228,19 +228,17 @@ try_whoami <- function() {
 }
 
 create_from_github <- function(pkg_repo, destdir, open) {
-  if (on_ci()) {
-    url <- sprintf(
+  if (on_ci()) { # nolint: object_usage_linter
+    download_url <- sprintf(
       "https://github.com/%s/archive/refs/heads/main.zip",
       pkg_repo
     )
     temp_file <- withr::local_tempfile()
-    curl::curl_download(url, temp_file)
+    curl::curl_download(download_url, temp_file)
 
     temp_dir <- withr::local_tempdir()
     utils::unzip(temp_file, exdir = temp_dir)
     zip_name <- sprintf("%s-main", fs::path_file(pkg_repo))
-
-    pkg_dir <- fs::path(destdir, fs::path_file(pkg_repo))
 
     fs::dir_copy(fs::path(temp_dir, zip_name), destdir)
     file.rename(
