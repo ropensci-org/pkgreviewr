@@ -222,8 +222,9 @@ try_whoami <- function() {
       login = "maelle",
       html_url = "https://github.com/maelle"
     )
+  } else {
+    try(gh::gh_whoami(gh::gh_token()), silent = TRUE)
   }
-  try(gh::gh_whoami(gh::gh_token()), silent = TRUE)
 }
 
 create_from_github <- function(pkg_repo, destdir, open) {
