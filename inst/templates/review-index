@@ -85,7 +85,7 @@ pkg_dir <- "{{{pkg_dir}}}"
 ### test local `{{{ Package }}}` install:
 
 ```{r test-local}
-install(pkg_dir, dependencies = T, build_vignettes = T)
+install(pkg_dir, dependencies = TRUE, build_vignettes = TRUE)
 ```
 
 ```{r github-rm}
@@ -100,7 +100,7 @@ remove.packages("{{{repo}}}")
 ### test install of `{{{ Package }}}` from GitHub with:
 
 ```{r test-github}
-devtools::install_github("{{{username}}}/{{{repo}}}", dependencies = T, build_vignettes = T)
+devtools::install_github("{{{username}}}/{{{repo}}}", dependencies = TRUE, build_vignettes = TRUE)
 ```
 
 #### **comments:**

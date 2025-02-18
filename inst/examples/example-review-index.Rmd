@@ -16,8 +16,6 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
-
-library(magrittr)
 ```
 
 # `rdflib` - package review
@@ -101,7 +99,7 @@ pkg_dir <- "/private/var/folders/8p/87cqdx2s34vfvcgh04l6z72w0000gn/T/Rtmp4i9nQx/
 ### test local `rdflib` install:
 
 ```{r test-local}
-install(pkg_dir, dependencies = T, build_vignettes = T)
+install(pkg_dir, dependencies = TRUE, build_vignettes = TRUE)
 ```
 
 ```{r github-rm}
@@ -116,7 +114,7 @@ remove.packages("rdflib")
 ### test install of `rdflib` from GitHub with:
 
 ```{r test-github}
-devtools::install_github("cboettig/rdflib", dependencies = T, build_vignettes = T)
+devtools::install_github("cboettig/rdflib", dependencies = TRUE, build_vignettes = TRUE)
 ```
 
 #### **comments:**
