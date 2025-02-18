@@ -1,6 +1,5 @@
 test_that("review-proj-created-correctly", {
   skip_if_offline()
-  withr::local_locale("LC_COLLATE" = "C")
 
   review_parent <- withr::local_tempdir()
   review_dir <- file.path(review_parent, "riem-review")
@@ -11,11 +10,13 @@ test_that("review-proj-created-correctly", {
   expect_true(fs::dir_exists(fs::path(review_parent, "riem-review")))
   expect_snapshot(
     fs::dir_ls(review_dir, all = TRUE),
-    transform = function(x) sub(".*riem-review/", "/riem-review/", x)
+    transform = function(x) sub(".*riem-review/", "/riem-review/", x),
+    variant = .Platform[["OS.type"]]
   )
   expect_snapshot(
     fs::dir_ls(pkg_dir, all = TRUE),
-    transform = function(x) sub(".*riem/", "/riem/", x)
+    transform = function(x) sub(".*riem/", "/riem/", x),
+    variant = .Platform[["OS.type"]]
   )
 })
 
