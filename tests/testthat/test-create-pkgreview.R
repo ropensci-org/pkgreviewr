@@ -1,5 +1,4 @@
 test_that("review-proj-created-correctly", {
-
   skip_if_offline()
 
   review_parent <- withr::local_tempdir()
@@ -9,16 +8,14 @@ test_that("review-proj-created-correctly", {
   pkgreview_create("ropensci/riem", review_parent)
 
   expect_true("riem-review" %in% list.files(review_parent))
-  #expect_true(use_git_pkgrv(review_dir))
+  # expect_true(use_git_pkgrv(review_dir))
   expect_true(all(c("index.Rmd", "README.md", "review.md") %in%
-      list.files(review_dir)))
+    list.files(review_dir)))
   expect_true(all(c("DESCRIPTION", "README.md") %in%
-      list.files(pkg_dir)))
-
+    list.files(pkg_dir)))
 })
 
 test_that("get-pkg_data", {
-
   skip_if_offline()
 
   review_parent <- withr::local_tempdir()

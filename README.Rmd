@@ -70,7 +70,7 @@ The package currently also makes use of [**`R Notebooks`**](https://rmarkdown.rs
 library(pkgreviewr)
 review_parent <- withr::local_tempdir() # not a temp dir in real life :-)
 pkgreview_create(
-  pkg_repo = "ropensci/rdflib", 
+  pkg_repo = "ropensci/rdflib",
   review_parent = review_parent
 )
 ```

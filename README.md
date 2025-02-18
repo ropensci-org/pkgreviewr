@@ -72,14 +72,14 @@ RStudio](https://github.com/ropenscilabs/pkgreviewr/issues/64).
 library(pkgreviewr)
 review_parent <- withr::local_tempdir() # not a temp dir in real life :-)
 pkgreview_create(
-  pkg_repo = "ropensci/rdflib", 
+  pkg_repo = "ropensci/rdflib",
   review_parent = review_parent
 )
 #> ✔ Setting `fork = FALSE`.
-#> ✔ Creating '/tmp/RtmpxQdC6A/file500b1e4cbcaa/rdflib/'.
+#> ✔ Creating '/tmp/RtmpxDZe8i/filebd7173b99561/rdflib/'.
 #> ✔ Cloning repo from "git@github.com:ropensci/rdflib.git" into
-#>   '/tmp/RtmpxQdC6A/file500b1e4cbcaa/rdflib'.
-#> ✔ Setting active project to "/tmp/RtmpxQdC6A/file500b1e4cbcaa/rdflib".
+#>   '/tmp/RtmpxDZe8i/filebd7173b99561/rdflib'.
+#> ✔ Setting active project to "/tmp/RtmpxDZe8i/filebd7173b99561/rdflib".
 #> ℹ Default branch is "master".
 #> ✔ Setting active project to "<no active project>".
 #> ✔ review project "rdflib-review" initialised
@@ -90,10 +90,10 @@ complete the review and will be initialised with git.
 
 ``` r
 fs::dir_ls(review_parent)
-#> /tmp/RtmpxQdC6A/file500b1e4cbcaa/rdflib
-#> /tmp/RtmpxQdC6A/file500b1e4cbcaa/rdflib-review
+#> /tmp/RtmpxDZe8i/filebd7173b99561/rdflib
+#> /tmp/RtmpxDZe8i/filebd7173b99561/rdflib-review
 fs::dir_tree(fs::path(review_parent, "rdflib-review"))
-#> /tmp/RtmpxQdC6A/file500b1e4cbcaa/rdflib-review
+#> /tmp/RtmpxDZe8i/filebd7173b99561/rdflib-review
 #> ├── R
 #> ├── README.md
 #> ├── index.Rmd

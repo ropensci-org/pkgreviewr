@@ -109,6 +109,7 @@ pkgreview_request <- function(pkg_data) {
 #' render_request()
 #' }
 render_request <- function() {
-    rmarkdown::render(usethis::proj_path("request.Rmd"),
-                      params = "ask")
+  rmarkdown::render(usethis::proj_path("request.Rmd"),
+    params = "ask"
+  )
 }
