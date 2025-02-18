@@ -157,7 +157,7 @@ pkgreview_getdata <- function(pkg_repo, pkg_dir = NULL,
   template <- match.arg(template)
 
   # get repo metadata
-  meta <- get_repo_meta(pkg_repo, full = T)
+  meta <- get_repo_meta(pkg_repo, full = TRUE)
   pkg_dir <- pkg_dir %||% fs::path(usethis::proj_path(".."), meta[["name"]])
 
   # package repo data
@@ -175,19 +175,10 @@ pkgreview_getdata <- function(pkg_repo, pkg_dir = NULL,
 
   # reviewer data
   whoami <- try_whoami()
-  if (!inherits(whoami, "try-error")) {
-    pkg_data <- c(
-      pkg_data,
-      whoami = whoami[["login"]],
-      whoami_url = whoami[["html_url"]],
-      review_repo = sprintf("%s/%s-%s", whoami[["html_url"]], pkg_data[["repo"]], template),  # nolint: line_length_linter
-      index_url = sprintf("https://%s.github.io/%s-%s/index.nb.html", whoami[["login"]], pkg_data[["repo"]], template), # nolint: line_length_linter
-      pkgreview_url = sprintf("https://github.com/%s/blob/master/pkgreview.md", pkg_data[["review_repo"]]) # nolint: line_length_linter
-    )
-  } else {
+  if (inherits(whoami, "try-error")) {
     cli::cli_warn(c(
-    "GitHub user unidentifed.",
-    "URLs related to review and review repository not initialised."
+      "GitHub user unidentifed.",
+      "URLs related to review and review repository not initialised."
     ))
     pkg_data <- c(
       pkg_data,
@@ -196,6 +187,15 @@ pkgreview_getdata <- function(pkg_repo, pkg_dir = NULL,
       review_repo = NULL,
       index_url = NULL,
       pkgreview_url = NULL
+    )
+  } else {
+    pkg_data <- c(
+      pkg_data,
+      whoami = whoami[["login"]],
+      whoami_url = whoami[["html_url"]],
+      review_repo = sprintf("%s/%s-%s", whoami[["html_url"]], pkg_data[["repo"]], template),  # nolint: line_length_linter
+      index_url = sprintf("https://%s.github.io/%s-%s/index.nb.html", whoami[["login"]], pkg_data[["repo"]], template), # nolint: line_length_linter
+      pkgreview_url = sprintf("https://github.com/%s/blob/master/pkgreview.md", pkg_data[["review_repo"]]) # nolint: line_length_linter
     )
   }
 
