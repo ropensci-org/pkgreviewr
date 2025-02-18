@@ -17,7 +17,6 @@ URL: https://docs.ropensci.org/pkgreviewr/, https://github.com/ropensci-org/pkgr
 BugReports: https://github.com/ropensci-org/pkgreviewr/issues
 Imports: 
     assertthat,
-    base64enc,
     brio,
     cli,
     curl,
