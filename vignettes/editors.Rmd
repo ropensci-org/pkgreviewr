@@ -22,10 +22,11 @@ knitr::opts_chunk$set(
 ```{r, eval = F}
 library(pkgreviewr)
 
-pkgreview_create("nldoc/nlrx", 
-                 review_parent = "~/Documents/workflows/rOpenSci/editorials/",
-                 template = "editor",
-                 issue_no = 262)
+pkgreview_create("nldoc/nlrx",
+  review_parent = "~/Documents/workflows/rOpenSci/editorials/",
+  template = "editor",
+  issue_no = 262
+)
 ```
 
 As with initialising a review, the repo is downloaded into `review_parent`. 

@@ -4,12 +4,15 @@
 #'
 #' @param pkg_repo character string of the repo owner and name in the form of
 #'  `"owner/repo"`.
-#' @param review_parent directory in which to setup review project and source package
-#'  source code.
+#' @param review_parent directory in which to setup
+#' review project and source package source code.
 #' @param template character string, one of `review` or `editor`.
-#' @param issue_no integer. Issue number of the pkg review in the rOpenSci [`software-review` repository](https://github.com/ropensci/software-review/issues).
-#' If `NULL` (default), the issue number is extracted from the rOpenSci **Under Review** badge on the pkg repository README.
-#' Supplying an integer to `issue_no` overrides this behaviour and can be useful if a badge has not been added to the README yet.
+#' @param issue_no integer. Issue number of the pkg review in the
+#' rOpenSci [`software-review` repository](https://github.com/ropensci/software-review/issues). # nolint: line_length_linter
+#' If `NULL` (default), the issue number is extracted from the rOpenSci
+#' **Under Review** badge on the pkg repository README.
+#' Supplying an integer to `issue_no` overrides this behaviour
+#' and can be useful if a badge has not been added to the README yet.
 #'
 #' @return setup review project with templates
 #' @export
@@ -17,78 +20,51 @@
 #' @examples
 #' \dontrun{
 #' # for a review project
-#' pkgreview_create(pkg_repo = "ropensci/rdflib", review_parent = "~/Documents/reviews/")
+#' pkgreview_create(
+#'   pkg_repo = "ropensci/rdflib",
+#'   review_parent = "~/Documents/reviews/"
+#' )
 #' # for editors checks
-#' pkgreview_create(pkg_repo = "ropensci/rdflib", review_parent = "~/Documents/editorials/",
-#' template = "editor")
+#' pkgreview_create(
+#'   pkg_repo = "ropensci/rdflib",
+#'   review_parent = "~/Documents/editorials/",
+#'   template = "editor"
+#' )
 #' }
 pkgreview_create <- function(pkg_repo, review_parent = ".",
                              template = c("review", "editor"),
                              issue_no = NULL) {
-    template <- match.arg(template)
-    # checks
-    review_parent <- fs::path_real(review_parent)
-    check_rstudio()
-    check_global_git()
+  template <- match.arg(template)
+  # checks
+  review_parent <- fs::path_real(review_parent)
+  check_global_git()
 
-    # get repo metadata
-    meta <- get_repo_meta(pkg_repo)
-    tmp <- file.path(tempdir(), "pkgreviewr_prep")
-    on.exit(unlink(tmp, recursive = T))
-    dir.create(tmp, showWarnings = F)
+  # get repo metadata
+  meta <- get_repo_meta(pkg_repo)
 
-    tmp_pkg_dir <- fs::path(tmp, meta$name)
-    pkg_dir <- fs::path(review_parent, meta$name)
-    tmp_review_dir <- fs::path(tmp, glue::glue("{meta$name}-{template}"))
-    review_dir <- fs::path(review_parent, glue::glue("{meta$name}-{template}"))
+  pkg_dir <- fs::path(review_parent, meta[["name"]])
+  review_dir <- fs::path(
+    review_parent,
+    sprintf("%s-%s", meta[["name"]], template)
+  )
 
+  clone_pkg(pkg_repo, pkg_dir = review_parent)
 
-    #if pkg_dir already exists, overwrite?
-    write_clone <- overwrite_dir(pkg_dir)
-    if(write_clone) {
-        # clone package source code directory and write to review_parent if clone successful
-        clone_successful <- clone_pkg(pkg_repo, pkg_dir = tmp_pkg_dir)
-        if(clone_successful){
-            write_dir(tmp_dir = tmp_pkg_dir, out_dir = pkg_dir)
-        }
-    }  else {
-        usethis::ui_info("pkg_dir:{usethis::ui_path(pkg_dir)} already exists. Not overwitten")
-        if (!file.exists(file.path(pkg_dir, "DESCRIPTION"))) {
-        usethis::ui_warn("No {usethis::ui_field('DESCRIPTION')} file detected in {usethis::ui_path(pkg_dir)}.
-                         Please check the directory contains the source code for {usethis::ui_value(pkg_repo)}")
-            clone_successful <- FALSE
-        } else {
-            clone_successful <- TRUE
-        }
-    }
+  # create project
+  withr::local_options(list(usethis.quiet = TRUE))
 
-    # create project
-    withr::local_options(list(usethis.quiet = TRUE))
-    usethis::create_project(tmp_review_dir, open = FALSE)
-    unlink(file.path(tmp_review_dir,"R"), recursive = TRUE)
+  pkgreview_init(
+    pkg_repo,
+    review_dir = review_dir,
+    pkg_dir = pkg_dir,
+    template = template,
+    issue_no = issue_no
+  )
 
-    # initialise and copy review project to review_parent if clone was successful
-    # and write required (either pkg_dir does not exist or overwrite has been requested)
-    if(clone_successful){
-        pkgreview_init(pkg_repo, review_dir = tmp_review_dir,
-                       pkg_dir = pkg_dir,
-                       template = template,
-                       issue_no = issue_no)
+  # initialise with git
+  use_git_pkgrv(path = review_dir)
 
-    }else{
-        usethis::ui_todo("Template initialisation of review project {usethis::ui_value(basename(review_dir))} not possible. \n
-        Use:  {usethis::ui_code(' pkgreview_init() ')} after you've cloned repo {usethis::ui_value(pkg_repo)}")
-    }
-    # initialise with git
-    use_git_pkgrv(path = tmp_review_dir)
-    # write out review dir
-    if (overwrite_dir(review_dir)) {
-        write_dir(tmp_dir = tmp_review_dir, out_dir = review_dir)
-    } else {
-        usethis::ui_info("review_dir:{usethis::ui_path(review_dir)} already exists. Not overwitten")
-    }
-    if (interactive() & rstudioapi::isAvailable()) rstudioapi::openProject(review_dir,
-                                                                           newSession = T)
+  usethis::create_project(review_dir)
 }
 
 
@@ -97,11 +73,11 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
 #' Initialise pkgreview
 #'
 #' @inheritParams pkgreview_create
-#' @param review_dir path to the review directory. Defaults to the working directory.
+#' @param review_dir path to the review directory. Defaults to the working directory. # nolint: line_length_linter
 #' @param pkg_dir path to package source directory, cloned from github. Defaults
 #' to the package source code directory in the review parent.
 #'
-#' @return Initialisation creates pre-populated `index.Rmd`, `pkgreview.md` and `README.md` documents.
+#' @return Initialisation creates pre-populated `index.Rmd`, `pkgreview.md` and `README.md` documents. # nolint: line_length_linter
 #' To initialise correctly, the function requires that the source code for the
 #' package has been cloned. This might need to be done manually if it failed
 #' during review creation. If setup is correct.
@@ -115,34 +91,48 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
 pkgreview_init <- function(pkg_repo, review_dir = ".",
                            pkg_dir = NULL,
                            template = c("review", "editor"),
-                           issue_no = NULL){
+                           issue_no = NULL) {
 
-    template <- match.arg(template)
+  template <- match.arg(template)
 
-    # get repo metadata
-    meta <- get_repo_meta(pkg_repo)
+  # get repo metadata
+  meta <- get_repo_meta(pkg_repo)
 
-    # get package metadata
-    if(is.null(pkg_dir)){
-        pkg_dir <- fs::path(fs::path_dir(review_dir), meta$name)}
+  # get package metadata
+  pkg_dir <- pkg_dir %||% fs::path(fs::path_dir(review_dir), meta[["name"]])
 
-    assertthat::assert_that(assertthat::is.dir(pkg_dir))
-    assertthat::assert_that(file.exists(file.path(pkg_dir, "DESCRIPTION")))
-    pkg_data <- pkgreview_getdata(pkg_dir = pkg_dir, pkg_repo,
-                                  template = template,
-                                  issue_no = issue_no)
+  assertthat::assert_that(
+    assertthat::is.dir(pkg_dir),
+    file.exists(file.path(pkg_dir, "DESCRIPTION"))
+  )
 
-    usethis::with_project(review_dir, {
-        # create templates
-        use_onboarding_tmpl(template)
-        pkgreview_index_rmd(pkg_data, template)
-        switch (template,
-                "review" = pkgreview_readme_md(pkg_data),
-                "editor" = pkgreview_request(pkg_data)
-        )
-    }, quiet = TRUE)
+  pkg_data <- pkgreview_getdata(
+    pkg_repo = pkg_repo,
+    pkg_dir = pkg_dir,
+    template = template,
+    issue_no = issue_no
+  )
 
-    usethis::ui_done('{template} project {usethis::ui_value(basename(review_dir))} initialised successfully')
+  if (!fs::dir_exists(review_dir)) {
+    fs::dir_create(review_dir)
+  }
+
+  usethis::create_project(review_dir, open = FALSE)
+
+  usethis::with_project(review_dir, {
+    # create templates
+    use_onboarding_tmpl(template)
+    pkgreview_index_rmd(pkg_data, template)
+    switch(
+      template,
+      review = pkgreview_readme_md(pkg_data),
+      editor = pkgreview_request(pkg_data)
+    )
+  }, quiet = TRUE)
+
+  cli::cli_alert_success(
+    "{template} project {.val {basename(review_dir)}} initialised"
+  )
 }
 
 #' pkgreview_getdata
@@ -157,58 +147,69 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
 #' \dontrun{
 #' # run from within a pkgreviewr project with the package source code in a
 #' sibling directory
-#' pkgreview_getdata("../rdflib")
+#' pkgreview_getdata("ropensci/rdflib", "../rdflib")
 #' }
 #' @export
-pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
+pkgreview_getdata <- function(pkg_repo, pkg_dir = NULL,
                               template = c("review", "editor"),
                               issue_no = NULL) {
 
-    template <- match.arg(template)
+  template <- match.arg(template)
 
-    # get repo metadata
-    meta <- get_repo_meta(pkg_repo, full = T)
-    if(is.null(pkg_dir)){
-        pkg_dir <- fs::path(usethis::proj_path(".."), meta$name)}
+  # get repo metadata
+  meta <- get_repo_meta(pkg_repo, full = TRUE)
+  pkg_dir <- pkg_dir %||% fs::path(usethis::proj_path(".."), meta[["name"]])
 
-    # package repo data
-    pkg_data <- package_data(pkg_dir)
+  # package repo data
+  pkg_data <- package_data(pkg_dir)
 
-    pkg_data$URL <- meta$html_url
+  pkg_data <- c(
+    pkg_data,
+    URL  = meta[["html_url"]],
+    pkg_dir = pkg_dir,
+    Rmd = FALSE,
+    pkg_repo = pkg_repo,
+    username = meta[["owner"]][["login"]],
+    repo = meta[["name"]]
+  )
 
-    pkg_data$pkg_dir <- pkg_dir
-    pkg_data$Rmd <- FALSE
-    pkg_data$pkg_repo <- pkg_repo
-    pkg_data$username <- meta$owner$login
-    pkg_data$repo <- meta$name
+  # reviewer data
+  whoami <- try_whoami()
+  if (inherits(whoami, "try-error")) {
+    cli::cli_warn(c(
+      "GitHub user unidentifed.",
+      "URLs related to review and review repository not initialised."
+    ))
+    pkg_data <- c(
+      pkg_data,
+      whoami = NULL,
+      whoami_url = NULL,
+      review_repo = NULL,
+      index_url = NULL,
+      pkgreview_url = NULL
+    )
+  } else {
+    pkg_data <- c(
+      pkg_data,
+      whoami = whoami[["login"]],
+      whoami_url = whoami[["html_url"]],
+      review_repo = sprintf("%s/%s-%s", whoami[["html_url"]], pkg_data[["repo"]], template),  # nolint: line_length_linter
+      index_url = sprintf("https://%s.github.io/%s-%s/index.nb.html", whoami[["login"]], pkg_data[["repo"]], template), # nolint: line_length_linter
+      pkgreview_url = sprintf("https://github.com/%s/blob/master/pkgreview.md", pkg_data[["review_repo"]]) # nolint: line_length_linter
+    )
+  }
 
-    # reviewer data
-    whoami_try <- try_whoami()
-    if(!inherits(whoami_try, "try-error")){
-        pkg_data$whoami <- whoami_try$login
-        pkg_data$whoami_url <- whoami_try$html_url
-        pkg_data$review_repo <- glue::glue("{pkg_data$whoami}/{pkg_data$repo}-{template}")
-        pkg_data$index_url <- glue::glue("https://{pkg_data$whoami}.github.io/{pkg_data$repo}-{template}/index.nb.html")
-        pkg_data$pkgreview_url <- glue::glue("https://github.com/{pkg_data$review_repo}/blob/master/pkgreview.md")
-    }else{
-        warning("GitHub user unidentifed.
-                URLs related to review and review repository not initialised.")
-        pkg_data$whoami <- NULL
-        pkg_data$whoami_url <- NULL
-        pkg_data$review_repo <- NULL
-        pkg_data$index_url <- NULL
-        pkg_data$pkgreview_url <- NULL
-    }
+  issue_no <- issue_no %||% issue_meta(pkg_data[["pkg_repo"]])
+  issue_url <- paste0("https://github.com/ropensci/software-review/issues/", issue_no) # nolint: line_length_linter
 
-    pkg_data$issue_url <- ifelse(is.null(issue_no),
-                                 issue_meta(pkg_data$pkg_repo, parameter = "url"),
-                                 paste0("https://github.com/ropensci/software-review/issues/", issue_no))
-    pkg_data$number <- ifelse(is.null(issue_no),
-                              issue_meta(pkg_data$pkg_repo),
-                              issue_no)
-    pkg_data$site <- meta$homepage
+  pkg_data <- c(
+    pkg_data,
+    issue_url = issue_url,
+    number = issue_no,
+    site = meta[["homepage"]]
+  )
 
-    pkg_data
+  pkg_data
 }
 
 
@@ -219,5 +220,5 @@ pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
 #' @return a list of whoami token metadata
 #' @export
 try_whoami <- function() {
-    try(gh::gh_whoami(gh::gh_token()), silent = T)
+  try(gh::gh_whoami(gh::gh_token()), silent = TRUE)
 }

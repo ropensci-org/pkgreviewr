@@ -15,14 +15,17 @@ pkgreview_create(
 \item{pkg_repo}{character string of the repo owner and name in the form of
 \code{"owner/repo"}.}
 
-\item{review_parent}{directory in which to setup review project and source package
-source code.}
+\item{review_parent}{directory in which to setup
+review project and source package source code.}
 
 \item{template}{character string, one of \code{review} or \code{editor}.}
 
-\item{issue_no}{integer. Issue number of the pkg review in the rOpenSci \href{https://github.com/ropensci/software-review/issues}{\code{software-review} repository}.
-If \code{NULL} (default), the issue number is extracted from the rOpenSci \strong{Under Review} badge on the pkg repository README.
-Supplying an integer to \code{issue_no} overrides this behaviour and can be useful if a badge has not been added to the README yet.}
+\item{issue_no}{integer. Issue number of the pkg review in the
+rOpenSci \href{https://github.com/ropensci/software-review/issues}{\code{software-review} repository}. # nolint: line_length_linter
+If \code{NULL} (default), the issue number is extracted from the rOpenSci
+\strong{Under Review} badge on the pkg repository README.
+Supplying an integer to \code{issue_no} overrides this behaviour
+and can be useful if a badge has not been added to the README yet.}
 }
 \value{
 setup review project with templates
@@ -33,9 +36,15 @@ Create and initialise an rOpenSci package review project
 \examples{
 \dontrun{
 # for a review project
-pkgreview_create(pkg_repo = "ropensci/rdflib", review_parent = "~/Documents/reviews/")
+pkgreview_create(
+  pkg_repo = "ropensci/rdflib",
+  review_parent = "~/Documents/reviews/"
+)
 # for editors checks
-pkgreview_create(pkg_repo = "ropensci/rdflib", review_parent = "~/Documents/editorials/",
-template = "editor")
+pkgreview_create(
+  pkg_repo = "ropensci/rdflib",
+  review_parent = "~/Documents/editorials/",
+  template = "editor"
+)
 }
 }

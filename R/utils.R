@@ -1,77 +1,61 @@
-check_rstudio <- function() {
-    # check if rstudio available
-    if (!rstudioapi::isAvailable()) {
-        stop(strwrap(paste("pkreviewr is designed to work with Rstudio version" ,
-                           "1.0 and above.", "Please install or launch in Rstudio to proceed.",
-                           "Visit <https://www.rstudio.com/products/rstudio/download/>",
-                           " to download the latest version"), prefix = "\n"))
-    }
-
-    # check rstudio version > 1.0.0
-    rs_version <- rstudioapi::getVersion()
-    if (rs_version < "1.0.0") {
-        stop(strwrap(paste("pkreviewr is designed to work with notebooks in Rstudio version" ,
-                           "1.0 and above.",
-                           "Please update to RStudio version 1.0 or greater to proceed.",
-                           "You are running RStudio",
-                           as.character(rs_version)), prefix = "\n"))
-    }
-}
-
 # modified from usethis::use_git
-use_git_pkgrv <- function (path = ".", message = "Initial commit") {
-    if (uses_git_pkgrv(path)) {
-        return(invisible())
-    }
-    usethis::ui_done("Initialising Git repo")
-    r <- git2r::init(path)
-    usethis::with_project(path = path, {
-        usethis::use_git_ignore(c(".Rhistory", ".RData", ".Rproj.user"))
-    })
-    usethis::ui_done("Adding files and committing")
-    paths <- unlist(git2r::status(r))
-    git2r::add(r, paths)
-    git2r::commit(r, message)
-    invisible(TRUE)
+use_git_pkgrv <- function(path = ".", message = "Initial commit") {
+  if (uses_git_pkgrv(path)) {
+    return(invisible())
+  }
+  usethis::ui_done("Initialising Git repo")
+  repo <- gert::git_init(path)
+  usethis::with_project(path = path, {
+    usethis::use_git_ignore(c(".Rhistory", ".RData", ".Rproj.user"))
+  })
+  usethis::ui_done("Adding files and committing")
+  gert::git_add("*", repo = repo)
+  gert::git_commit_all(message, repo = repo)
+  invisible(TRUE)
 }
 
 # modified from usethis:::uses_git
-uses_git_pkgrv <- function (path) {
-    !is.null(git2r::discover_repository(path))
+uses_git_pkgrv <- function(path) {
+  repo <- tryCatch(
+    gert::git_find(usethis::proj_get(path)),
+    error = function(e) NULL
+  )
+  !is.null(repo)
 }
 
 # inspired by usethis:::can_overwrite
-overwrite_dir <- function (path)
-{
-    if (!fs::file_exists(path)) {
-        return(TRUE)
-    }
-    if (interactive()) {
-        usethis::ui_yeah("Overwrite pre-existing directory {ui_path(path)}?")
-    }
-    else {
-        FALSE
-    }
+overwrite_dir <- function(path) {
+  if (!fs::file_exists(path)) {
+    return(TRUE)
+  }
+  if (interactive()) {
+    usethis::ui_yeah("Overwrite pre-existing directory {ui_path(path)}?")
+  } else {
+    FALSE
+  }
 }
 
 
-write_dir <- function(tmp_dir, out_dir){
-    assertthat::assert_that(dir.exists(dirname(out_dir)))
+write_dir <- function(tmp_dir, out_dir) {
+  assertthat::assert_that(fs::dir_exists(fs::path_dir(out_dir)))
 
-    dir_type <- dplyr::case_when(
-        file.exists(file.path(tmp_dir, "DESCRIPTION")) ~ "pkg_dir",
-        TRUE ~ "review_dir")
+  dir_type <- switch( # nolint: object_usage_linter
+    fs::file_exists(file.path(tmp_dir, "DESCRIPTION")),
+    TRUE ~ "pkg_dir",
+    FALSE ~ "review_dir"
+  )
 
-        if (dir.exists(out_dir)) {
-            unlink(out_dir, recursive=TRUE)
-        }
-        file.copy(tmp_dir, dirname(out_dir), recursive = T)
-        usethis::ui_done("{usethis::ui_field(dir_type)} written out successfully")
+  if (fs::dir_exists(out_dir)) {
+    fs::dir_delete(out_dir)
+  }
+  fs::dir_copy(tmp_dir, dirname(out_dir))
+  cli::cli_alert_success("{.val {dir_type}} written out")
 }
 
 
-### add former usethis:::package_data(), now removed (see https://github.com/r-lib/usethis/pull/1747)
+### add former usethis:::package_data(),
+### now removed (see https://github.com/r-lib/usethis/pull/1747)
 package_data <- function(base_path = NULL) {
-  desc <- desc::description$new(base_path)
-  as.list(desc$get(desc$fields()))
+  desc <- desc::description$new(base_path) # nolint: extraction_operator_linter
+  as.list(desc$get(desc$fields())) # nolint: extraction_operator_linter
 }

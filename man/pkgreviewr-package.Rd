@@ -11,17 +11,18 @@ Creates files and collects materials necessary to complete an rOpenSci package r
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://docs.ropensci.org/pkgreviewr/}
   \item \url{https://github.com/ropensci-org/pkgreviewr}
   \item Report bugs at \url{https://github.com/ropensci-org/pkgreviewr/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Anna Krystalli \email{annakrystalli@googlemail.com}
+\strong{Maintainer}: Maëlle Salmon \email{maelle@ropensci.org} (\href{https://orcid.org/0000-0002-2815-0399}{ORCID})
 
 Authors:
 \itemize{
-  \item Maëlle Salmon \email{maelle.salmon@yahoo.se}
+  \item Anna Krystalli \email{annakrystalli@googlemail.com} (\href{https://orcid.org/0000-0002-2378-4915}{ORCID}) (Created the package)
 }
 
 }

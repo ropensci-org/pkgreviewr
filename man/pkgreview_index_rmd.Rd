@@ -23,13 +23,7 @@ Creates skeleton review files:
 \item \code{index.Rmd}: \code{html_notebook} to perform and record review in
 \item \code{README.md}: prepopulated README for review repo.
 }
-\code{index.Rmd} will be automatically added to \code{.Rbuildignore}. The resulting templates are populated with default
+\code{index.Rmd} will be automatically added to \code{.Rbuildignore}.
+The resulting templates are populated with default
 YAML frontmatter and R fenced code chunks (\code{Rmd}).
-}
-\examples{
-\dontrun{
-pkg_data <- pkgreview_getdata(pkg_dir)
-pkgreview_index_rmd(pkg_data)
-pkgreview_readme_md(pkg_data)
-}
 }

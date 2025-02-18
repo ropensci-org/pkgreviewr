@@ -1,0 +1,9 @@
+linters: lintr::linters_with_tags(tags = NULL)
+encoding: "UTF-8"
+exclusions: list(
+    # excluded from all lints:
+    "inst/examples/example-review-index.Rmd",
+    "tests/testthat.R",
+    "vignettes/editors.Rmd",
+    "vignettes/pkgreviewr.Rmd"
+    )
