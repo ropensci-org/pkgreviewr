@@ -4,7 +4,7 @@ test_that("template-urls-resolve", {
     gh::gh("/repos/:owner/:repo/contents/:path",
       owner = "ropensci",
       repo = "dev_guide",
-      path = glue::glue("templates/{template}.md")
+      path = glue::glue("templates/{template}.md") # nolint: nonportable_path_linter
     ),
     c("gh_response", "list")
   )
@@ -14,7 +14,7 @@ test_that("template-urls-resolve", {
     gh::gh("/repos/:owner/:repo/contents/:path",
       owner = "ropensci",
       repo = "dev_guide",
-      path = glue::glue("templates/{template}.md")
+      path = glue::glue("templates/{template}.md") # nolint: nonportable_path_linter
     ),
     c("gh_response", "list")
   )

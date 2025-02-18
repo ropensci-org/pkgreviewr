@@ -53,7 +53,8 @@ write_dir <- function(tmp_dir, out_dir) {
 }
 
 
-### add former usethis:::package_data(), now removed (see https://github.com/r-lib/usethis/pull/1747)
+### add former usethis:::package_data(),
+### now removed (see https://github.com/r-lib/usethis/pull/1747)
 package_data <- function(base_path = NULL) {
   desc <- desc::description$new(base_path) # nolint: extraction_operator_linter
   as.list(desc$get(desc$fields())) # nolint: extraction_operator_linter
