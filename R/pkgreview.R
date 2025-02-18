@@ -217,7 +217,7 @@ pkgreview_getdata <- function(pkg_repo, pkg_dir = NULL,
 #' @return a list of whoami token metadata
 #' @export
 try_whoami <- function() {
-  if (isTRUE(as.logical(Sys.getenv("CI")))) {
+  if (on_ci()) {
     list(
       login = "maelle",
       html_url = "https://github.com/maelle"
@@ -227,7 +227,7 @@ try_whoami <- function() {
 }
 
 create_from_github <- function(pkg_repo, destdir, open) {
-  if (isTRUE(as.logical(Sys.getenv("CI")))) {
+  if (on_ci()) {
     url <- sprintf(
       "https://github.com/%s/archive/refs/heads/main.zip",
       pkg_repo
