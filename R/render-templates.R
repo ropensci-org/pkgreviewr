@@ -14,12 +14,6 @@
 #' @export
 # @importFrom usethis getFromNamespace check_installed
 # @importFrom usethis getFromNamespace render_template
-#' @examples
-#' \dontrun{
-#' pkg_data <- pkgreview_getdata(pkg_dir)
-#' pkgreview_index_rmd(pkg_data)
-#' pkgreview_readme_md(pkg_data)
-#' }
 pkgreview_index_rmd <- function(pkg_data,
                                 template = c("review", "editor")) {
   template <- match.arg(template)

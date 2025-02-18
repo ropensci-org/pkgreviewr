@@ -1,8 +1,10 @@
 # get issue metadata
-issue_meta <- function(pkg_repo, parameter = c("number", "url"), strict = FALSE) {
+issue_meta <- function(pkg_repo,
+                       parameter = c("number", "url"),
+                       strict = FALSE) {
   software_review_url <- "https://github.com/ropensci/software-review/issues/"
   onboard_url <- "https://github.com/ropensci/onboarding/issues/"
-  readme_url <- gh::gh(sprintf("/repos/%s/readme", pkg_repo))[["download_url"]]
+  readme_url <- gh::gh(sprintf("/repos/%s/readme", pkg_repo))[["download_url"]] # nolint: nonportable_path_linter
 
   temp_readme <- withr::local_tempfile()
   curl::curl_download(readme_url, temp_readme)
@@ -19,9 +21,10 @@ issue_meta <- function(pkg_repo, parameter = c("number", "url"), strict = FALSE)
     )
   )
 
-  switch(match.arg(parameter),
-    "number" = as.numeric(number),
-    "url" = paste0(onboard_url, number)
+  switch(
+    match.arg(parameter),
+    number = as.numeric(number),
+    url = paste0(onboard_url, number)
   )
 }
 
@@ -29,7 +32,7 @@ issue_meta <- function(pkg_repo, parameter = c("number", "url"), strict = FALSE)
 # check username
 check_global_git <- function() {
   test <- try_whoami()
-  if (class(test)[1] == "try-error") {
+  if (inherits(test, "try-error")) {
     usethis::git_sitrep()
   }
 }
@@ -40,11 +43,11 @@ clone_pkg <- function(pkg_repo, pkg_dir) {
 }
 
 get_repo_meta <- function(pkg_repo, full = FALSE) {
-  meta <- gh::gh(paste0("/repos/", pkg_repo))
+  meta <- gh::gh(paste0("/repos/", pkg_repo)) # nolint: paste_linter
 
   if (full) {
     meta
   } else {
-    list(name = meta$name, owner = meta$owner$login)
+    list(name = meta[["name"]], owner = meta[["owner"]][["login"]])
   }
 }

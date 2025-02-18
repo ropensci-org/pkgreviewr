@@ -4,12 +4,15 @@
 #'
 #' @param pkg_repo character string of the repo owner and name in the form of
 #'  `"owner/repo"`.
-#' @param review_parent directory in which to setup review project and source package
-#'  source code.
+#' @param review_parent directory in which to setup
+#' review project and source package source code.
 #' @param template character string, one of `review` or `editor`.
-#' @param issue_no integer. Issue number of the pkg review in the rOpenSci [`software-review` repository](https://github.com/ropensci/software-review/issues).
-#' If `NULL` (default), the issue number is extracted from the rOpenSci **Under Review** badge on the pkg repository README.
-#' Supplying an integer to `issue_no` overrides this behaviour and can be useful if a badge has not been added to the README yet.
+#' @param issue_no integer. Issue number of the pkg review in the
+#' rOpenSci [`software-review` repository](https://github.com/ropensci/software-review/issues). # nolint: line_length_linter
+#' If `NULL` (default), the issue number is extracted from the rOpenSci
+#' **Under Review** badge on the pkg repository README.
+#' Supplying an integer to `issue_no` overrides this behaviour
+#' and can be useful if a badge has not been added to the README yet.
 #'
 #' @return setup review project with templates
 #' @export
@@ -17,10 +20,16 @@
 #' @examples
 #' \dontrun{
 #' # for a review project
-#' pkgreview_create(pkg_repo = "ropensci/rdflib", review_parent = "~/Documents/reviews/")
+#' pkgreview_create(
+#'   pkg_repo = "ropensci/rdflib",
+#'   review_parent = "~/Documents/reviews/"
+#' )
 #' # for editors checks
-#' pkgreview_create(pkg_repo = "ropensci/rdflib", review_parent = "~/Documents/editorials/",
-#' template = "editor")
+#' pkgreview_create(
+#'   pkg_repo = "ropensci/rdflib",
+#'   review_parent = "~/Documents/editorials/",
+#'   template = "editor"
+#' )
 #' }
 pkgreview_create <- function(pkg_repo, review_parent = ".",
                              template = c("review", "editor"),
@@ -32,12 +41,12 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
 
   # get repo metadata
   meta <- get_repo_meta(pkg_repo)
-  tmp <- withr::local_tempdir()
 
-  tmp_pkg_dir <- fs::path(tmp, meta[["name"]])
   pkg_dir <- fs::path(review_parent, meta[["name"]])
-  tmp_review_dir <- fs::path(tmp, sprintf("%s-%s", meta[["name"]], template))
-  review_dir <- fs::path(review_parent, sprintf("%s-%s", meta[["name"]], template))
+  review_dir <- fs::path(
+    review_parent,
+    sprintf("%s-%s", meta[["name"]], template)
+  )
 
   clone_pkg(pkg_repo, pkg_dir = review_parent)
 
@@ -46,20 +55,14 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
 
   pkgreview_init(
     pkg_repo,
-    review_dir = tmp_review_dir,
+    review_dir = review_dir,
     pkg_dir = pkg_dir,
     template = template,
     issue_no = issue_no
   )
 
   # initialise with git
-  use_git_pkgrv(path = tmp_review_dir)
-  # write out review dir
-  if (overwrite_dir(review_dir)) {
-    write_dir(tmp_dir = tmp_review_dir, out_dir = review_dir)
-  } else {
-    usethis::ui_info("review_dir:{usethis::ui_path(review_dir)} already exists. Not overwitten")
-  }
+  use_git_pkgrv(path = review_dir)
 
   usethis::create_project(review_dir)
 }
@@ -70,11 +73,11 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
 #' Initialise pkgreview
 #'
 #' @inheritParams pkgreview_create
-#' @param review_dir path to the review directory. Defaults to the working directory.
+#' @param review_dir path to the review directory. Defaults to the working directory. # nolint: line_length_linter
 #' @param pkg_dir path to package source directory, cloned from github. Defaults
 #' to the package source code directory in the review parent.
 #'
-#' @return Initialisation creates pre-populated `index.Rmd`, `pkgreview.md` and `README.md` documents.
+#' @return Initialisation creates pre-populated `index.Rmd`, `pkgreview.md` and `README.md` documents. # nolint: line_length_linter
 #' To initialise correctly, the function requires that the source code for the
 #' package has been cloned. This might need to be done manually if it failed
 #' during review creation. If setup is correct.
@@ -88,7 +91,7 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
 pkgreview_init <- function(pkg_repo, review_dir = ".",
                            pkg_dir = NULL,
                            template = c("review", "editor"),
-                           issue_no = NULL){
+                           issue_no = NULL) {
 
   template <- match.arg(template)
 
@@ -98,10 +101,14 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
   # get package metadata
   pkg_dir <- pkg_dir %||% fs::path(fs::path_dir(review_dir), meta[["name"]])
 
-  assertthat::assert_that(assertthat::is.dir(pkg_dir))
-  assertthat::assert_that(file.exists(file.path(pkg_dir, "DESCRIPTION")))
+  assertthat::assert_that(
+    assertthat::is.dir(pkg_dir),
+    file.exists(file.path(pkg_dir, "DESCRIPTION"))
+  )
+
   pkg_data <- pkgreview_getdata(
-    pkg_dir = pkg_dir, pkg_repo,
+    pkg_repo = pkg_repo,
+    pkg_dir = pkg_dir,
     template = template,
     issue_no = issue_no
   )
@@ -116,14 +123,15 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
     # create templates
     use_onboarding_tmpl(template)
     pkgreview_index_rmd(pkg_data, template)
-    switch (template,
-      "review" = pkgreview_readme_md(pkg_data),
-      "editor" = pkgreview_request(pkg_data)
+    switch(
+      template,
+      review = pkgreview_readme_md(pkg_data),
+      editor = pkgreview_request(pkg_data)
     )
   }, quiet = TRUE)
 
   cli::cli_alert_success(
-    '{template} project {.val {basename(review_dir)}} initialised'
+    "{template} project {.val {basename(review_dir)}} initialised"
   )
 }
 
@@ -139,10 +147,10 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
 #' \dontrun{
 #' # run from within a pkgreviewr project with the package source code in a
 #' sibling directory
-#' pkgreview_getdata("../rdflib")
+#' pkgreview_getdata("ropensci/rdflib", "../rdflib")
 #' }
 #' @export
-pkgreview_getdata <- function(pkg_dir = NULL, pkg_repo,
+pkgreview_getdata <- function(pkg_repo, pkg_dir = NULL,
   template = c("review", "editor"),
   issue_no = NULL) {
 

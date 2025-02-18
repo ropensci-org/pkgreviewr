@@ -91,7 +91,7 @@ sessionInfo()
 
 
 ```{r pkg_dir, echo = F}
-pkg_dir <- "/private/var/folders/8p/87cqdx2s34vfvcgh04l6z72w0000gn/T/Rtmp4i9nQx/rdflib-review/../rdflib"
+pkg_dir <- "tempdir/rdflib-review/../rdflib"
 ```
 
 ## Test installation

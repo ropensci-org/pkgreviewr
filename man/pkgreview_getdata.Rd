@@ -5,24 +5,27 @@
 \title{pkgreview_getdata}
 \usage{
 pkgreview_getdata(
-  pkg_dir = NULL,
   pkg_repo,
+  pkg_dir = NULL,
   template = c("review", "editor"),
   issue_no = NULL
 )
 }
 \arguments{
-\item{pkg_dir}{path to package source directory, cloned from github. Defaults
-to the package source code directory in the review parent.}
-
 \item{pkg_repo}{character string of the repo owner and name in the form of
 \code{"owner/repo"}.}
 
+\item{pkg_dir}{path to package source directory, cloned from github. Defaults
+to the package source code directory in the review parent.}
+
 \item{template}{character string, one of \code{review} or \code{editor}.}
 
-\item{issue_no}{integer. Issue number of the pkg review in the rOpenSci \href{https://github.com/ropensci/software-review/issues}{\code{software-review} repository}.
-If \code{NULL} (default), the issue number is extracted from the rOpenSci \strong{Under Review} badge on the pkg repository README.
-Supplying an integer to \code{issue_no} overrides this behaviour and can be useful if a badge has not been added to the README yet.}
+\item{issue_no}{integer. Issue number of the pkg review in the
+rOpenSci \href{https://github.com/ropensci/software-review/issues}{\code{software-review} repository}. # nolint: line_length_linter
+If \code{NULL} (default), the issue number is extracted from the rOpenSci
+\strong{Under Review} badge on the pkg repository README.
+Supplying an integer to \code{issue_no} overrides this behaviour
+and can be useful if a badge has not been added to the README yet.}
 }
 \value{
 a list of package metadata
@@ -34,6 +37,6 @@ get package metadata from package source code.
 \dontrun{
 # run from within a pkgreviewr project with the package source code in a
 sibling directory
-pkgreview_getdata("../rdflib")
+pkgreview_getdata("ropensci/rdflib", "../rdflib")
 }
 }

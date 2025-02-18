@@ -23,7 +23,7 @@ test_that("get-pkg_data", {
   pkg_dir <- file.path(review_parent, "riem")
   pkgreview_create("ropensci/riem", review_parent)
 
-  pkg_data <- pkgreview_getdata(pkg_dir, "ropensci/riem")
+  pkg_data <- pkgreview_getdata("ropensci/riem", pkg_dir)
   issue_no <- issue_meta("ropensci/riem")
   issue_url <- issue_meta("ropensci/riem", "url")
 

@@ -16,19 +16,22 @@ pkgreview_init(
 \item{pkg_repo}{character string of the repo owner and name in the form of
 \code{"owner/repo"}.}
 
-\item{review_dir}{path to the review directory. Defaults to the working directory.}
+\item{review_dir}{path to the review directory. Defaults to the working directory. # nolint: line_length_linter}
 
 \item{pkg_dir}{path to package source directory, cloned from github. Defaults
 to the package source code directory in the review parent.}
 
 \item{template}{character string, one of \code{review} or \code{editor}.}
 
-\item{issue_no}{integer. Issue number of the pkg review in the rOpenSci \href{https://github.com/ropensci/software-review/issues}{\code{software-review} repository}.
-If \code{NULL} (default), the issue number is extracted from the rOpenSci \strong{Under Review} badge on the pkg repository README.
-Supplying an integer to \code{issue_no} overrides this behaviour and can be useful if a badge has not been added to the README yet.}
+\item{issue_no}{integer. Issue number of the pkg review in the
+rOpenSci \href{https://github.com/ropensci/software-review/issues}{\code{software-review} repository}. # nolint: line_length_linter
+If \code{NULL} (default), the issue number is extracted from the rOpenSci
+\strong{Under Review} badge on the pkg repository README.
+Supplying an integer to \code{issue_no} overrides this behaviour
+and can be useful if a badge has not been added to the README yet.}
 }
 \value{
-Initialisation creates pre-populated \code{index.Rmd}, \code{pkgreview.md} and \code{README.md} documents.
+Initialisation creates pre-populated \code{index.Rmd}, \code{pkgreview.md} and \code{README.md} documents. # nolint: line_length_linter
 To initialise correctly, the function requires that the source code for the
 package has been cloned. This might need to be done manually if it failed
 during review creation. If setup is correct.
