@@ -220,5 +220,15 @@ pkgreview_getdata <- function(pkg_repo, pkg_dir = NULL,
 #' @return a list of whoami token metadata
 #' @export
 try_whoami <- function() {
+  if (isTRUE(as.logical(Sys.getenv("CI")))) {
+    return(
+      list(
+        name = "Maëlle Salmon",
+        login = "maelle",
+        html_url = "https://github.com/maelle"
+      )
+    )
+  }
+
   try(gh::gh_whoami(gh::gh_token()), silent = TRUE)
 }
