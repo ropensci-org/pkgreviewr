@@ -7,12 +7,14 @@ test_that("review-proj-created-correctly", {
 
   pkgreview_create("ropensci/riem", review_parent) # nolint: nonportable_path_linter
 
-  expect_true("riem-review" %in% list.files(review_parent))
-  expect_true(
-    all(c("index.Rmd", "README.md", "review.md") %in% list.files(review_dir))
+  expect_true(fs::dir_exists(fs::path(review_parent, "riem-review")))
+  expect_snapshot(
+    fs::dir_ls(review_dir, all =TRUE),
+    transform = function(x) sub(".*riem-review/", "/riem-review/", x)
   )
-  expect_true(
-    all(c("DESCRIPTION", "README.md") %in% list.files(pkg_dir))
+  expect_snapshot(
+    fs::dir_ls(pkg_dir, all =TRUE),
+    transform = function(x) sub(".*riem/", "/riem/", x)
   )
 })
 
