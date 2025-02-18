@@ -9,12 +9,14 @@ test_that("review-proj-created-correctly", {
 
   expect_true(fs::dir_exists(fs::path(review_parent, "riem-review")))
   expect_snapshot(
-    fs::dir_ls(review_dir, all =TRUE),
-    transform = function(x) sub(".*riem-review/", "/riem-review/", x)
+    fs::dir_ls(review_dir, all = TRUE),
+    transform = function(x) sub(".*riem-review/", "/riem-review/", x),
+    variant = .Platform[["OS.type"]]
   )
   expect_snapshot(
-    fs::dir_ls(pkg_dir, all =TRUE),
-    transform = function(x) sub(".*riem/", "/riem/", x)
+    fs::dir_ls(pkg_dir, all = TRUE),
+    transform = function(x) sub(".*riem/", "/riem/", x),
+    variant = .Platform[["OS.type"]]
   )
 })
 
