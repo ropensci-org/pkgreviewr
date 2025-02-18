@@ -246,9 +246,6 @@ exports
 - Are there **improvements** that could be made to the **code style?**
 - Is there **code duplication** in the package that should be reduced?
 
-```{r inspect-code}
-pkgreviewr::pkgreview_print_source("rdflib")
-```
 **\* might not be suitable for large packages with many exported functions**
 
 

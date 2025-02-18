@@ -232,9 +232,6 @@ exports
 - Are there **improvements** that could be made to the [**code style?**](https://ropensci.github.io/dev_guide/building.html#code-style)
 - Is there **code duplication** in the package that should be reduced?
 
-```{r inspect-code}
-pkgreviewr::pkgreview_print_source("{{{ Package }}}")
-```
 **\* might not be suitable for large packages with many exported functions**
 
 

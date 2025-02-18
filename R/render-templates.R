@@ -80,7 +80,10 @@ use_onboarding_tmpl <- function(template = c("review", "editor")) {
 #' @export
 #' @rdname pkgreview_index_rmd
 pkgreview_request <- function(pkg_data) {
-  pkg_data$editor <- try_whoami()$name
+  pkg_data <- c(
+    pkg_data,
+    editor = try_whoami()[["name"]]
+  )
 
   usethis::use_template(
     "request",
