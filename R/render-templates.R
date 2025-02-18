@@ -16,23 +16,27 @@
 # @importFrom usethis getFromNamespace check_installed
 # @importFrom usethis getFromNamespace render_template
 pkgreview_index_rmd <- function(pkg_data,
-                                template = c("review", "editor")) {
+                                template = c("review", "editor"),
+                                destdir) {
   template <- match.arg(template)
 
-  usethis::use_template(
-    sprintf("%s-index", template),
-    "index.Rmd",
-    data = pkg_data,
-    ignore = FALSE,
-    open = FALSE,
-    package = "pkgreviewr"
-  )
+  usethis::with_project(destdir, {
+    usethis::use_template(
+      sprintf("%s-index", template),
+      "index.Rmd",
+      data = pkg_data,
+      ignore = FALSE,
+      open = FALSE,
+      package = "pkgreviewr"
+    )
+  })
   invisible(TRUE)
 }
 
 #' @export
 #' @rdname pkgreview_index_rmd
-pkgreview_readme_md <- function(pkg_data) {
+pkgreview_readme_md <- function(pkg_data, destdir) {
+  usethis::local_project(destdir)
   usethis::use_template(
     "review-README",
     "README.md",
@@ -56,7 +60,7 @@ pkgreview_readme_md <- function(pkg_data) {
 #' \dontrun{
 #' use_onboarding_tmpl(template = "editor")
 #' }
-use_onboarding_tmpl <- function(template = c("review", "editor")) {
+use_onboarding_tmpl <- function(template = c("review", "editor"), destdir) {
   template <- match.arg(template)
   tmpl_txt <- gh::gh("/repos/:owner/:repo/contents/:path",
     owner = "ropensci",
@@ -64,27 +68,23 @@ use_onboarding_tmpl <- function(template = c("review", "editor")) {
     path = sprintf("templates/%s.md", template) # nolint: nonportable_path_litner
   )
 
-  temp_file <- withr::local_tempfile()
-  curl::curl_download(tmpl_txt[["download_url"]], temp_file)
-  tmpl_txt <- paste(brio::read_lines(temp_file), collapse = "\n")
-
-  new <- usethis::write_over(
-    usethis::proj_path(fs::path_ext_set(template, ".md")),
-    tmpl_txt
+  curl::curl_download(
+    tmpl_txt[["download_url"]],
+    fs::path(destdir, fs::path_ext_set(template, ".md"))
   )
-  invisible(new)
 }
 
 
 
 #' @export
 #' @rdname pkgreview_index_rmd
-pkgreview_request <- function(pkg_data) {
+pkgreview_request <- function(pkg_data, destdir) {
   pkg_data <- c(
     pkg_data,
     editor = try_whoami()[["name"]]
   )
 
+  usethis::local_project(destdir)
   usethis::use_template(
     "request",
     "request.Rmd",

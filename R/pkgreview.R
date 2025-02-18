@@ -48,7 +48,7 @@ pkgreview_create <- function(pkg_repo, review_parent = ".",
     sprintf("%s-%s", meta[["name"]], template)
   )
 
-  clone_pkg(pkg_repo, pkg_dir = review_parent)
+  create_from_github(pkg_repo, destdir = review_parent, open = FALSE)
 
   # create project
   withr::local_options(list(usethis.quiet = TRUE))
@@ -118,17 +118,14 @@ pkgreview_init <- function(pkg_repo, review_dir = ".",
   }
 
   usethis::create_project(review_dir, open = FALSE)
+  use_onboarding_tmpl(template, destdir = review_dir)
+  pkgreview_index_rmd(pkg_data, template, destdir = review_dir)
 
-  usethis::with_project(review_dir, {
-    # create templates
-    use_onboarding_tmpl(template)
-    pkgreview_index_rmd(pkg_data, template)
-    switch(
-      template,
-      review = pkgreview_readme_md(pkg_data),
-      editor = pkgreview_request(pkg_data)
-    )
-  }, quiet = TRUE)
+  switch(
+    template,
+    review = pkgreview_readme_md(pkg_data, destdir = review_dir),
+    editor = pkgreview_request(pkg_data, destdir = review_dir)
+  )
 
   cli::cli_alert_success(
     "{template} project {.val {basename(review_dir)}} initialised"
@@ -221,14 +218,37 @@ pkgreview_getdata <- function(pkg_repo, pkg_dir = NULL,
 #' @export
 try_whoami <- function() {
   if (isTRUE(as.logical(Sys.getenv("CI")))) {
-    return(
-      list(
-        name = "Maëlle Salmon",
-        login = "maelle",
-        html_url = "https://github.com/maelle"
-      )
+    list(
+      login = "maelle",
+      html_url = "https://github.com/maelle"
     )
   }
-
   try(gh::gh_whoami(gh::gh_token()), silent = TRUE)
+}
+
+create_from_github <- function(pkg_repo, destdir, open) {
+  if (isTRUE(as.logical(Sys.getenv("CI")))) {
+    url <- sprintf(
+      "https://github.com/%s/archive/refs/heads/main.zip",
+      pkg_repo
+    )
+    temp_file <- withr::local_tempfile()
+    curl::curl_download(url, temp_file)
+
+    temp_dir <- withr::local_tempdir()
+    utils::unzip(temp_file, exdir = temp_dir)
+    zip_name <- sprintf("%s-main", fs::path_file(pkg_repo))
+
+    pkg_dir <- fs::path(destdir, fs::path_file(pkg_repo))
+
+    fs::dir_copy(fs::path(temp_dir, zip_name), destdir)
+    file.rename(
+      file.path(destdir, zip_name),
+      file.path(destdir, fs::path_file(pkg_repo))
+    )
+    fs::dir_create(fs::path(destdir, fs::path_file(pkg_repo), ".git"))
+    return(TRUE)
+  }
+
+  usethis::create_from_github(pkg_repo, destdir = destdir, open = open)
 }
